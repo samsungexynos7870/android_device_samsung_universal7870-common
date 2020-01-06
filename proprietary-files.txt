@@ -21,6 +21,7 @@ product/lib64/libaptXHD_encoder.so
 vendor/lib/hw/camera.universal7870.so
 vendor/lib64/hw/camera.universal7870.so
 vendor/lib/libcamera_client.so
+vendor/lib/libgui.so
 
 # DRM
 vendor/lib/liboemcrypto.so
