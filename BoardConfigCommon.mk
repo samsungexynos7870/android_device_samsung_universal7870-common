@@ -115,16 +115,6 @@ TARGET_HW_DISK_ENCRYPTION := true
 # Device Tree
 BOARD_USES_DT := true
 
-# Dexpreopt
-ifeq ($(HOST_OS),linux)
-  ifneq ($(TARGET_BUILD_VARIANT),eng)
-    ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT := true
-      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := false
-    endif
-  endif
-endif
-
 # HWComposer
 BOARD_HDMI_INCAPABLE := true
 BOARD_USES_DECON_64BIT_ADDRESS := true
