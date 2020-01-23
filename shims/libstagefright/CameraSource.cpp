@@ -19,6 +19,7 @@
 #include <utils/Log.h>
 
 #include <OMX_Component.h>
+#include <camera/Camera.h>
 #include <camera/CameraParameters.h>
 #include <media/stagefright/CameraSource.h>
 
