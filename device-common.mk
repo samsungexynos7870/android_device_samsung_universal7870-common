@@ -246,14 +246,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fstab.samsungexynos7870 \
     init.baseband.rc \
-    init.rilchip.rc \
-    init.rilcommon.rc \
-    init.samsung.rc \
     init.samsungexynos7870.rc \
     init.samsungexynos7870.usb.rc \
-    init.wifi.rc \
-    init.wifi_device.rc \
-    ueventd.samsungexynos7870.rc
+    init.vendor.rilchip.rc \
+    init.vendor.rilcommon.rc \
+    wifi.rc \
+    ueventd.rc
 
 # Samsung Doze
 PRODUCT_PACKAGES += \

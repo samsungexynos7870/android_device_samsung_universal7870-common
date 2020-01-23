@@ -20,6 +20,10 @@
 /dev/vndbinder            0666   root       root
 /dev/ovr*                 0664   root       system
 /dev/tvr*                 0664   root       system
+
+# Anyone can read the logs, but if they're not in the "logs"
+# group, then they'll only see log entries for their UID.
+/dev/log/*                0666   root       log
 /dev/pmsg0                0222   root       log
 
 # the msm hw3d client device node is world writable/readable.
@@ -35,17 +39,15 @@
 /dev/diag                 0660   radio      radio
 /dev/diag_arm9            0660   radio      radio
 /dev/ttyMSM0              0600   bluetooth  bluetooth
-/dev/uhid                 0660   uhid       uhid
+/dev/uhid                 0660   system     bluetooth
 /dev/uinput               0660   system     bluetooth
 /dev/alarm                0664   system     radio
 /dev/power_on_alarm       0660   system     radio
-/dev/rtc0                 0660   system     system
+/dev/rtc0                 0640   system     system
 /dev/tty0                 0660   root       system
-/dev/ttySAC0              0660   root       radio
 /dev/graphics/*           0660   root       graphics
 /dev/msm_hw3dm            0660   system     graphics
 /dev/input/*              0660   root       input
-/dev/v4l-touch*           0660   root       input
 /dev/eac                  0660   root       audio
 /dev/cam                  0660   root       camera
 /dev/pmem                 0660   system     graphics
@@ -88,7 +90,6 @@
 /dev/mtp_usb              0660   root       mtp
 /dev/usb_accessory        0660   root       usb
 /dev/tun                  0660   system     vpn
-/dev/input/event*         0660   system     input
 
 # CDMA radio interface MUX
 /dev/ts0710mux*           0640   radio      radio
@@ -96,36 +97,16 @@
 
 # sysfs properties
 /sys/devices/platform/trusty.*      trusty_version        0440  root   log
-/sys/devices/virtual/input/input*   enable      0660  system   input
-/sys/devices/virtual/input/input*   poll_delay  0660  system   input
+/sys/devices/virtual/input/input*   enable      0660  root   input
+/sys/devices/virtual/input/input*   poll_delay  0660  root   input
 /sys/devices/virtual/usb_composite/*   enable      0664  root   system
 /sys/devices/system/cpu/cpu*   cpufreq/scaling_max_freq   0664  system system
 /sys/devices/system/cpu/cpu*   cpufreq/scaling_min_freq   0664  system system
 
-# MobiCore
-/dev/mobicore             0700   system     system
-/dev/mobicore-user        0666   radio     system
-
-# Secure MEM driver
-/dev/s5p-smem             0660   system     system
-
-# Fingerprint Sensor
-/dev/vfsspi               0660   system     system
-/dev/esfp0                0660   system     system
-/dev/goodix_fp            0660   system     system
-/dev/qbt2000_fd           0660   system     system
-/dev/qbt2000_ipc          0660   system     system
-/dev/qbtspi               0660   system     system
-
 # DVB API device nodes
 /dev/dvb*                 0660   root       system
 
-# USB 
-/dev/ttyGS*                 0660   system       system
-
-# MPSD
-/dev/mpsd    0660    system    system
-
+# uevent.samsungexynos7870.rc
 /dev/mali0                0666   system     system
 /dev/ion                  0666   system     system
 /dev/ump                  0666   system     graphics
@@ -176,10 +157,10 @@
 /dev/video31              0660   media      graphics
 
 # mscalers
-/dev/video50              0660   mediacodec drmrpc
+/dev/video50              0660   media      graphics
 /dev/video51              0660   media      graphics
 /dev/m2m1shot_scaler0     0660   mediacodec drmrpc
-/dev/m2m1shot_scaler1     0660   cameraserver   cameraserver
+/dev/m2m1shot_scaler1     0660   mediacodec drmrpc
 
 /dev/video55              0666   system     graphics
 /dev/fimg2d               0666   system     graphics
@@ -187,10 +168,10 @@
 /dev/HPD                  0660   system     system
 
 # mfc
-/dev/video6               0660   mediacodec mediadrm
-/dev/video7               0660   mediacodec mediadrm
-/dev/video8               0660   mediacodec mediadrm
-/dev/video9               0660   mediacodec mediadrm
+/dev/video6               0660   mediacodec      mediadrm
+/dev/video7               0660   media      mediadrm
+/dev/video8               0660   media      mediadrm
+/dev/video9               0660   media      mediadrm
 
 # camera
 /dev/video100             0660   cameraserver   camera
@@ -227,25 +208,38 @@
 # audio
 /dev/seiren               0660   system     audio
 
+# MobiCore
+/dev/mobicore             0700   system     system
+/dev/mobicore-user        0666   radio     system
+
 # Secure MEM driver
-/dev/s5p-smem             0660   system        system
+/dev/s5p-smem             0660   system     system
+
+# Fingerprint Sensor
+/dev/vfsspi               0660   system     system
+/dev/esfp0                0660   system     system
+/dev/goodix_fp            0660   system     system
 
 # cbd modem block
 /dev/block/mmcblk0p5     0400  radio   system
 
-# Modem Interface
-/dev/block/platform/13540000.dwmmc0/by-name/RADIO	0660   system     radio
-/dev/block/platform/13540000.dwmmc0/by-name/CP_DEBUG   0660	radio	system
-/dev/umts*                0660   system     radio
-/dev/umts_csd             0660   system     loop_radio
-/dev/smd4                 0660   system     radio
-/dev/umts_ciq*            0660   system     bridge_rw
+# for DM tools
+/dev/umts_dm0             0660   radio      radio
+/dev/umts_router          0660   radio      radio
 
 # SIPC RIL
 /dev/umts_boot0           0660   radio      radio
 /dev/umts_ipc0            0660   radio      radio
-/dev/umts_ipc1            0660   radio      radio
+# /dev/umts_ipc1            0660   radio      radio
 /dev/umts_rfs0            0660   radio      radio
+
+# Modem Interface
+/dev/block/platform/13540000.dwmmc0/by-name/RADIO	0660	system	radio
+/dev/block/platform/13540000.dwmmc0/by-name/CP_DEBUG	0660	radio	system
+/dev/umts*		  0660	system	radio
+/dev/umts_csd		  0660	system	loop_radio
+/dev/smd4                 0660  system  radio
+/dev/umts_ciq0            0660   system     bridge_rw
 
 # interactive governor parameters
 /sys/devices/system/cpu/cpu*   cpufreq/interactive/timer_rate                  0660    system  system
@@ -261,8 +255,25 @@
 /sys/devices/system/cpu/cpu*   cpufreq/interactive/boostpulse_duration         0660    system  system
 /sys/devices/system/cpu/cpu*   cpufreq/interactive/io_is_busy                  0660    system  system
 
+# sensor sysfs properties
+/sys/devices/virtual/input/input*    poll_delay    0660    system    radio
+/sys/devices/virtual/input/input*    enable        0660    system    radio
+/dev/input/event*	  0660   system		input
+
 # Google FRP solution
 /dev/block/platform/13540000.dwmmc0/by-name/PERSISTENT    0660    system    system
 
-# Reactivation Lock
-/dev/block/platform/13540000.dwmmc0/by-name/STEADY    0660    system    system
+# Sensorhub IIO
+/dev/ssp_sensorhub        0660   system       system
+/dev/iio:device*          0660   system       system
+/sys/devices/13930000.spi/spi_master/spi2/spi2.0/iio:device*    buffer/enable       0660    system    system
+/sys/devices/13930000.spi/spi_master/spi2/spi2.0/iio:device*    buffer/length       0660    system    system
+/sys/bus/iio/devices/iio:device*    0664   system     radio
+
+# TEEGRIS
+/dev/tzdev		0660	system		system
+/dev/ionfd2phys		0660	system		system
+/dev/tuihw		0660	system		system
+/dev/tzirs		0660	system		system
+/dev/tz_shmem_validator	0666    system		system
+/dev/tz_wormhole   	0666    system		system
