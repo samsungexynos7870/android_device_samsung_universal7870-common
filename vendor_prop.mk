@@ -59,10 +59,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.smps.enable=true \
     telephony.lteOnCdmaDevice=0 \
 
-# read DS/SS property
-PRODUCT_PROPERTY_OVERRIDES += \
-    import /efs/factory.prop
-
 #Treble
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.media.treble_omx=true
