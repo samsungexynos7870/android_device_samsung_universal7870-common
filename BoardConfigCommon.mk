@@ -184,8 +184,6 @@ BOARD_VNDK_VERSION := current
 
 # Shims
 TARGET_LD_SHIM_LIBS += \
-    /system/lib/libstagefright.so|libstagefright_shim.so \
-    /system/lib64/libstagefright.so|libstagefright_shim.so \
     /vendor/lib/libexynoscamera.so|libexynoscamera_shim.so
 
 # Wifi
