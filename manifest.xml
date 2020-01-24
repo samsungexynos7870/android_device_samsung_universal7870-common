@@ -262,7 +262,7 @@
     </hal>
     <hal format="hidl">
         <name>android.hardware.tetheroffload.config</name>
-        <transport>hwbinder</transport>
+        <transport arch="32+64">passthrough</transport>
         <version>1.0</version>
         <interface>
             <name>IOffloadConfig</name>
@@ -272,7 +272,7 @@
     </hal>
     <hal format="hidl">
         <name>android.hardware.tetheroffload.control</name>
-        <transport>hwbinder</transport>
+        <transport arch="32+64">passthrough</transport>
         <version>1.0</version>
         <interface>
             <name>IOffloadControl</name>
