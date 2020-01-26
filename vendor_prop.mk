@@ -1,5 +1,6 @@
 # Low memory optimization
-ro.config.low_ram=true
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.low_ram=true
 
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
