@@ -14,27 +14,18 @@
 
 <!-- Camera app resources that may need to be customized
    for different hardware or product builds. -->
-<resources>
-    <!-- Enable support for camera api v2 -->
-    <bool name="support_camera_api_v2">true</bool>
+ <resources>
+    <!-- Restart preview for back camera onPictureTaken -->
+    <bool name="back_camera_restart_preview_onPictureTaken">false</bool>
 
-  <!-- Opens back camera using openLegacy() and forces api v1 -->
-  <bool name="back_camera_open_legacy">false</bool>
+    <!-- Restart preview for front camera onPictureTaken -->
+    <bool name="front_camera_restart_preview_onPictureTaken">false</bool>
 
-  <!-- Opens front camera using openLegacy() and forces api v1 -->
-  <bool name="front_camera_open_legacy">false</bool>
+    <!-- Set's manufacturer specific parameters on startup.
+    Example: lge-camera=1;cam-mode=0 -->
+    <string name="manufacturer_key_values">phase-af=on;rt-hdr=auto;drc=true</string>
 
-  <!-- Restart preview for back camera onPictureTaken -->
-  <bool name="back_camera_restart_preview_onPictureTaken">false</bool>
-
-  <!-- Restart preview for front camera onPictureTaken -->
-  <bool name="front_camera_restart_preview_onPictureTaken">false</bool>
-
-  <!-- Set's manufacturer specific parameters on startup.
-       Example: lge-camera=1;cam-mode=0 -->
-  <string name="manufacturer_key_values">phase-af=on;rt-hdr=auto;drc=true</string>
-
-  <!-- ISO values use numbers.
-       Example: 50 instead of ISO50 -->
-  <bool name="iso_values_use_numbers">true</bool>
+    <!-- ISO values use numbers.
+    Example: 50 instead of ISO50 -->
+    <bool name="iso_values_use_numbers">true</bool>
 </resources>
