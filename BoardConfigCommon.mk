@@ -191,4 +191,4 @@ TARGET_LD_SHIM_LIBS += \
     /vendor/lib/libexynoscamera.so|libexynoscamera_shim.so
 
 # Wifi
-# BOARD_HAVE_SAMSUNG_WIFI := true
+BOARD_HAVE_SAMSUNG_WIFI := true
