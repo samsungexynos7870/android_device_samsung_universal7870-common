@@ -33,18 +33,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.enable_hwc_vds=1 \
     debug.sf.latch_unsignaled=1
 
-# ro.product.first_api_level indicates the first api level the device has commercially launched on.
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.first_api_level=23
-
 # Nfc
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.port=I2C \
     ro.nfc.sec_hal=true
-
-# Boot directly from charger mode
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.enable_boot_charger_mode=1
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
