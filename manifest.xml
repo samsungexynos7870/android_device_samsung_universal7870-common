@@ -420,39 +420,39 @@
         <transport>hwbinder</transport>
         <version>2.0</version>
         <interface>
-            <name>ISehRadio</name>
+            <name>ISecRadio</name>
             <instance>slot1</instance>
             <instance>slot2</instance>
         </interface>
-        <fqname>@2.0::ISehRadio/slot1</fqname>
-        <fqname>@2.0::ISehRadio/slot2</fqname>
+        <fqname>@2.0::ISecRadio/slot1</fqname>
+        <fqname>@2.0::ISecRadio/slot2</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.samsung.hardware.radio.bridge</name>
         <transport>hwbinder</transport>
         <version>2.0</version>
         <interface>
-            <name>ISehBridge</name>
+            <name>ISecBridge</name>
             <instance>slot1</instance>
             <instance>slot2</instance>
         </interface>
-        <fqname>@2.0::ISehBridge/slot1</fqname>
-        <fqname>@2.0::ISehBridge/slot2</fqname>
+        <fqname>@2.0::ISecBridge/slot1</fqname>
+        <fqname>@2.0::ISecBridge/slot2</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.samsung.hardware.radio.channel</name>
         <transport>hwbinder</transport>
         <version>2.0</version>
         <interface>
-            <name>ISehChannel</name>
+            <name>ISecChannel</name>
             <instance>epdgd</instance>
             <instance>epdgd2</instance>
             <instance>imsd</instance>
             <instance>imsd2</instance>
         </interface>
-        <fqname>@2.0::ISehChannel/epdgd</fqname>
-        <fqname>@2.0::ISehChannel/epdgd2</fqname>
-        <fqname>@2.0::ISehChannel/imsd</fqname>
-        <fqname>@2.0::ISehChannel/imsd2</fqname>
+        <fqname>@2.0::ISecChannel/epdgd</fqname>
+        <fqname>@2.0::ISecChannel/epdgd2</fqname>
+        <fqname>@2.0::ISecChannel/imsd</fqname>
+        <fqname>@2.0::ISecChannel/imsd2</fqname>
     </hal>
 </manifest>
