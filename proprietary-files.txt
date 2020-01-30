@@ -28,8 +28,8 @@ vendor/lib/liboemcrypto.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # DRM - Widevine
-vendor/bin/hw/android.hardware.drm@1.1-service.widevine
-vendor/etc/init/android.hardware.drm@1.1-service.widevine.rc
+vendor/bin/hw/android.hardware.drm@1.2-service.widevine
+vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc
 vendor/lib/libwvhidl.so
 
 # GPS
@@ -157,7 +157,6 @@ vendor/lib64/vendor.samsung.hardware.radio@2.0.so
 
 # Sensors
 vendor/bin/hw/android.hardware.sensors@1.0-service
-vendor/etc/init/android.hardware.sensors@1.0-service.rc
 vendor/lib/libsensorlistener.so
 vendor/lib/libsensorndkbridge.so
 vendor/lib64/libsensorlistener.so
@@ -165,6 +164,5 @@ vendor/lib64/libsensorndkbridge.so
 
 # Thermal
 vendor/bin/hw/android.hardware.thermal@1.0-service
-vendor/etc/init/android.hardware.thermal@1.0-service.rc
 vendor/lib/hw/thermal.universal7870.so
 vendor/lib64/hw/thermal.universal7870.so
