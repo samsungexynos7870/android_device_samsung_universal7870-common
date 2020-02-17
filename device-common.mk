@@ -243,6 +243,10 @@ PRODUCT_PACKAGES += \
     wifi.rc \
     ueventd.rc
 
+# Recorder
+PRODUCT_PACKAGES += \
+    Recorder
+
 # Samsung Doze
 PRODUCT_PACKAGES += \
     SamsungDoze
