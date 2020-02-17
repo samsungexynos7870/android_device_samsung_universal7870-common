@@ -51,7 +51,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apm_sim_not_pwdn=1 \
     ro.smps.enable=true \
     telephony.lteOnCdmaDevice=0 \
-    ro.multisim.simslotcount=1
+    ro.multisim.simslotcount=2
 
 #Treble
 PRODUCT_PROPERTY_OVERRIDES += \

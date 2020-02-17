@@ -139,12 +139,6 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-service \
     android.hardware.drm@1.2-service.clearkey
 
-# Ebtables
-PRODUCT_PACKAGES += \
-    ebtables \
-    ethertypes \
-    libebtc
-
 # Flat device tree for boot image
 PRODUCT_HOST_PACKAGES += \
     dtbhtoolExynos
@@ -223,14 +217,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.radio@1.4 \
     android.hardware.radio.config@1.1 \
-    android.hardware.radio.deprecated@1.0 \
-    libxml2 \
-    libprotobuf-cpp-full \
-    rild \
-    libril \
-    libsecril-client \
-    libsecril-client-sap \
-    libreference-ril
+    libxml2
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -258,23 +245,18 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl \
-    android.hardware.thermal@1.0-service
+    android.hardware.sensors@1.0-impl
 
-# TextClassifier
+# Thermal
 PRODUCT_PACKAGES += \
-    textclassifier.bundle1
+    android.hardware.thermal@1.0-impl \
+    android.hardware.thermal@1.0-service
     
 # Touchscreen
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/idc/AVRCP.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/AVRCP.idc \
     $(LOCAL_PATH)/configs/idc/qwerty.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/qwerty.idc \
     $(LOCAL_PATH)/configs/idc/qwerty2.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/qwerty2.idc
-
-# Thermal
-PRODUCT_PACKAGES += \
-    android.hardware.thermal@1.0-impl \
-    android.hardware.thermal@1.0-service
 
 # Touch features
 PRODUCT_PACKAGES += \
@@ -304,6 +286,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # VNDK
 PRODUCT_PACKAGES += \
     libgui_vendor
+
+# Wifi
+PRODUCT_PACKAGES += \
+    macloader
 
 # WiFi Display
 PRODUCT_PACKAGES += \
