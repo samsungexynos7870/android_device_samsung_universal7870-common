@@ -88,6 +88,7 @@ on boot
 
 # SSWAP
     write /proc/sys/vm/swappiness 145
+    write /proc/sys/vm/vfs_cache_pressure 50
 
 #   mount debugfs /sys/kernel/debug /sys/kernel/debug
     # Allow to access debugfs for system:system
