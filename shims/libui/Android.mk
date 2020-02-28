@@ -15,4 +15,26 @@
 
 LOCAL_PATH := $(call my-dir)
 
-include $(call all-subdir-makefiles,$(LOCAL_PATH))
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := \
+    GraphicBufferMapper.cpp
+
+LOCAL_SHARED_LIBRARIES := \
+    libbase \
+    libcutils \
+    libhardware \
+    liblog \
+    libnativewindow \
+    libsync \
+    libui
+
+LOCAL_STATIC_LIBRARIES := \
+    libarect
+
+LOCAL_MODULE := libui_shim
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_PROPRIETARY_MODULE := true
+
+include $(BUILD_SHARED_LIBRARY)
