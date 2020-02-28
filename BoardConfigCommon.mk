@@ -188,7 +188,15 @@ BOARD_VNDK_VERSION := current
 
 # Shims
 TARGET_LD_SHIM_LIBS += \
-    /vendor/lib/libexynoscamera.so|libexynoscamera_shim.so
+    /vendor/lib/libcamera_client.so|/vendor/lib/libcamera_client_shim.so \
+    /vendor/lib/omx/libOMX.Exynos.AVC.Decoder.so|/vendor/lib/libui_shim.so \
+    /vendor/lib/omx/libOMX.Exynos.AVC.Encoder.so|/vendor/lib/libui_shim.so \
+    /vendor/lib/omx/libOMX.Exynos.MPEG4.Decoder.so|/vendor/lib/libui_shim.so \
+    /vendor/lib/omx/libOMX.Exynos.MPEG4.Encoder.so|/vendor/lib/libui_shim.so \
+    /vendor/lib/omx/libOMX.Exynos.VP8.Decoder.so|/vendor/lib/libui_shim.so \
+    /vendor/lib/omx/libOMX.Exynos.VP8.Encoder.so|/vendor/lib/libui_shim.so \
+    /vendor/lib/omx/libOMX.Exynos.WMV.Decoder.so|/vendor/lib/libui_shim.so \
+    /vendor/lib/libexynoscamera.so|/vendor/lib/libexynoscamera_shim.so
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI := true

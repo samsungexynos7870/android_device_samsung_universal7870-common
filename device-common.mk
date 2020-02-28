@@ -263,7 +263,10 @@ PRODUCT_PACKAGES += \
 
 # Shims
 PRODUCT_PACKAGES += \
-    libexynoscamera_shim
+    libcamera_client_shim \
+    libexynoscamera_shim \
+    libExynosOMX_shim \
+    libui_shim
 
 # USB
 PRODUCT_PACKAGES += \
