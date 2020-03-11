@@ -266,7 +266,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcamera_client_shim \
     libexynoscamera_shim \
-    libExynosOMX_shim \
     libui_shim
 
 # USB
