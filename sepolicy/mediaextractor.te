@@ -1,1 +1,1 @@
-allow mediaextractor fuse:file { getattr read };
+allow mediaextractor fuse:file { read getattr };
