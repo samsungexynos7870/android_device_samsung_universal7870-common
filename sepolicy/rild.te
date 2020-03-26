@@ -4,13 +4,12 @@ allow rild self:capability { chown };
 # Allow additiional efs access
 allow rild bin_nv_data_efs_file:file create_file_perms;
 allow rild imei_efs_file:dir r_dir_perms;
-allow rild imei_efs_file:file r_file_perms;
+allow rild imei_efs_file:file rw_file_perms;
 allow rild app_efs_file:dir r_dir_perms;
 allow rild app_efs_file:file r_file_perms;
 
 # /dev
 allow rild audioserver:dir r_dir_perms;
-
 # /proc/<pid>/cmdline
 allow rild audioserver:file r_file_perms;
 
@@ -18,8 +17,11 @@ allow rild audioserver:file r_file_perms;
 allow rild block_device:dir r_dir_perms;
 allow rild emmcblk_device:blk_file r_file_perms;
 
-# /dev/umts*
+# /dev/umts_boot0, /dev/umts_ipc0
 allow rild mif_device:chr_file rw_file_perms;
+
+# /sys/devices/virtual/misc/multipdp/waketime
+allow rild sysfs_multipdp:file rw_file_perms;
 
 # /proc/sys/net/ipv6/conf/*/accept_ra_defrtr
 allow rild proc_net:file rw_file_perms;
@@ -34,7 +36,6 @@ allow rild mediaserver:file { open read getattr };
 # /data/misc/radio/*
 allow rild radio_data_file:dir rw_dir_perms;
 allow rild radio_data_file:file create_file_perms;
-
 # /data/data/com.android.providers.telephony/databases/telephony.db
 allow rild radio_data_file:lnk_file r_file_perms;
 
@@ -49,12 +50,6 @@ allow rild radio_block_device:blk_file r_file_perms;
 
 # persist.ril.modem.board
 set_prop(modemloader, radio_prop)
-
-allow rild sec_efs_file:file getattr;
-allow rild sec_efs_file:dir search;
-allow rild sysfs:dir r_dir_perms;
-allow rild sysfs_sec:dir search;
-allow rild sysfs_sec:lnk_file read;
 
 # /dev/knox_kap
 allow rild knox_device:chr_file r_file_perms;

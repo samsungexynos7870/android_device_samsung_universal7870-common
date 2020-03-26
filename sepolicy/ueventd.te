@@ -1,11 +1,11 @@
 # /dev/block/mmcblk0p[0-9]
-#allow ueventd emmcblk_device:blk_file create_file_perms;
+allow ueventd emmcblk_device:blk_file { ioctl read write create getattr setattr lock append unlink open };
 
-allow ueventd emmcblk_device:blk_file { relabelfrom relabelto create setattr unlink getattr };
+# /sys/devices/virtual/misc/multipdp/uevent
+allow ueventd sysfs_multipdp:file rw_file_perms;
+
+allow ueventd emmcblk_device:blk_file { relabelfrom relabelto create setattr unlink };
 
 # read/chown camera firmware
-allow ueventd sysfs_camera_writable:file { relabelto getattr rw_file_perms };
-allow ueventd sysfs_camera_writable:filesystem associate;
-
-allow ueventd sysfs_sec:dir { open read relabelto search };
-allow ueventd sysfs_sec:lnk_file relabelto;
+allow ueventd sysfs_camera:file { relabelto getattr rw_file_perms };
+allow ueventd sysfs_camera:filesystem associate;
