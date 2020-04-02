@@ -16,6 +16,10 @@ on boot
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
     write /sys/class/android_usb/android0/f_mass_storage/inquiry_string "Samsung"
 
+# ss_conn_daemon2 service
+on property:sys.usb.config=none
+    stop ss_conn_daemon2_service
+
 on property:sys.usb.config=mtp
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 04e8
@@ -280,6 +284,7 @@ on property:sys.usb.config=rndis,acm,diag
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp,conn_gadget
+    start ss_conn_daemon2_service
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 04e8
     write /sys/class/android_usb/android0/idProduct 6860
@@ -292,6 +297,7 @@ on property:sys.usb.config=mtp,conn_gadget,adb
     start adbd
 
 on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,conn_gadget,adb
+    start ss_conn_daemon2_service
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 04e8
     write /sys/class/android_usb/android0/idProduct 6860
