@@ -60,24 +60,15 @@ on post-fs-data
     chown system radio /sys/class/audio/earjack/state
     chown system radio /sys/class/audio/earjack/mic_adc
 
-    chown system audio /sys/class/nxp/tfa_cal/status
-    chown system audio /sys/class/nxp/tfa_cal/rdc
-    chown system audio /sys/class/nxp/tfa_cal/temp
+# Audio I2C node for TFA amp
+    chmod 0660 /dev/i2c-20
+    chown audio audio /dev/i2c-20
 
-    mkdir /efs/nxp 0770 system audio
-    chown system audio /efs/nxp/rdc_cal
-    chown system audio /efs/nxp/temp_cal
-    chmod 0660 /efs/nxp/rdc_cal
-    chmod 0660 /efs/nxp/temp_cal
-
+    chown system audio /sys/class/nxp/tfa_log/data
     chown system audio /sys/class/nxp/tfa_log/data_maxx
     chown system audio /sys/class/nxp/tfa_log/count_overxmax
     chown system audio /sys/class/nxp/tfa_log/data_maxt
     chown system audio /sys/class/nxp/tfa_log/count_overtmax
-    chmod 0440 /sys/class/nxp/tfa_log/data_maxx
-    chmod 0440 /sys/class/nxp/tfa_log/count_overxmax
-    chmod 0440 /sys/class/nxp/tfa_log/data_maxt
-    chmod 0440 /sys/class/nxp/tfa_log/count_overtmax
     
 # MST/NFC Switch
     chown spay system /dev/mst_ctrl
@@ -92,10 +83,6 @@ on post-fs-data
 
 # Magnetic sensor YAS539 lib
     mkdir /data/system/yas_lib 0770 system system
-
-# Audio I2C node for TFA amp
-    chmod 0660 /dev/i2c-20
-    chown audio audio /dev/i2c-20
 
 on boot
     # override init.rc to keep plenty of large order chunks around
@@ -240,6 +227,23 @@ on boot
     chown system system /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy
     chmod 0660 /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy
 	
+	#Setting Governor Parameters
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay "39000 1248000:19000"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration 40000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 89  
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 902000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "75 1248000:85"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack 20000
+	
+	write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "39000 1248000:19000"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 89  
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 902000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "75 1248000:85"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack 20000
+	
 	# MSP Core Status
     chown system system /sys/devices/system/cpu/cpu1/online
     chown system system /sys/devices/system/cpu/cpu2/online
@@ -259,9 +263,9 @@ on boot
     chmod 0640 /efs/bluetooth/bt_addr
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/device/extldo
-    chown bluetooth net_bt /sys/class/rfkill/rfkill0/state
-    chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
-    chown bluetooth net_bt /sys/class/rfkill/rfkill0/device/extldo
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/device/extldo
 
 #MST HW Support
 #setprop ro.mst.support 1
