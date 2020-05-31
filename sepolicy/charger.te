@@ -1,1 +1,1 @@
-allow charger sysfs_charger:file { open read getattr };
+allow charger sysfs_usb_supply:file rw_file_perms;

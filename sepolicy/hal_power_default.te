@@ -2,12 +2,18 @@
 allow hal_power_default sysfs:dir r_dir_perms;
 allow hal_power_default sysfs:file r_file_perms;
 
-allow hal_power_default sysfs_devices_system_cpu:file write;
+# Input devices
+allow hal_power_default sysfs_input:dir r_dir_perms;
+allow hal_power_default sysfs_input:file rw_file_perms;
 
-allow hal_power_default sysfs_input:dir { open read search };
-allow hal_power_default sysfs_input:file { open read write getattr };
+# CPU devices
+allow hal_power_default sysfs_devices_system_cpu:dir search;
+allow hal_power_default sysfs_devices_system_cpu:file rw_file_perms;
 
-allow hal_power_default sysfs_virtual:dir { open read search };
-allow hal_power_default sysfs_virtual:file { open read write getattr };
-allow hal_power_default sysfs:dir { read open };
-allow hal_power_default sysfs:file { read write open };
+# Lights
+allow hal_power_default sysfs_light:dir search;
+allow hal_power_default sysfs_light:file rw_file_perms;
+
+# Graphics
+allow hal_power_default sysfs_graphics:dir search;
+allow hal_power_default sysfs_graphics:file rw_file_perms;
