@@ -8,7 +8,7 @@ unix_socket_connect(wifiloader, property, init)
 
 allow wifiloader proc:file r_file_perms;
 allow wifiloader sysfs_wlan_fwpath:file setattr;
-allow wifiloader wifi_data_file:file rw_file_perms;
+# allow wifiloader wifi_data_file:file rw_file_perms;
 set_prop(wifiloader, wifi_prop);
 
 # /efs

@@ -1,5 +1,5 @@
 # Allow rild to connect to gpsd
-unix_socket_connect(audioserver, property, rild)
+# unix_socket_connect(audioserver, property, rild)
 
 # /efs/maxim
 r_dir_file(audioserver, efs_file);

@@ -50,4 +50,12 @@ type sysfs_v4l, sysfs_type, fs_type, mlstrustedobject;
 type sysfs_sswap, sysfs_type, fs_type, mlstrustedobject;
 
 ### data types
+type biometrics_vendor_data_file, file_type, data_file_type;
+type conn_vendor_data_file, file_type, data_file_type;
 type display_vendor_data_file, file_type, data_file_type;
+type gps_vendor_data_file, file_type, data_file_type;
+type log_vendor_data_file, file_type, data_file_type;
+type log_cbd_vendor_data_file, file_type, data_file_type;
+type radio_vendor_data_file, file_type, data_file_type;
+type sswap_vendor_data_file, file_type, data_file_type;
+type wifi_vendor_data_file, file_type, data_file_type;
