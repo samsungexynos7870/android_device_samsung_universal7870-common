@@ -1,13 +1,2 @@
-vendor.samsung_slsi.hardware.ExynosHWCServiceTW::IExynosHWCServiceTW  u:object_r:hal_vendor_surfaceflinger_hwservice:s0
-vendor.samsung.hardware.gnss::ISecGnss                                u:object_r:hal_gnss_hwservice:s0
-vendor.trustonic.tee::ITee                        u:object_r:hal_tee_hwservice:s0
-vendor.trustonic.teeregistry::ITeeRegistry        u:object_r:hal_teeregistry_hwservice:s0
-vendor.samsung.hardware.security.widevine.keyprovisioning::ISehWidevineKeyProvisioning        u:object_r:hal_wvkprov_hwservice:s0
-vendor.samsung.hardware.bluetooth.a2dp::ISehBluetoothAudioOffload		u:object_r:hal_bluetooth_a2dp_hwservice:s0
-vendor.samsung.hardware.bluetooth.a2dpsink::ISehBluetoothA2dpSinkProvidersFactory		u:object_r:hal_bluetooth_a2dp_hwservice:s0
-vendor.samsung.hardware.snap::ISehSnap                         u:object_r:snap_hwservice:s0
-vendor.samsung.hardware.radio.bridge::ISehBridge            u:object_r:hal_telephony_hwservice:s0
-vendor.samsung.hardware.radio::ISehRadio                    u:object_r:hal_telephony_hwservice:s0
-vendor.samsung.hardware.radio.channel::ISehChannel          u:object_r:hal_telephony_hwservice:s0
-com.qualcomm.qti.ant::IAntHci              u:object_r:hal_bluetooth_hwservice:s0
-
+# HWC
+Exynos.HWCService                           u:object_r:surfaceflinger_service:s0

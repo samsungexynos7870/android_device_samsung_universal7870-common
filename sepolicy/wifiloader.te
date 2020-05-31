@@ -1,11 +1,22 @@
-# wifiloader
+#### wifiloader
+#
 type wifiloader, domain;
-type wifiloader_exec, exec_type, file_type;
+type wifiloader_exec, exec_type, file_type, vendor_file_type;
 
 init_daemon_domain(wifiloader)
+unix_socket_connect(wifiloader, property, init)
 
 allow wifiloader proc:file r_file_perms;
+allow wifiloader sysfs_wlan_fwpath:file setattr;
+allow wifiloader wifi_data_file:file rw_file_perms;
+set_prop(wifiloader, wifi_prop);
+
+# /efs
+allow wifiloader efs_file:dir search;
+
+# /efs/wifi
+allow wifiloader wifi_efs_file:dir search;
+allow wifiloader wifi_efs_file:file r_file_perms;
 
 # load .ko modules
-allow kernel self:capability sys_module;
-allow wifiloader self:capability sys_module;
+allow wifiloader self:capability { chown sys_module };

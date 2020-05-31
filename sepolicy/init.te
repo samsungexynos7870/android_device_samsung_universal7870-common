@@ -4,18 +4,17 @@ allow init debugfs:dir mounton;
 # Mount EFS on /efs
 allow init efs_file:dir  mounton;
 
+# Mount CPEFS on /cpefs
+allow init sec_efs_file:dir mounton;
+
 # /dev/block/mmcblk0p[0-9]
 allow init emmcblk_device:blk_file rw_file_perms;
 
-allow init block_device:lnk_file { setattr };
+allow init block_device:lnk_file setattr;
 allow init tmpfs:lnk_file create_file_perms;
 
 # /sys/class/power_supply/battery and /sys/class/android_usb/android0
-allow init proc:file { getattr setattr read write open };
-
-# Shim libs
-allow init cameraserver:process noatsecure;
-allow init hal_fingerprint_default:process noatsecure;
+allow init sysfs_usb_supply:file { rw_file_perms setattr };
 
 # /data
 allow init sdcardd_exec:file r_file_perms;
@@ -23,34 +22,74 @@ allow init sdcardd_exec:file r_file_perms;
 # sysfs iio:device[0-9]
 allow init sysfs:lnk_file setattr;
 
+# sysfs ion device
+allow init sysfs_ion:file setattr;
+
+# sysfs usb device
+allow init sysfs_android_usb:file setattr;
+
 # read/chown mDNIE symlinks
-allow init sysfs_mdnie:lnk_file { read setattr };
+allow init sysfs_mdnie:lnk_file { r_file_perms setattr };
+allow init sysfs_mdnie:file rw_file_perms;
 
 # read/chown camera firmware
 allow init sysfs_camera:file { relabelto setattr };
 allow init sysfs_camera:filesystem associate;
 
-# sysfs
+# WiFi firmware permissions
+allow init sysfs_wifi:file setattr;
+
+# Input devices
+allow init sysfs_input:file { rw_file_perms setattr };
+
+# BT permissions
 allow init sysfs_bluetooth_writable:file setattr;
-allow init sysfs_mdnie:file setattr;
-allow init sysfs_multipdp:file setattr;
-allow init sysfs_devices_system_cpu:file write;
-allow init sysfs_gps:file setattr;
-allow init sysfs_sec:file setattr ;
-allow init sysfs_brightness:file setattr;
-allow init sysfs_input:file setattr;
-allow init sysfs_lcd:file { setattr open };
-allow init sysfs_svc:file setattr;
-allow init sysfs_modem:file { setattr open write };
-allow init sysfs_wlan_fwpath:file setattr;
-allow init sysfs_virtual:file { open setattr write };
-allow init sysfs_virtual:lnk_file read;
-allow init sysfs_charger:file setattr;
-allow init sysfs:file setattr;
+
+# GPS permissions
+allow init sysfs_gps:lnk_file read;
+allow init sysfs_gps:file { rw_file_perms setattr };
+allow init gps_data_file:fifo_file write;
+allow init gps_data_file:file lock;
+allow init gps_device:chr_file { open read write };
+
+# CPU permissions
+allow init sysfs_devices_system_cpu:file rw_file_perms;
+
+# umts permissions
+allow init mif_device:chr_file rw_file_perms;
+
+# sswap permissions
+allow init sswap_device:blk_file write;
+allow init sysfs_sswap:file { open write };
+
+# Block device sysfs
+allow init sysfs_block:file rw_file_perms;
+
+# Audio Jack
+allow init sysfs_jack:file setattr;
 
 unix_socket_connect(init, property, rild)
-allow init socket_device:sock_file { unlink create setattr };
 
-allow init tee_device:chr_file { read write open ioctl getattr };
-allow init system_file:file execute;
-allow init sysfs_modem:file r_file_perms;
+# Allow access to /proc/device-tree nodes
+r_dir_file(init, proc_dt_firmware)
+
+allow init sysfs_mmc:file { w_file_perms setattr };
+allow init sysfs_net:file rw_file_perms;
+allow init sysfs_graphics:file { rw_file_perms setattr };
+allow init sysfs_light:file { rw_file_perms setattr };
+allow init sysfs_light:lnk_file { rw_file_perms setattr };
+allow init sysfs_mdnie:file setattr;
+allow init sysfs_sec:file { rw_file_perms setattr };
+allow init sysfs_sec:lnk_file read;
+allow init sysfs_sensors:file { rw_file_perms setattr };
+allow init sysfs_sensors:lnk_file read;
+allow init sysfs_multipdp:file setattr;
+
+# Proc files
+allow init proc_reset_reason:file { rw_file_perms setattr };
+allow init proc_vm:file rw_file_perms;
+allow init proc_simslot_count:file rw_file_perms;
+allow init proc_sec:file { rw_file_perms setattr };
+
+# Sockets
+allow init socket_device:sock_file { read write getattr setattr create unlink };

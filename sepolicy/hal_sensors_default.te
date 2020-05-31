@@ -1,3 +1,0 @@
-allow hal_sensors_default input_device:dir { open read search };
-allow hal_sensors_default sysfs:dir { open read };
-

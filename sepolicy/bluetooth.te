@@ -1,8 +1,6 @@
-# /dev/ttySAC0
-allow bluetooth bluetooth_device:chr_file { rw_file_perms ioctl };
-
-# wcnss_filter
-allow bluetooth wcnss_filter:unix_stream_socket connectto;
+# /dev/ttySAC3
+allow bluetooth bluetooth_device:chr_file rw_file_perms ;
+allow hal_bluetooth_default bluetooth_device:chr_file rw_file_perms;
 
 # /data/.cid.info
 allow bluetooth wifi_data_file:file r_file_perms;

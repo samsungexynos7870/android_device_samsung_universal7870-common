@@ -1,2 +1,0 @@
-#============= sysfs_sec ==============
-allow sysfs_sec sysfs:filesystem associate;
