@@ -28,8 +28,6 @@ vendor/lib/liboemcrypto.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # DRM - Widevine
-vendor/bin/hw/android.hardware.drm@1.2-service.widevine
-vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc
 vendor/lib/libwvhidl.so
 
 # GPS
@@ -154,6 +152,7 @@ vendor/lib64/libvkmanager_vendor.so
 vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0.so
 vendor/lib64/vendor.samsung.hardware.radio.channel@2.0.so
 vendor/lib64/vendor.samsung.hardware.radio@2.0.so
+vendor/lib64/vendor.samsung.hardware.radio@2.1.so
 
 # Sensors
 vendor/bin/hw/android.hardware.sensors@1.0-service
