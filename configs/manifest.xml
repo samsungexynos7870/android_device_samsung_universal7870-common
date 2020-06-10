@@ -370,7 +370,7 @@
     </hal>
     <hal format="hidl">
         <name>vendor.lineage.touch</name>
-        <transport>hwbinder</transport>
+        <transport arch="32+64">passthrough</transport>
         <version>1.0</version>
         <interface>
             <name>IKeyDisabler</name>
