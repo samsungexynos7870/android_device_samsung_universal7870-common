@@ -87,7 +87,6 @@
 /data/\.cid\.info                  u:object_r:wifi_data_file:s0
 /data/misc/conn/\.wifiver\.info    u:object_r:wifi_data_file:s0
 /data/misc/radio(/.*)?       u:object_r:radio_data_file:s0
-/data/vendor/display(/.*)?   u:object_r:display_vendor_data_file:s0
 
 # gps
 /data/system/gps(/.*)?       u:object_r:gps_data_file:s0
@@ -108,6 +107,13 @@
 /data/vendor/log(/.*)?                       u:object_r:log_vendor_data_file:s0
 /data/vendor/log/cbd(/.*)?                   u:object_r:log_cbd_vendor_data_file:s0
 /data/vendor/secradio(/.*)?                  u:object_r:radio_vendor_data_file:s0
+
+/data/vendor/camera(/.*)?                    u:object_r:camera_vendor_data_file:s0
+/data/vendor/display(/.*)?                   u:object_r:display_vendor_data_file:s0
+/data/vendor/media(/.*)?                     u:object_r:media_vendor_data_file:s0
+/data/vendor/mediadrm(/.*)?                  u:object_r:mediadrm_vendor_data_file:s0
+/data/vendor/gk(/.*)?                        u:object_r:gk_vendor_data_file:s0
+/data/camera(/.*)?                           u:object_r:camera_data_file:s0
 
 ####################################
 # sysfs files
@@ -201,6 +207,9 @@
 
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service\.samsung-exynos    u:object_r:hal_lineage_livedisplay_sysfs_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.samsung                 u:object_r:hal_lineage_touch_default_exec:s0
+
+/(vendor|system/vendor)/bin/hw/android\.hardware\.drm@[0-9]\.[0-9]-service\.clearkey    u:object_r:hal_drm_clearkey_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.drm@[0-9]\.[0-9]-service\.widevine    u:object_r:hal_drm_widevine_exec:s0
 
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.samsung               u:object_r:hal_light_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service\.samsung u:object_r:hal_fingerprint_default_exec:s0
