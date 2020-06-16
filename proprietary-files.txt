@@ -49,7 +49,7 @@ vendor/lib/egl/libGLES_mali.so
 vendor/lib64/egl/libGLES_mali.so
 
 # HWC
-vendor/bin/hw/android.hardware.graphics.composer@2.1-service
+vendor/bin/hw/android.hardware.graphics.composer@2.2-service
 vendor/lib/hw/gralloc.default.so
 vendor/lib/hw/gralloc.exynos5.so
 vendor/lib/hw/hwcomposer.exynos5.so
@@ -85,9 +85,6 @@ vendor/lib64/libhwcutils.so
 vendor/lib64/libion_exynos.so
 vendor/lib64/libmpp.so
 vendor/lib64/libvirtualdisplay.so
-
-# Lpm
-vendor/bin/lpm
 
 # Memtrack
 vendor/bin/hw/android.hardware.memtrack@1.0-service
