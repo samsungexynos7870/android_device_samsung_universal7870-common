@@ -31,6 +31,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwc.skip_dma_types=0,2 \
     debug.sf.latch_unsignaled=1
 
+# Location 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.location.osnlp.package=com.google.android.gms \
+    ro.location.osnlp.region.package=""
+
 # Nfc
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.port=I2C \
