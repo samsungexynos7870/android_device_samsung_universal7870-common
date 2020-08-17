@@ -86,6 +86,29 @@ vendor/lib64/libion_exynos.so
 vendor/lib64/libmpp.so
 vendor/lib64/libvirtualdisplay.so
 
+# mcRegistry
+vendor/app/mcRegistry/00060308060501020000000000000000.tlbin
+vendor/app/mcRegistry/07010000000000000000000000000000.tlbin
+vendor/app/mcRegistry/07060000000000000000000000000000.tlbin
+vendor/app/mcRegistry/08130000000000000000000000000000.tlbin
+vendor/app/mcRegistry/FFFFFFFF000000000000000000000001.drbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000b.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000c.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000d.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000002f.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000003e.tlbin:
+vendor/app/mcRegistry/ffffffff000000000000000000000005.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000017.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000045.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000059.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000060.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000077.tlbin
+vendor/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
+vendor/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
+vendor/bin/mcDriverDaemon
+vendor/lib/libMcClient.so
+vendor/lib/libMcRegistry.so
+
 # Memtrack
 vendor/bin/hw/android.hardware.memtrack@1.0-service
 vendor/lib/hw/memtrack.exynos5.so
