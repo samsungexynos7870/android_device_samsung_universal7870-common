@@ -91,6 +91,9 @@ vendor/bin/hw/android.hardware.memtrack@1.0-service
 vendor/lib/hw/memtrack.exynos5.so
 vendor/lib64/hw/memtrack.exynos5.so
 
+# Media
+vendor/firmware/mfc_fw.bin
+
 # Misc
 vendor/bin/sswap
 vendor/lib/libcsc.so
