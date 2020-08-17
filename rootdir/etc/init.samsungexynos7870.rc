@@ -38,11 +38,6 @@ on post-fs-data
     chmod 0644 /dev/freezer/olaf/cgroup.procs
     chmod 0644 /dev/freezer/olaf/freezer.state
 
-    chown system system /sys/class/power_supply/battery/batt_slate_mode
-    chown system system /sys/class/power_supply/battery/battery_charging_enabled
-    chown system system /sys/class/power_supply/battery/charging_enabled
-    chown system system /sys/class/power_supply/battery/input_suspend
-
 # Log data folder
     mkdir /data/vendor 0771 root system
     mkdir /data/vendor/log 0771 root system
@@ -104,9 +99,6 @@ on boot
 	chmod 755 /sys/kernel/debug
     chown system system /sys/kernel/debug
 #   setprop ro.radio.noril yes
-
-    # Reset mDNIe scenario
-    write /sys/class/mdnie/mdnie/scenario 0
 	
 	# Set permissions for ttysac2
 	chown system system /dev/ttySAC2
@@ -827,8 +819,6 @@ on fs
     chown system system /sys/class/mdnie/mdnie/whiteRGB
     chown system system /sys/class/mdnie/mdnie/light_notification
     chown system system /sys/class/mdnie/mdnie/color_lens
-    chmod 0660 /sys/class/mdnie/mdnie/lux
-    chown system system /sys/class/mdnie/mdnie/lux
 
 # Copy DRM Key
     copy /system/app/wv.keys /factory/wv.keys
@@ -930,44 +920,67 @@ on fs
     chmod 0660 /dev/radio0
     chown bluetooth bluetooth /sys/devices/bluetooth/lna_en
 
+# ARGOSD network_throughput
+    chown system system /dev/network_throughput
+
+# ARGOSD
+service argos-daemon /vendor/bin/argosd
+    class main
+    user system
+    group system radio
+
 # LPM
-service lpm /vendor/bin/lpm
-    class sec-charger
-    critical
-
-on property:ro.bootmode=charger
-   mount ext4 /dev/block/platform/13540000.dwmmc0/by-name/SYSTEM /system wait ro
-
 on property:ro.bootmode=charger
     wait /dev/block/platform/13540000.dwmmc0/by-name/EFS
     mount ext4 /dev/block/platform/13540000.dwmmc0/by-name/EFS /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit
+    mkdir /efs/lpm 0775 system system
+    class_start sec-charger
 
-on property:ro.bootmode=charger
-   mkdir /efs/lpm 0775 system system
-   class_start sec-charger
+# MobiCore startup
+#service mobicore /system/bin/mcDriverDaemon -r /system/app/020a0000000000000000000000000000.drbin -r /system/app/mcRegistry/FFFFFFFFD00000000000000000000016.tlbin
+#    user drmrpc
+#    group drmrpc
+#    class core
 
-# Bluetooth
-on property:wc_transport.start_hci=true
-    start start_hci_filter
-
-on property:wc_transport.start_hci=false
-    stop start_hci_filter
-
-service start_hci_filter /vendor/bin/wcnss_filter
-    class late_start
-    user bluetooth
-    group bluetooth
-    disabled
+# RPMB daemon
+service rpmbd /system/bin/rpmbd
+     user root
+     group drmrpc
+     class main
 
 on property:sys.mobicoredaemon.enable=true
     start cs_service
     write /proc/iccc_ready 1
 
-on property:ro.multisim.simslotcount=1
-    setprop persist.radio.multisim.config ss
+# Modem boot daemon
+#    service cpboot-daemon /system/bin/cbd -d
+#    class main
+#    user root
+#    group radio cache inet misc audio sdcard_rw log
 
-on property:ro.multisim.simslotcount=2
-    setprop persist.radio.multisim.config dsds
+# DM daemon
+#    service DM-daemon /system/bin/dmd
+#    class main
+#    user root
+#    group system
+
+# FINGERPRINT FRAMEWORK : starts fingerprintd
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    user system
+    group system
+
+# SCE daemon
+#    service SCE-daemon /system/bin/sced
+#    class main
+#    user root
+#    group system
+
+# diag daemon
+#    service DM-daemon /system/bin/diagexe
+#    class main
+#    user root
+#    group system
 
 service fuse_sdcard /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard /storage/sdcard
     class late_start
@@ -975,6 +988,13 @@ service fuse_sdcard /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard /
 service fuse_usb1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usb1 /storage/usb1
     class late_start
     disabled
+
+# IPSec for VOLTE
+service ipsec-daemon /system/bin/IPSecService
+    class main
+    socket ipsec_socket stream 660 system net_admin
+    user system
+    group system net_raw inet net_admin
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd /system/bin/watchdogd 10 20
@@ -994,15 +1014,22 @@ service swapon /vendor/bin/sswap -s -f 1536
     seclabel u:r:sswap:s0
     oneshot
 
-on property:init.svc.bootanim=stopped
-# set property for touchkey light voltage table
-    chown system system /efs/FactoryApp/tkey_light_version
-    chown system system /efs/FactoryApp/tkey_light_crc
+# sem_daemon
+service sem_daemon /system/bin/sem_daemon
+    class core
+    user system
+    group system nfc
+    disabled
 
-# GPS
-service gpsd /vendor/bin/hw/gpsd -c /vendor/etc/gnss/gps.cfg
-    class main
-    user gps
-    group system inet net_raw wakelock
-    ioprio be 0
-    seclabel u:r:gpsd:s0
+on property:sys.boot_completed=1
+    setprop security.semdaemonfinish 0
+    start sem_daemon
+
+on property:security.semdaemonfinish=1
+    stop sem_daemon
+
+on property:ro.multisim.simslotcount=1
+    setprop persist.radio.multisim.config ss
+
+on property:ro.multisim.simslotcount=2
+    setprop persist.radio.multisim.config dsds
