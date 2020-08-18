@@ -8,8 +8,8 @@
 # /dev/block/platform/13540000.dwmmc0/by-name/SYSTEM	/system			ext4		ro,errors=panic		wait
 /dev/block/platform/13540000.dwmmc0/by-name/CACHE		/cache			ext4		noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic		wait,check
 /dev/block/platform/13540000.dwmmc0/by-name/CACHE		/cache			f2fs      	noatime,nosuid,nodev,noatime,inline_xattr                 									wait,check
-/dev/block/platform/13540000.dwmmc0/by-name/USERDATA	/data			ext4		noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic		wait,check,quota,reservedsize=128M,length=-20480
-/dev/block/platform/13540000.dwmmc0/by-name/USERDATA	/data			f2fs      	noatime,nosuid,nodev,discard,noatime,inline_xattr											wait,check,quota,reservedsize=128M,length=-20480
+/dev/block/platform/13540000.dwmmc0/by-name/USERDATA	/data			ext4		noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic		wait,check,encryptable=/dev/block/platform/13540000.dwmmc0/by-name/TOMBSTONES,quota,reservedsize=128M,length=-20480
+/dev/block/platform/13540000.dwmmc0/by-name/USERDATA	/data			f2fs      	noatime,nosuid,nodev,discard,noatime,inline_xattr											wait,check,encryptable=/dev/block/platform/13540000.dwmmc0/by-name/TOMBSTONES,quota,reservedsize=128M,length=-20480
 /dev/block/platform/13540000.dwmmc0/by-name/EFS			/mnt/vendor/efs	ext4		noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic		wait,check
 
 # VOLD
