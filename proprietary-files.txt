@@ -12,6 +12,23 @@
 # GNU General Public License for more details.
 #
 
+# Audio
+vendor/lib/audio.primary.universal7870.so
+vendor/lib/libaudio-ril.so
+vendor/lib/libaudioroute.so
+vendor/lib/libLifevibes_lvverx.so
+vendor/lib/libLifevibes_lvvetx.so
+vendor/lib/libpreprocessing_nxp.so
+vendor/lib/librecordalive.so
+vendor/lib/libsamsungDiamondVoice.so
+vendor/lib/libSamsungPostProcessConvertor.so
+vendor/lib/lib_SamsungRec_06006.so
+vendor/lib/libsecaudioinfo.so
+vendor/lib/lib_soundaliveresampler.so
+vendor/lib/lib_SoundAlive_SRC384_ver320.so
+vendor/lib/libtfa98xx.so
+vendor/lib/libtinyalsa.so
+vendor/lib/libvndsecril-client.so
 
 # Bluetooth (aptX)
 product/lib64/libaptX_encoder.so
