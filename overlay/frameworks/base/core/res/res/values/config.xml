@@ -228,6 +228,20 @@
          so that applications can still use their own mechanisms. -->
     <bool name="config_enableAutoPowerModes">true</bool>
 
+    <!-- Color temperature settings for LiveDisplay. These were obtained by
+         measuring the display at various color balance levels. -->
+    <integer name="config_minColorTemperature">1900</integer>
+    <integer name="config_maxColorTemperature">25000</integer>
+
+    <!-- Corresponds to color balance level of zero, this is the native
+         display temperature -->
+    <integer name="config_dayColorTemperature">6500</integer>
+    <integer name="config_nightColorTemperature">4800</integer>
+
+    <!-- Ambient lux at which to enable outdoor mode when LiveDisplay is enabled -->
+    <integer name="config_outdoorAmbientLux">10000</integer>
+    <integer name="config_outdoorAmbientLuxHysteresis">1000</integer>
+
     <!-- Configure mobile tcp buffer sizes in the form:
          rat-name:rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max
          If no value is found for the rat-name in use, the system default will be applied.
