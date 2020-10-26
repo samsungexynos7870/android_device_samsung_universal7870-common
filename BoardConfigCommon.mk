@@ -48,13 +48,12 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
 TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
 BUILD_BROKEN_DUP_RULES := true
-BUILD_BROKEN_PHONY_TARGETS := true
+BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
 
 # Extracted with libbootimg
 BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-BOARD_KERNEL_CMDLINE := androidboot.wificountrycode=00
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_IMAGE_NAME := Image
@@ -71,6 +70,7 @@ TARGET_KERNEL_SOURCE := kernel/samsung/exynos7870
 
 # HIDL
 DEVICE_MATRIX_FILE := $(LOCAL_PATH)/configs/compatibility_matrix.xml
+PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
 
 # Use these flags if the board has a ext4 partition larger than 2gb
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -174,7 +174,8 @@ BOARD_SECCOMP_POLICY := $(LOCAL_PATH)/seccomp
 
 # SELinux
 BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
-BOARD_SEPOLICY_VERS := $(PLATFORM_SDK_VERSION).0
+SELINUX_IGNORE_NEVERALLOWS := true
+# BOARD_SEPOLICY_VERS := $(PLATFORM_SDK_VERSION).0
 
 # Treble
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
@@ -185,8 +186,8 @@ BOARD_VNDK_VERSION := current
 # Shim
 TARGET_LD_SHIM_LIBS += \
     /system/bin/mediaserver|/system/lib/libstagefright_shim.so \
-    /vendor/lib/libsec-ril.so|/vendor/lib/libcutils_shim.so \
-    /vendor/lib/libsec-ril-dsds.so|/vendor/lib/libcutils_shim.so
+    /vendor/lib64/libsec-ril.so|/vendor/lib64/libcutils_shim.so \
+    /vendor/lib64/libsec-ril-dsds.so|/vendor/lib64/libcutils_shim.so
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI := true

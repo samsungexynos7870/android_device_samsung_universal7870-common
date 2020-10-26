@@ -70,9 +70,6 @@ on post-fs-data
     chown system audio /sys/class/nxp/tfa_log/data_maxt
     chown system audio /sys/class/nxp/tfa_log/count_overtmax
     
-# MST/NFC Switch
-    chmod 0660 /dev/mst_ctrl
-
 # for WIFI MAC address
     mkdir /mnt/vendor/efs/wifi 0775 wifi root
     chown wifi root /mnt/vendor/efs/wifi/.mac.info
