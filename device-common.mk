@@ -257,8 +257,9 @@ PRODUCT_PACKAGES += \
 # Shims
 PRODUCT_PACKAGES += \
     libexynoscamera_shim \
-    libstagefright_shim
-
+    libstagefright_shim \
+    libcutils_shim
+    
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service.basic
