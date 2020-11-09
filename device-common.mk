@@ -77,7 +77,6 @@ PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.2-impl \
     audio.a2dp.default \
     audio.usb.default \
-    audio.primary.universal7870_32 \
     audio.r_submix.default \
     libtinycompress 
 
