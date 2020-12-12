@@ -29,6 +29,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapminfree=512k \
     dalvik.vm.heapmaxfree=8m
 
+# Do not update the recovery image
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.recovery_update=false
+
 # FIFO UI scheduling
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.use_fifo_ui=1
