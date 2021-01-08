@@ -68,3 +68,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     net.tethering.noprovisioning=true
+
+# HAL1 apps - stretch bug
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.camera.hal1.packagelist=com.whatsapp,com.instagram.android,com.snapchat.android,us.zoom.videomeetings
