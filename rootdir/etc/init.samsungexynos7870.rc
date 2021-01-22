@@ -926,11 +926,12 @@ service argos-daemon /vendor/bin/argosd
     group system radio
 
 # LPM
-on property:ro.bootmode=charger
-    wait /dev/block/platform/13540000.dwmmc0/by-name/EFS
-    mount ext4 /dev/block/platform/13540000.dwmmc0/by-name/EFS /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit
-    mkdir /efs/lpm 0775 system system
-    class_start sec-charger
+service charger /system/bin/charger
+    class charger
+    user system
+    group system graphics input 
+    capabilities SYS_BOOT
+    seclabel u:r:charger:s0
 
 # MobiCore startup
 #service mobicore /system/bin/mcDriverDaemon -r /system/app/020a0000000000000000000000000000.drbin -r /system/app/mcRegistry/FFFFFFFFD00000000000000000000016.tlbin
