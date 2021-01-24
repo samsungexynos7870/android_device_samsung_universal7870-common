@@ -133,6 +133,9 @@
 # cbd
 /sys/devices/10f24000.mipi-lli/lli_control  u:object_r:sysfs_mipi:s0
 
+# livedisplay
+/data/vendor/display(/.*)?   u:object_r:display_vendor_data_file:s0
+
 # efs
 #/cpefs(/.*)?                                 u:object_r:sec_efs_file:s0
 #/efs/Battery(/.*)?                           u:object_r:battery_efs_file:s0
@@ -207,6 +210,7 @@
 
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service\.samsung-exynos    u:object_r:hal_lineage_livedisplay_sysfs_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.samsung                 u:object_r:hal_lineage_touch_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service\.samsung-exynos        u:object_r:hal_lineage_livedisplay_sysfs_exec:s0
 
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@[0-9]\.[0-9]-service\.clearkey    u:object_r:hal_drm_clearkey_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@[0-9]\.[0-9]-service\.widevine    u:object_r:hal_drm_widevine_exec:s0
