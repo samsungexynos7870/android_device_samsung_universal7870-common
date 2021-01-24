@@ -158,10 +158,6 @@ PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.0-impl \
     android.hardware.keymaster@4.0-service
 
-# hardware/samsung/AdvancedDisplay (MDNIE)
-PRODUCT_PACKAGES += \
-    AdvancedDisplay
-
 # Lights
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.samsung
