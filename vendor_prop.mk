@@ -67,6 +67,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
+    wlan.wfd.hdcp=disable \
     net.tethering.noprovisioning=true
 
 # HAL1 apps - stretch bug
