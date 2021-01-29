@@ -137,6 +137,10 @@ PRODUCT_HOST_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl
 
+# FlipFlap
+PRODUCT_PACKAGES += \
+    FlipFlap
+
 # Healthd
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-impl \
