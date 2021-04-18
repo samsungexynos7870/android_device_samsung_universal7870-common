@@ -358,7 +358,7 @@
              1 - AUTO_MODE_CUSTOM_TIME
              2 - AUTO_MODE_TWILIGHT
     -->
-
+    <bool name="config_setColorTransformAccelerated">true</bool>
     <integer name="config_defaultNightDisplayAutoMode">0</integer>
 </resources>
 
