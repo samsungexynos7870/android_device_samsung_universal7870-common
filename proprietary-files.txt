@@ -13,7 +13,6 @@
 #
 
 # Audio
-vendor/lib/audio.primary.universal7870.so
 vendor/lib/libaudio-ril.so
 vendor/lib/libaudioroute.so
 vendor/lib/libLifevibes_lvverx.so
@@ -36,6 +35,7 @@ product/lib64/libaptXHD_encoder.so
 
 # Camera
 vendor/lib/hw/camera.universal7870.so
+vendor/lib/hw/camera.exynos5.so
 vendor/lib64/hw/camera.universal7870.so
 vendor/lib/libcamera_client.so
 vendor/lib/libgui.so
