@@ -197,3 +197,6 @@ TARGET_LD_SHIM_LIBS += \
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI := true
+
+# ResurrectionRemix
+TARGET_FACE_UNLOCK_SUPPORTED := true
