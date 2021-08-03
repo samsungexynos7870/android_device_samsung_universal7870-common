@@ -342,5 +342,23 @@
 
     <!-- Flag indicating whether we should enable smart battery. -->
     <bool name="config_smart_battery_available">true</bool>
+
+    <!-- Control the default night mode to use when there is no other mode override set.
+         One of the following values (see UiModeManager.java):
+             0 - MODE_NIGHT_AUTO
+             1 - MODE_NIGHT_NO
+             2 - MODE_NIGHT_YES
+    -->
+    <integer name="config_defaultNightMode">1</integer>
+
+    <bool name="config_nightDisplayAvailable">true</bool>
+    <!-- Default mode to control how Night display is automatically activated.
+         One of the following values (see ColorDisplayManager.java):
+             0 - AUTO_MODE_DISABLED
+             1 - AUTO_MODE_CUSTOM_TIME
+             2 - AUTO_MODE_TWILIGHT
+    -->
+    <bool name="config_setColorTransformAccelerated">true</bool>
+    <integer name="config_defaultNightDisplayAutoMode">0</integer>
 </resources>
 
