@@ -67,13 +67,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
-    net.tethering.noprovisioning=true
-
-    # Wifi Display
-PRODUCT_PROPERTY_OVERRIDES += \
-    wlan.wfd.hdcp=disable \
-    persist.debug.wfd.enable=1 \
-    persist.sys.wfd.virtual=0
+    net.tethering.noprovisioning=true \
+    wifi.direct.interface=p2p-dev-wlan0 \
+    wlan.wfd.hdcp=disable
 
 # HAL1 apps - stretch bug
 PRODUCT_PROPERTY_OVERRIDES += \

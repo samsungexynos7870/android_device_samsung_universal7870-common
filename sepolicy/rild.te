@@ -1,7 +1,7 @@
 # rild.te
-
 allow rild block_device:dir search;
 allow rild mnt_vendor_file:dir { getattr search };
+allow rild mif_device:chr_file { ioctl };
 
 # audio hal
 allow rild hal_audio_default:dir search;

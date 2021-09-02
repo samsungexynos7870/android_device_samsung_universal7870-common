@@ -195,11 +195,11 @@ BOARD_VNDK_VERSION := current
 TARGET_LD_SHIM_LIBS += \
     /system/bin/mediaserver|/system/lib/libstagefright_shim.so
 
+# Build fingerprint
+BUILD_FINGERPRINT := "google/redfin/redfin:11/RQ3A.210805.001.A1/7474174:user/release-keys"
+
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI := true
-
-# Build fingerprint
-BUILD_FINGERPRINT := "google/redfin/redfin:11/RQ3A.210705.001/7380771:user/release-keys"
 
 # ResurrectionRemix
 TARGET_FACE_UNLOCK_SUPPORTED := true
