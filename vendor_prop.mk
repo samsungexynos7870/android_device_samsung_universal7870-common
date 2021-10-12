@@ -42,7 +42,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610 \
     debug.hwc.skip_dma_types=0,2 \
     debug.hwc.force_gpu=1 \
-    debug.sf.latch_unsignaled=1
+    debug.sf.latch_unsignaled=1 \
+    debug.composition.type=gpu
 
 # Location 
 PRODUCT_PROPERTY_OVERRIDES += \
