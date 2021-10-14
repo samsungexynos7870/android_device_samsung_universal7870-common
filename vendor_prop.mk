@@ -44,7 +44,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwc.force_gpu=1 \
     debug.sf.latch_unsignaled=1 \
     debug.sf.hw=1 \
-    debug.composition.type=gpu
+    debug.composition.type=gpu \
+    debug.renderengine.backend=threaded
 
 # Location 
 PRODUCT_PROPERTY_OVERRIDES += \
