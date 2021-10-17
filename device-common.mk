@@ -65,17 +65,14 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
     $(LOCAL_PATH)/configs/permissions/com.samsung.permission.SSENSOR.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.samsung.permission.SSENSOR.xml
 
-# AdvancedDisplay
-PRODUCT_PACKAGES += \
-    AdvancedDisplay
-
 # Audio
 PRODUCT_PACKAGES += \
-    android.hardware.audio.service \
-    android.hardware.audio@6.0-impl \
-    android.hardware.audio.effect@6.0-impl \
+    android.hardware.audio@2.0-service \
+    android.hardware.audio@5.0-impl \
+    android.hardware.audio.effect@5.0-impl \
     audio.a2dp.default \
     audio.usb.default \
+    audio.primary.universal7870_32 \
     audio.r_submix.default \
     libtinycompress 
 
@@ -125,7 +122,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
-    android.hardware.drm@1.2-service.clearkey
+    android.hardware.drm@1.3-service.clearkey
 
 # Flat device tree for boot image
 PRODUCT_HOST_PACKAGES += \
