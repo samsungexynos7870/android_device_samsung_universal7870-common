@@ -270,6 +270,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     libgui_vendor
 
+# ConfigStore
+PRODUCT_PACKAGES += \
+    disable_configstore
+
 # Wifi
 PRODUCT_PACKAGES += \
     macloader
