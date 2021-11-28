@@ -1,0 +1,2 @@
+allow hal_gatekeeper_default mediaserver_exec:file { getattr read };
+

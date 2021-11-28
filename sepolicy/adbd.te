@@ -1,0 +1,3 @@
+allow adbd mediaserver_exec:file { getattr read };
+allow adbd vendor_file:file { getattr read };
+

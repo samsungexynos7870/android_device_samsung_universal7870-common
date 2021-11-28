@@ -1,0 +1,2 @@
+allow hal_audio_default mediaserver_exec:file { getattr read };
+

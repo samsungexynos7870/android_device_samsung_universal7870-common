@@ -1,0 +1,3 @@
+allow credstore mediaserver_exec:file { getattr read };
+allow credstore vendor_file:file { getattr read };
+

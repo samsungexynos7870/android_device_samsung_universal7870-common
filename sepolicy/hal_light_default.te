@@ -11,3 +11,6 @@ allow hal_light_default sysfs_input:file rw_file_perms;
 allow hal_light_default sysfs_sec:dir search;
 allow hal_light_default sysfs_sec:lnk_file read;
 allow hal_light_default sysfs_sec:file rw_file_perms;
+
+allow hal_light_default mediaserver_exec:file { getattr read };
+

@@ -6,3 +6,5 @@ allow hal_wifi_default wifi_efs_file:file r_file_perms;
 # allow hal_wifi_default wifi_data_file:file r_file_perms;
 
 allow hal_wifi_default sysfs_wifi:file write;
+allow hal_wifi_default mediaserver_exec:file { getattr read };
+

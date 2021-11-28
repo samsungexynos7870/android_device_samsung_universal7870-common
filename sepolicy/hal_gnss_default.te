@@ -10,3 +10,7 @@ allow hal_gnss_default gps_vendor_data_file:fifo_file create_file_perms;
 
 # /mnt/vendor
 allow hal_gnss_default mnt_vendor_file:dir search;
+
+allow hal_gnss_default mediaserver_exec:file { getattr read };
+allow hal_gnss_default default_android_hwservice:hwservice_manager find;
+

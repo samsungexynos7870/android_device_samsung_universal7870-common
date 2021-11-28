@@ -1,0 +1,3 @@
+allow drmserver mediaserver_exec:file { getattr read };
+allow drmserver vendor_file:file { getattr read };
+

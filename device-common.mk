@@ -67,14 +67,20 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    android.hardware.audio@2.0-service \
+    android.hardware.audio.service \
     android.hardware.audio@5.0-impl \
     android.hardware.audio.effect@5.0-impl \
+    android.hardware.audio.common-util \
+    android.hardware.audio.common@2.0-util \
+    android.hardware.audio.common@2.0 \
+    android.hardware.audio.common@5.0-util \
+    android.hardware.audio.common@5.0 \
+    audio_amplifier.universal7870_32 \
+    audio.primary.universal7870_32 \
     audio.a2dp.default \
     audio.usb.default \
-    audio.primary.universal7870_32 \
     audio.r_submix.default \
-    libtinycompress 
+    libtinycompress
 
 # Audio configuration
 PRODUCT_COPY_FILES += \
@@ -132,6 +138,10 @@ PRODUCT_HOST_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service.software
 
+# Power
+PRODUCT_PACKAGES += \
+		android.hardware.power@1.0-service.exynos
+
 # Healthd
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-impl \
@@ -154,8 +164,8 @@ PRODUCT_COPY_FILES += \
 
 # Keymaster
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.0-impl \
-    android.hardware.keymaster@4.1-service
+		android.hardware.keymaster@4.0-impl \
+		android.hardware.keymaster@4.1-service
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -170,7 +180,7 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes \
     libebtc
-    
+
 # Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
@@ -222,7 +232,7 @@ PRODUCT_PACKAGES += \
 # SamsungDoze
 PRODUCT_PACKAGES += \
     SamsungDoze
-    
+
 # Seccomp_policy
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
@@ -236,7 +246,7 @@ PRODUCT_PACKAGES += \
 # Thermal
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.samsung
-    
+
 # Touchscreen
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/idc/AVRCP.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/AVRCP.idc \
@@ -252,7 +262,7 @@ PRODUCT_PACKAGES += \
     libexynoscamera_shim \
     libstagefright_shim \
     libcutils_shim
-    
+
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service.basic

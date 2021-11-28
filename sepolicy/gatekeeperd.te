@@ -1,0 +1,3 @@
+allow gatekeeperd mediaserver_exec:file { getattr read };
+allow gatekeeperd vendor_file:file { getattr read };
+

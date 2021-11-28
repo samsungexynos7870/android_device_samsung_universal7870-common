@@ -1,0 +1,3 @@
+allow vdc vendor_file:file read;
+allow vdc vendor_file:file getattr;
+

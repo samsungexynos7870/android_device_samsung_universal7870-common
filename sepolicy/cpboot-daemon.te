@@ -49,3 +49,9 @@ allow cpboot-daemon proc_dt_firmware:file { open read };
 set_prop(cpboot-daemon, cpboot-daemon_prop)
 set_prop(cpboot-daemon, radio_prop)
 set_prop(cpboot-daemon, system_prop)
+
+allow cpboot-daemon mediaserver_exec:file { getattr read };
+allow cpboot-daemon sysfs:file { open read };
+allow cpboot-daemon vendor_default_prop:property_service set;
+allow cpboot-daemon vendor_shell_exec:file execute_no_trans;
+
