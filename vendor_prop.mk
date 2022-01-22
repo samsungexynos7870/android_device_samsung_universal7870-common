@@ -84,3 +84,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.direct.interface=p2p-dev-wlan0 \
     net.tethering.noprovisioning=true
+    
+# ADB
+persist.service.adb.enable=0
+persist.service.debuggable=0
+persist.sys.usb.config=mtp,adb
+ro.adb.secure=0
+ro.debuggable=1
+ro.secure=0
+    
+# Blur
+persist.sys.sf.disable_blurs=1
+
