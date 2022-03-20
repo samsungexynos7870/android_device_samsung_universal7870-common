@@ -47,6 +47,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.composition.type=gpu \
     debug.renderengine.backend=threaded
 
+# SurfaceFlinger
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+
 # Location 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.location.osnlp.package=com.google.android.gms \
