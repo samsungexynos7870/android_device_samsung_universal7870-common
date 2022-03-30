@@ -195,8 +195,8 @@ BOARD_VNDK_VERSION := current
 TARGET_LD_SHIM_LIBS += \
     /system/bin/mediaserver|/system/lib/libstagefright_shim.so
 
-# Build fingerprint
-BUILD_FINGERPRINT := "google/redfin/redfin:11/RQ3A.210805.001.A1/7474174:user/release-keys"
+# Build fingerprint from raven, Feb. S.P.
+BUILD_FINGERPRINT := "google/raven/raven:12/SQ1D.220205.003/8069835:user/release-keys"
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI := true
