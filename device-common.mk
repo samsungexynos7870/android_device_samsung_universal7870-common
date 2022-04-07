@@ -94,6 +94,9 @@ PRODUCT_PACKAGES += \
     libion_exynos \
     Snap
 
+# KillCamera app as a ugly workaround for camera stuck in some devices // Needs ROOT to work
+    killcamera
+
 # Camera configurations
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/camera/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
