@@ -95,6 +95,7 @@ PRODUCT_PACKAGES += \
     Snap
 
 # KillCamera app as a ugly workaround for camera stuck in some devices // Needs ROOT to work
+PRODUCT_PACKAGES += \
     killcamera
 
 # Camera configurations
