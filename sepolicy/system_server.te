@@ -57,7 +57,12 @@ allow system_server proc_input_devices:file r_file_perms;
 # unix_socket_connect(system_server, property, gpsd)
 
 allow system_server hal_light_default:process signal;
+
+# Reboot
 allow system_server userspace_reboot_exported_prop:file read;
 allow system_server userspace_reboot_exported_prop:file { getattr open };
+allow system_server userspace_reboot_config_prop:file { getattr open read };
+
+# sysfs
 allow system_server sysfs:file read;
 

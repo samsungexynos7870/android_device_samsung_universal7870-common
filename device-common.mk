@@ -92,8 +92,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.camera.common@1.0-helper \
     android.hardware.camera.provider@2.4-impl \
-    android.hardware.camera.provider@2.5-service \
-    Snap
+    android.hardware.camera.provider@2.5-service
 
 # Camera configurations
 PRODUCT_COPY_FILES += \
@@ -103,17 +102,20 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.cas@1.2-service
 
+# debug (prebuilt)
+PRODUCT_PACKAGES += \
+    matlog
+
 # Display
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service  \
-    android.hardware.graphics.composer@2.2-resources.vendor \
-    android.hardware.graphics.composer@2.2-service  \
+    android.hardware.graphics.composer@2.1-resources.vendor \
+    android.hardware.graphics.composer@2.1-service  \
     android.hardware.graphics.mapper@2.0-impl \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
     android.hardware.renderscript@1.0-impl \
-    gralloc.default \
     libhwc2on1adapter \
     libhwc2onfbadapter \
     libtinyxml
@@ -127,6 +129,35 @@ PRODUCT_PACKAGES += \
 # Flat device tree for boot image
 PRODUCT_HOST_PACKAGES += \
     dtbhtoolExynos
+
+# BSP
+PRODUCT_PACKAGES += \
+    hwcomposer.exynos5 \
+    gralloc.exynos5 \
+    memtrack.exynos5 \
+    libcsc \
+    libexynosdisplay \
+    libexynosgscaler \
+    libExynosHWCService \
+    libexynosscaler \
+    libexynosutils \
+    libexynosv4l2 \
+    libfimg \
+    libhdmi \
+    libhwcutils \
+    libhwjpeg \
+    libion_exynos \
+    libmpp \
+    libstagefrighthw
+
+# OMX
+PRODUCT_PACKAGES += \
+    android.hardware.media.omx@1.0-impl \
+    android.hardware.media.omx@1.0-service
+
+# FlipFlap
+PRODUCT_PACKAGES += \
+    FlipFlap
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
@@ -208,6 +239,12 @@ PRODUCT_PACKAGES += \
     libprotobuf-cpp-lite-vendorcompat \
     libxml2
 
+# Radio (broadcastradio)
+PRODUCT_PACKAGES += \
+    android.hardware.broadcastradio@1.0-impl \
+    android.hardware.broadcastradio@1.0 \
+    android.hardware.broadcastradio@1.1
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.samsungexynos7870 \
@@ -284,6 +321,13 @@ PRODUCT_PACKAGES += \
 
 # Properties
 -include $(LOCAL_PATH)/vendor_prop.mk
+
+#clang-r383902b missing ld executable (needed to build kernel)
+$(shell cp -r device/samsung/universal7870-common/clang/ld prebuilts/clang/host/linux-x86/clang-r383902b/bin)
+
+# call Samsung LSI board support package
+$(call inherit-product, hardware/samsung_slsi/exynos5/exynos5.mk)
+$(call inherit-product, hardware/samsung_slsi/exynos7870/exynos7870.mk)
 
 # call the proprietary setup
 $(call inherit-product, vendor/samsung/universal7870-common/universal7870-common-vendor.mk)

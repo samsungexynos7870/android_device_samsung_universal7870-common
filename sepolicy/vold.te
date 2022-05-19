@@ -6,3 +6,4 @@ allow vold emmcblk_device:blk_file { setattr unlink rw_file_perms };
 
 allow vold sysfs_mmc:file w_file_perms;
 r_dir_file(vold, proc_dt_firmware)
+allowxperm vold loop_device:blk_file ioctl LOOP_GET_STATUS64;

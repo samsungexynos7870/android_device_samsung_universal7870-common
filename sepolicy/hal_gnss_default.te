@@ -13,4 +13,5 @@ allow hal_gnss_default mnt_vendor_file:dir search;
 
 allow hal_gnss_default mediaserver_exec:file { getattr read };
 allow hal_gnss_default default_android_hwservice:hwservice_manager find;
+allow hal_gnss_default fwk_sensor_hwservice:hwservice_manager find;
 
