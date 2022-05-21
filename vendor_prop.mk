@@ -46,6 +46,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.hw=1 \
     debug.composition.type=gpu
 
+# SurfaceFlinger
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+
+# Lockscreen rotation
+PRODUCT_PROPERTY_OVERRIDES += \
+    lockscreen.rot_override=true
+
 # Location
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.location.osnlp.package=com.google.android.gms \
