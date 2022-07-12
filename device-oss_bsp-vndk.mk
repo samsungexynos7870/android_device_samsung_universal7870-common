@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2019-2022 The LineageOS Project
+# Copyright (C) 2022 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,11 +14,22 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := $(call my-dir)
-
-ifneq ($(filter a3y17lte j5y17lte j6lte j7velte j7xelte j7y17lte on7xelte, $(TARGET_DEVICE)),)
-
-include $(call all-makefiles-under,$(LOCAL_PATH))
-include $(CLEAR_VARS)
-
-endif
+# BSP
+PRODUCT_PACKAGES += \
+    hwcomposer.exynos5 \
+    gralloc.exynos5 \
+    memtrack.exynos5 \
+    libcsc \
+    libexynosdisplay \
+    libexynosgscaler \
+    libExynosHWCService \
+    libexynosscaler \
+    libexynosutils \
+    libexynosv4l2 \
+    libfimg \
+    libhdmi \
+    libhwcutils \
+    libhwjpeg \
+    libion_exynos \
+    libmpp \
+    libstagefrighthw

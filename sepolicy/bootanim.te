@@ -1,4 +1,0 @@
-allow bootanim mediaserver_exec:file { getattr read };
-allow bootanim userspace_reboot_exported_prop:file { getattr open read };
-allow bootanim vendor_file:file { execute getattr open read };
-

@@ -1,3 +1,0 @@
-allow wificond mediaserver_exec:file { getattr read };
-allow wificond vendor_file:file { getattr read };
-

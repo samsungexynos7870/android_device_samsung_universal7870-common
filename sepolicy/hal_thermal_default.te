@@ -1,7 +1,0 @@
-allow hal_thermal_default self:netlink_kobject_uevent_socket read;
-allow hal_thermal_default mediaserver_exec:file { getattr read };
-allow hal_thermal_default self:netlink_kobject_uevent_socket { bind getopt };
-allow hal_thermal_default self:netlink_kobject_uevent_socket { create setopt };
-allow hal_thermal_default sysfs:dir { open read };
-allow hal_thermal_default sysfs:file { getattr open read };
-

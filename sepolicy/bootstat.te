@@ -1,3 +1,0 @@
-allow bootstat mediaserver_exec:file { getattr read };
-allow bootstat vendor_file:file { getattr read };
-

@@ -1,0 +1,2 @@
+allow adbd mediaserver_exec:file { getattr read };
+

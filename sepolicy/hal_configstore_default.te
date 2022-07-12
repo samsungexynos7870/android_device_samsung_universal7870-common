@@ -1,2 +1,0 @@
-allow hal_configstore_default mediaserver_exec:file { getattr read };
-

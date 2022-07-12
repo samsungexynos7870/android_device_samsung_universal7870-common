@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2019 The LineageOS Project
+# Copyright (C) 2019-2022 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -65,26 +65,25 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
     $(LOCAL_PATH)/configs/permissions/com.samsung.permission.SSENSOR.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.samsung.permission.SSENSOR.xml
 
-# Audio
+# Audio common
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
-    android.hardware.audio@5.0-impl \
-    android.hardware.audio.effect@5.0-impl \
-    android.hardware.soundtrigger@2.2-impl \
+		android.hardware.audio@6.0-impl \
+		android.hardware.audio.effect@6.0-impl \
+    android.hardware.soundtrigger@2.3-impl \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
     libtinycompress
 
-# Audio configuration
+# Audio Permissions common
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio/audio_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy.conf \
-    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    $(LOCAL_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
     frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
-    frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
+		frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
+		frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
@@ -92,7 +91,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.camera.common@1.0-helper \
     android.hardware.camera.provider@2.4-impl \
-    android.hardware.camera.provider@2.5-service
+    android.hardware.camera.provider@2.5-service \
+		libstagefright_shim
 
 # Camera configurations
 PRODUCT_COPY_FILES += \
@@ -106,19 +106,25 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     matlog
 
+# SoundPicker
+PRODUCT_PACKAGES += \
+    SoundPicker
+
 # Display
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service  \
-    android.hardware.graphics.composer@2.1-resources.vendor \
-    android.hardware.graphics.composer@2.1-service  \
+    android.hardware.graphics.composer@2.2-service  \
     android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
     android.hardware.renderscript@1.0-impl \
     libhwc2on1adapter \
     libhwc2onfbadapter \
     libtinyxml
+
+# Memtrack
+PRODUCT_PACKAGES += \
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.memtrack@1.0-service
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -129,26 +135,6 @@ PRODUCT_PACKAGES += \
 # Flat device tree for boot image
 PRODUCT_HOST_PACKAGES += \
     dtbhtoolExynos
-
-# BSP
-PRODUCT_PACKAGES += \
-    hwcomposer.exynos5 \
-    gralloc.exynos5 \
-    memtrack.exynos5 \
-    libcsc \
-    libexynosdisplay \
-    libexynosgscaler \
-    libExynosHWCService \
-    libexynosscaler \
-    libexynosutils \
-    libexynosv4l2 \
-    libfimg \
-    libhdmi \
-    libhwcutils \
-    libhwjpeg \
-    libion_exynos \
-    libmpp \
-    libstagefrighthw
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -166,6 +152,11 @@ PRODUCT_PACKAGES += \
 # Power
 PRODUCT_PACKAGES += \
 		android.hardware.power@1.0-service.exynos
+
+# Configstore
+PRODUCT_PACKAGES += \
+    android.hardware.configstore@1.1-service \
+    vndservicemanager
 
 # Healthd
 PRODUCT_PACKAGES += \
@@ -208,13 +199,12 @@ PRODUCT_PACKAGES += \
 
 # Media
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
-    $(LOCAL_PATH)/configs/media/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml \
-    $(LOCAL_PATH)/configs/media/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml
+    $(LOCAL_PATH)/configs/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml \
+    $(LOCAL_PATH)/configs/media/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 
 # Net
 PRODUCT_PACKAGES += \
@@ -290,9 +280,8 @@ PRODUCT_PACKAGES += \
 
 # Shims
 PRODUCT_PACKAGES += \
-    libexynoscamera_shim \
-    libstagefright_shim \
-    libcutils_shim
+    libcutils_shim \
+		libexynoscamera_shim
 
 # USB
 PRODUCT_PACKAGES += \
@@ -322,12 +311,15 @@ PRODUCT_PACKAGES += \
 # Properties
 -include $(LOCAL_PATH)/vendor_prop.mk
 
-#clang-r383902b missing ld executable (needed to build kernel)
-$(shell cp -r device/samsung/universal7870-common/clang/ld prebuilts/clang/host/linux-x86/clang-r383902b/bin)
-
 # call Samsung LSI board support package
 $(call inherit-product, hardware/samsung_slsi/exynos5/exynos5.mk)
 $(call inherit-product, hardware/samsung_slsi/exynos7870/exynos7870.mk)
+
+# Inherit from common (bsp)
+$(call inherit-product, device/samsung/universal7870-common/device-oss_bsp-vndk.mk)
+
+#clang-r383902b missing ld executable (needed to build kernel)
+$(shell cp -r device/samsung/universal7870-common/configs/clang/ld prebuilts/clang/host/linux-x86/clang-r383902b/bin)
 
 # call the proprietary setup
 $(call inherit-product, vendor/samsung/universal7870-common/universal7870-common-vendor.mk)

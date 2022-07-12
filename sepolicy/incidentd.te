@@ -1,3 +1,0 @@
-allow incidentd mediaserver_exec:file { getattr read };
-allow incidentd vendor_file:file { getattr read };
-

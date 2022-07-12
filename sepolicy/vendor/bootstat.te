@@ -1,0 +1,2 @@
+allow bootstat mediaserver_exec:file { getattr read };
+

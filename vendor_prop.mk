@@ -7,6 +7,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1 \
     audio_hal.force_voice_config=wide
 
+#(OSS audio hal only) use it when faceing call
+# echo with your device to avoid quit mics on other devices
+# TODO: move that thing to device speciffic props
+#PRODUCT_PROPERTY_OVERRIDES += \
+#    audio_hal.disable_two_mic=true
+
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bt.bdaddr_path=/efs/bluetooth/bt_addr
@@ -40,11 +46,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610 \
-    debug.hwc.skip_dma_types=0,2 \
-    debug.hwc.force_gpu=1 \
+    debug.sf.enable_hwc_vds=0 \
     debug.sf.latch_unsignaled=1 \
-    debug.sf.hw=1 \
-    debug.composition.type=gpu
+    debug.sf.disable_backpressure=1
 
 # SurfaceFlinger
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -83,9 +87,23 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.media.treble_omx=true
 
+# OMX
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.cscsupported=1
+
 # sdcardfs
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
+
+# LiveDisplay
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.sf.color_mode=0
+
+# Media
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.stagefright.omx_default_rank.sw-audio=1 \
+    debug.stagefright.omx_default_rank=0
+    debug.stagefright.ccodec=0
 
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \

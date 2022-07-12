@@ -1,4 +1,0 @@
-allow hal_memtrack_default debugfs:dir { open read };
-allow hal_memtrack_default mediaserver_exec:file { getattr read };
-allow hal_memtrack_default debugfs:file { getattr open read };
-
