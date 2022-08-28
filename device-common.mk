@@ -281,5 +281,8 @@ PRODUCT_PACKAGES += \
 # Properties
 -include $(LOCAL_PATH)/vendor_prop.mk
 
+#clang-r383902b missing ld executable
+$(shell cp -r device/samsung/universal7870-common/configs/clang/ld prebuilts/clang/host/linux-x86/clang-r383902b/bin)
+
 # call the proprietary setup
 $(call inherit-product, vendor/samsung/universal7870-common/universal7870-common-vendor.mk)
