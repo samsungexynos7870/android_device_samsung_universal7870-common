@@ -39,6 +39,9 @@ vendor/lib/hw/camera.exynos5.so
 vendor/lib64/hw/camera.universal7870.so
 vendor/lib/libcamera_client.so
 vendor/lib/libgui.so
+vendor/lib/libacryl.so
+vendor/lib/libuniapi.so
+vendor/lib64/libuniapi.so
 
 # DRM
 vendor/lib/liboemcrypto.so
