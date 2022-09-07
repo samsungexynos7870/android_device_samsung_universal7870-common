@@ -1,0 +1,4 @@
+hidl_package_root {
+    name: "vendor.customelineage",
+    path: "device/samsung/universal7870-common/local-modules/customelineage",
+}

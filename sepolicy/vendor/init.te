@@ -97,3 +97,4 @@ allow init socket_device:sock_file { read write getattr setattr create unlink };
 # allow init hal_drm_hwservice:hwservice_manager add;
 
 allow init sysfs:file setattr;
+allow init sysfs:dir create;

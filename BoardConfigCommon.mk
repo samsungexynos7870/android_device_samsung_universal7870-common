@@ -19,6 +19,12 @@ LOCAL_PATH := device/samsung/universal7870-common
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
+# misc
+BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+# Network Routing
+TARGET_IGNORES_FTP_PPTP_CONNTRACK_FAILURE := true
+
 # Firmware
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
@@ -68,6 +74,7 @@ TARGET_KERNEL_ADDITIONAL_FLAGS := \
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_LINUX_KERNEL_VERSION := 3.18
+TARGET_KERNEL_CLANG_COMPILE := false
 
 # Kernel config
 TARGET_KERNEL_SOURCE := kernel/samsung/exynos7870
@@ -215,6 +222,8 @@ BOARD_SECCOMP_POLICY := $(LOCAL_PATH)/seccomp
 
 # SELinux
 BOARD_VENDOR_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy/vendor
+SELINUX_IGNORE_NEVERALLOWS := true
+
 # BOARD_SEPOLICY_VERS := $(PLATFORM_SDK_VERSION).0
 
 # Treble
@@ -227,7 +236,12 @@ BOARD_VNDK_VERSION := current
 TARGET_LD_SHIM_LIBS += \
     /system/bin/mediaserver|/system/lib/libstagefright_shim.so \
     /vendor/lib64/libsec-ril.so|/vendor/lib64/libcutils_shim.so \
-    /vendor/lib64/libsec-ril-dsds.so|/vendor/lib64/libcutils_shim.so
+    /vendor/lib64/libsec-ril-dsds.so|/vendor/lib64/libcutils_shim.so \
+		/vendor/lib/libcamera_client.so|/vendor/lib/libcamera_client_symboles_shim.so
+
+#
+# /vendor/lib/libgui.so|/vendor/lib/libgui_symboles_shim.so
+
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI := true

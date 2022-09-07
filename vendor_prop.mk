@@ -47,7 +47,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610 \
     debug.sf.enable_hwc_vds=0 \
-    debug.sf.disable_backpressure=1
+    debug.hwc.skip_dma_types=0,2
+    debug.renderengine.backend=gles
 
 # SurfaceFlinger
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -56,11 +57,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Lockscreen rotation
 PRODUCT_PROPERTY_OVERRIDES += \
     lockscreen.rot_override=true
-
-# Location
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.location.osnlp.package=com.google.android.gms \
-    ro.location.osnlp.region.package=""
 
 # Nfc
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -80,15 +76,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apm_sim_not_pwdn=1 \
     ro.smps.enable=true \
     telephony.lteOnCdmaDevice=0 \
-    ro.vendor.multisim.simslotcount=2
 
 #Treble
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.media.treble_omx=true
-
-# OMX
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.cscsupported=1
 
 # sdcardfs
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -98,11 +89,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.sf.color_mode=0
 
-# Media
+# OMX
 PRODUCT_PROPERTY_OVERRIDES += \
+    debug.stagefright.ccodec=0 \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true \
     debug.stagefright.omx_default_rank.sw-audio=1 \
     debug.stagefright.omx_default_rank=0 \
-    debug.stagefright.ccodec=0
+    vendor.mediacodec.binder.size=4 \
+    media.stagefright.thumbnail.prefer_hw_codecs=true \
+    ro.vendor.cscsupported=1
+
+# Bpf
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.kernel.ebpf.supported=false
 
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -114,4 +114,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.surface_flinger.supports_background_blur=0 \
    persist.sys.sf.disable_blurs=1 \
-	 ro.sf.blurs_are_expensive=1
+   ro.sf.blurs_are_expensive=1

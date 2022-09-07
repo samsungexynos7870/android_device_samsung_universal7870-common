@@ -16,6 +16,9 @@
 
 LOCAL_PATH := device/samsung/universal7870-common
 
+# Product Characteristics
+PRODUCT_CHARACTERISTICS := phone
+
 # Boot animation
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
@@ -63,18 +66,27 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.android.nfc_extras.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.android.nfc_extras.xml \
     frameworks/native/data/etc/com.nxp.mifare.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.nxp.mifare.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute.xml \
     $(LOCAL_PATH)/configs/permissions/com.samsung.permission.SSENSOR.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.samsung.permission.SSENSOR.xml
 
 # Audio common
 PRODUCT_PACKAGES += \
-    android.hardware.audio@2.0-service \
-    android.hardware.audio@6.0-impl \
-    android.hardware.audio.effect@6.0-impl \
-    android.hardware.soundtrigger@2.3-impl \
+    android.hardware.audio.service \
+    android.hardware.audio@7.0-impl \
+    android.hardware.audio.effect@7.0-impl \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
     libtinycompress
+
+# Soundtrigger
+PRODUCT_PACKAGES += \
+    android.hardware.soundtrigger@2.3-impl \
+    android.hardware.soundtrigger@2.3 \
+    android.hardware.soundtrigger@2.0 \
+    android.hardware.soundtrigger@2.0-core \
+    android.hardware.soundtrigger@2.1 \
+    android.hardware.soundtrigger@2.2
 
 # Audio Permissions common
 PRODUCT_COPY_FILES += \
@@ -92,7 +104,24 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.common@1.0-helper \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.5-service \
-    libstagefright_shim
+    libstagefright_shim \
+    libcamera_client_symboles_shim \
+    libgui.vendor
+
+# explicit built targets
+PRODUCT_PACKAGES += \
+    android.hardware.camera.device@1.0 \
+    android.hardware.camera.device@3.2 \
+    android.hardware.camera.device@3.3 \
+    android.hardware.camera.device@3.4 \
+    android.hardware.camera.device@3.5 \
+    android.hardware.camera.provider@2.4 \
+    android.hardware.camera.provider@2.4-legacy \
+    android.hardware.camera.provider@2.5 \
+    android.hardware.camera.provider@2.5-legacy \
+    android.hardware.graphics.mapper@2.0 \
+    android.hardware.graphics.mapper@3.0 \
+    android.hardware.graphics.mapper@4.0
 
 # Camera configurations
 PRODUCT_COPY_FILES += \
@@ -100,7 +129,9 @@ PRODUCT_COPY_FILES += \
 
 # Cas
 PRODUCT_PACKAGES += \
-    android.hardware.cas@1.2-service
+    android.hardware.cas@1.2-service \
+    android.hardware.cas@1.2 \
+    android.hardware.cas@1.1
 
 # debug (prebuilt)
 PRODUCT_PACKAGES += \
@@ -116,7 +147,6 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-service  \
     android.hardware.graphics.composer@2.2-service  \
     android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.renderscript@1.0-impl \
     libhwc2on1adapter \
     libhwc2onfbadapter \
     libtinyxml
@@ -132,6 +162,30 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-service \
     android.hardware.drm@1.3-service.clearkey
 
+# WideVine modules
+PRODUCT_PACKAGES += \
+    com.google.widevine.software.drm.xml \
+    com.google.widevine.software.drm \
+    WidevineSamplePlayer \
+    libdrmwvmplugin \
+    libwvm \
+    libWVStreamControlAPI_L1 \
+    libwvdrm_L1
+
+# SecureDRM modules
+PRODUCT_PACKAGES += \
+     secdrv \
+     tlwvdrm \
+     tlsecdrm \
+     liboemcrypto_modular
+
+PRODUCT_PACKAGES += \
+     libwvdrmengine
+
+# WideVine DRM setup
+PRODUCT_PROPERTY_OVERRIDES += \
+     drm.service.enabled = true
+
 # Flat device tree for boot image
 PRODUCT_HOST_PACKAGES += \
     dtbhtoolExynos
@@ -140,6 +194,18 @@ PRODUCT_HOST_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.media.omx@1.0-impl \
     android.hardware.media.omx@1.0-service
+
+# LiveDisplay
+PRODUCT_PACKAGES += \
+    vendor.lineage.livedisplay@2.0-service.samsung-exynos
+
+# FastCharge
+PRODUCT_PACKAGES += \
+    vendor.lineage.fastcharge@1.0-service.samsung
+
+# Touch features
+#PRODUCT_PACKAGES += \
+#    vendor.lineage.touch@1.0-service.samsung
 
 # FlipFlap
 PRODUCT_PACKAGES += \
@@ -151,7 +217,7 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-service.exynos
+    android.hardware.power@1.0-service.exynos7870
 
 # Configstore
 PRODUCT_PACKAGES += \
@@ -178,14 +244,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/keylayout/sec_touchkey.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/sec_touchkey.kl \
     $(LOCAL_PATH)/configs/keylayout/sec_touchscreen.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/sec_touchscreen.kl
 
-# Keymaster
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.0-impl \
-    android.hardware.keymaster@4.1-service
-
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.samsung
+    android.hardware.light-service.samsung
+
+# VNDK
+PRODUCT_COPY_FILES += \
+    prebuilts/vndk/v30/arm/arch-arm-armv7-a-neon/shared/vndk-core/android.hardware.light-V1-ndk_platform.so:$(TARGET_COPY_OUT_VENDOR)/lib/android.hardware.light-V1-ndk_platform.so
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
@@ -197,7 +262,7 @@ PRODUCT_PACKAGES += \
     ethertypes \
     libebtc
 
-# Media
+# OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
@@ -223,11 +288,28 @@ DEVICE_PACKAGE_OVERLAYS += \
 
 # Radio
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.5 \
-    android.hardware.radio.config@1.2 \
+    android.hardware.radio@1.2.vendor \
+    android.hardware.radio@1.3.vendor \
+    android.hardware.radio@1.4.vendor \
+    android.hardware.radio@1.5.vendor \
+    android.hardware.radio.config@1.0.vendor \
+    android.hardware.radio.config@1.1.vendor \
+    android.hardware.radio.config@1.2.vendor \
+    android.hardware.radio.deprecated@1.0.vendor \
     libprotobuf-cpp-full-vendorcompat \
     libprotobuf-cpp-lite-vendorcompat \
-    libxml2
+    libxml2 \
+    secril_config_svc
+
+
+# Filesystem tools for resizing system partitions
+PRODUCT_PACKAGES += \
+    e2fsck_static \
+    resize2fs_static
+
+# GNSS
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@2.0.vendor
 
 # Radio (broadcastradio)
 PRODUCT_PACKAGES += \
@@ -264,6 +346,11 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service
 
+# Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@4.0-impl \
+    android.hardware.keymaster@4.0-service
+
 # Thermal
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.samsung
@@ -274,18 +361,15 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/idc/qwerty.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/qwerty.idc \
     $(LOCAL_PATH)/configs/idc/qwerty2.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/qwerty2.idc
 
-# Trust HAL
-PRODUCT_PACKAGES += \
-    vendor.lineage.trust@1.0-service
-
 # Shims
 PRODUCT_PACKAGES += \
     libcutils_shim \
-		libexynoscamera_shim
+    libexynoscamera_shim
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service.basic
+    android.hardware.usb@1.3-service.samsung \
+    com.android.future.usb.accessory
 
 # Vibrator
 PRODUCT_PACKAGES += \
@@ -311,6 +395,9 @@ PRODUCT_PACKAGES += \
 # Properties
 -include $(LOCAL_PATH)/vendor_prop.mk
 
+# setup dalvik vm configs.
+$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+
 # call Samsung LSI board support package
 $(call inherit-product, hardware/samsung_slsi/exynos5/exynos5.mk)
 $(call inherit-product, hardware/samsung_slsi/exynos7870/exynos7870.mk)
@@ -319,7 +406,7 @@ $(call inherit-product, hardware/samsung_slsi/exynos7870/exynos7870.mk)
 $(call inherit-product, device/samsung/universal7870-common/device-oss_bsp-vndk.mk)
 
 #clang-r383902b missing ld executable (needed to build kernel)
-$(shell cp -r device/samsung/universal7870-common/configs/clang/ld prebuilts/clang/host/linux-x86/clang-r383902b/bin)
+$(shell cp -r device/samsung/universal7870-common/configs/clang/ld prebuilts/clang/host/linux-x86/clang-r416183b1/bin)
 
 # call the proprietary setup
 $(call inherit-product, vendor/samsung/universal7870-common/universal7870-common-vendor.mk)

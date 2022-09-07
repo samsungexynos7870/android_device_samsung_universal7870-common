@@ -266,6 +266,11 @@ on boot
 #MST HW Support
 #setprop ro.mst.support 1
 
+#The kernel does not support aio with ffs.
+#Set the property so adb/mtp know to use the compatible
+#functions, and the same while in recovery.
+setprop sys.usb.ffs.aio_compat 1
+
 #Secure OS migration
     chown radio system /sys/devices/system/sec_os_ctrl/migrate_os
     chmod 664 /sys/devices/system/sec_os_ctrl/migrate_os
