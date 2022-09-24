@@ -105,8 +105,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.5-service \
     libstagefright_shim \
-    libcamera_client_symboles_shim \
-    libgui.vendor
+    libcamera_client_symboles_shim
 
 # explicit built targets
 PRODUCT_PACKAGES += \
