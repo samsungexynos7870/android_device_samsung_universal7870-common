@@ -136,7 +136,6 @@ BOARD_USES_EXYNOS7870_GRALLOC := true
 BOARD_USES_HWC_SERVICES := true
 BOARD_USES_VPP := true
 MAX_VIRTUAL_DISPLAY_DIMENSION := 2048
-TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS :=  0x2000
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 TARGET_USES_GRALLOC1 := true
 TARGET_USES_HWC2 := true
@@ -237,11 +236,7 @@ TARGET_LD_SHIM_LIBS += \
     /system/bin/mediaserver|/system/lib/libstagefright_shim.so \
     /vendor/lib64/libsec-ril.so|/vendor/lib64/libcutils_shim.so \
     /vendor/lib64/libsec-ril-dsds.so|/vendor/lib64/libcutils_shim.so \
-		/vendor/lib/libcamera_client.so|/vendor/lib/libcamera_client_symboles_shim.so
-
-#
-# /vendor/lib/libgui.so|/vendor/lib/libgui_symboles_shim.so
-
+    /vendor/lib/libcamera_client.so|/vendor/lib/libcamera_client_symboles_shim.so
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI := true
