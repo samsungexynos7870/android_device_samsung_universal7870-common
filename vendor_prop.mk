@@ -125,3 +125,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.choreographer.skipwarning=30 \
     debug.choreographer.frametime=true
+    
+# fix stretched cam preview
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.camera.hal1.packagelist=org.lineageos.snap,net.sourceforge.opencamera,foundation.e.camera,com.whatsapp
+
+
