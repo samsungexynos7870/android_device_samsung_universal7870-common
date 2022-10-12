@@ -85,6 +85,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #Treble
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.media.treble_omx=true
+    
+# Mediacodecs
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.stagefright.ccodec=0 \
+    media.stagefright.legacyencoder=true
 
 # OMX
 PRODUCT_PROPERTY_OVERRIDES += \
