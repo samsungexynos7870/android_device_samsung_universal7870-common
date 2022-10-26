@@ -198,9 +198,6 @@ TARGET_OMX_LEGACY_RESCALING := true
 BOARD_HAS_DOWNLOAD_MODE := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.recovery
 
-# Renderscript
-OVERRIDE_RS_DRIVER := libRSDriverArm.so
-
 # RIL
 BOARD_VENDOR := samsung
 BOARD_MODEM_TYPE := tss310
