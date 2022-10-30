@@ -47,6 +47,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610 \
     debug.sf.enable_hwc_vds=0 \
+    debug.hwc.skip_dma_types=0,2 \
     debug.sf.disable_backpressure=1
 
 # SurfaceFlinger
