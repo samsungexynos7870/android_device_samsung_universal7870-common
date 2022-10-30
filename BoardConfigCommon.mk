@@ -179,6 +179,9 @@ BOARD_USE_SINGLE_PLANE_IN_DRM := true
 # HALs
 TARGET_POWERHAL_VARIANT := samsung
 
+# Video scaling issue workaround
+TARGET_OMX_LEGACY_RESCALING := true
+
 # Libhwui
 HWUI_COMPILE_FOR_PERF := true
 
