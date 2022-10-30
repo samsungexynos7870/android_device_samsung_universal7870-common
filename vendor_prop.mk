@@ -92,12 +92,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # OMX
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.ccodec=0 \
-    media.stagefright.legacyencoder=true \
-    media.stagefright.less-secure=true \
-    debug.stagefright.omx_default_rank.sw-audio=1 \
-    debug.stagefright.omx_default_rank=0 \
-    vendor.mediacodec.binder.size=4 \
-    media.stagefright.thumbnail.prefer_hw_codecs=true \
+    media.stagefright.legacyencoder=true
     ro.vendor.cscsupported=1
 
 # Bpf
