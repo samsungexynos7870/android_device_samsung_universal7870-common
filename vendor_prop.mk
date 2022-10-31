@@ -46,9 +46,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610 \
-    debug.sf.enable_hwc_vds=0 \
     debug.hwc.skip_dma_types=0,2 \
     debug.renderengine.backend=gles
+    
+# HWUI
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.hwui.skia_atrace_enabled=false \
+    debug.hwui.use_buffer_age=false
 
 # SurfaceFlinger
 PRODUCT_PROPERTY_OVERRIDES += \
