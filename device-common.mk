@@ -132,10 +132,6 @@ PRODUCT_PACKAGES += \
     android.hardware.cas@1.2 \
     android.hardware.cas@1.1
 
-# debug (prebuilt)
-PRODUCT_PACKAGES += \
-    matlog
-
 # SoundPicker
 PRODUCT_PACKAGES += \
     SoundPicker
