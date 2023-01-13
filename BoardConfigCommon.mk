@@ -28,6 +28,7 @@ BOARD_VENDOR := samsung
 TARGET_BOOTLOADER_BOARD_NAME := universal7870
 TARGET_BOARD_PLATFORM := exynos5
 TARGET_SLSI_VARIANT := bsp
+TARGET_SOC_NAME := samsung
 TARGET_SOC := exynos7870
 
 # Architecture
