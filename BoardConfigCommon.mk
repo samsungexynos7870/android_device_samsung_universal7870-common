@@ -179,9 +179,6 @@ BOARD_USE_SINGLE_PLANE_IN_DRM := true
 # HALs
 TARGET_POWERHAL_VARIANT := samsung
 
-# Video scaling issue workaround
-TARGET_OMX_LEGACY_RESCALING := true
-
 # Libhwui
 HWUI_COMPILE_FOR_PERF := true
 
@@ -189,9 +186,6 @@ HWUI_COMPILE_FOR_PERF := true
 BOARD_CHARGING_MODE_BOOTING_LPM := "/sys/class/power_supply/battery/batt_lp_charging"
 BOARD_CHARGER_SHOW_PERCENTAGE := true
 CHARGING_ENABLED_PATH := "/sys/class/power_supply/battery/batt_lp_charging"
-
-# OMX
-TARGET_OMX_LEGACY_RESCALING := true
 
 # Recovery
 BOARD_HAS_DOWNLOAD_MODE := true
