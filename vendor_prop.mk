@@ -53,6 +53,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # SurfaceFlinger
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+    
+# HWUI
+PRODUCT_PROPERTY_OVERRIDES += \
+   debug.hwui.use_buffer_age=false
 
 # Lockscreen rotation
 PRODUCT_PROPERTY_OVERRIDES += \
