@@ -46,17 +46,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610 \
-    debug.sf.enable_hwc_vds=0 \
     debug.hwc.skip_dma_types=0,2 \
     debug.sf.disable_backpressure=1
 
 # SurfaceFlinger
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
-    
-# HWUI
-PRODUCT_PROPERTY_OVERRIDES += \
-   debug.hwui.use_buffer_age=false
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
+	ro.surface_flinger.vsync_event_phase_offset_ns=2000000 \
+    ro.surface_flinger.vsync_sf_event_phase_offset_ns=1000000
 
 # Lockscreen rotation
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -90,15 +87,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #Treble
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.media.treble_omx=true
-    
+
 # Mediacodecs
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.stagefright.ccodec=0 \
-    media.stagefright.legacyencoder=true
-
-# OMX
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.cscsupported=1
+    debug.stagefright.ccodec=0
 
 # sdcardfs
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -126,13 +118,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
    persist.sys.sf.disable_blurs=1 \
    ro.sf.blurs_are_expensive=1
 
-# debug choreographer
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.choreographer.skipwarning=30 \
-    debug.choreographer.frametime=true
-    
 # fix stretched cam preview
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.camera.hal1.packagelist=org.lineageos.snap,net.sourceforge.opencamera,foundation.e.camera,com.whatsapp
+    camera2.portability.force_api=1
 
-
+# DRM
+PRODUCT_PROPERTY_OVERRIDES += \
+    drm.service.enabled=true
