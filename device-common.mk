@@ -115,7 +115,8 @@ PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl \
     libhwc2on1adapter \
     libhwc2onfbadapter \
-    libtinyxml
+    libtinyxml \
+    libion
 
 # Memtrack
 PRODUCT_PACKAGES += \
