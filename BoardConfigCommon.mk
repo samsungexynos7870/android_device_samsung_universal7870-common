@@ -180,6 +180,9 @@ BOARD_USE_SINGLE_PLANE_IN_DRM := true
 # HALs
 TARGET_POWERHAL_VARIANT := samsung
 
+# Renderscript
+OVERRIDE_RS_DRIVER := libRSDriverArm.so
+
 # CURL
 BOARD_USES_CURL := true
 
