@@ -47,12 +47,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610 \
     debug.hwc.skip_dma_types=0,2 \
-    debug.sf.disable_backpressure=1
+    debug.sf.latch_unsignaled=1
+
+# HWUI
+PRODUCT_PROPERTY_OVERRIDES += \
+   debug.hwui.use_buffer_age=false
 
 # SurfaceFlinger
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
-	ro.surface_flinger.vsync_event_phase_offset_ns=2000000 \
+    ro.surface_flinger.vsync_event_phase_offset_ns=2000000 \
     ro.surface_flinger.vsync_sf_event_phase_offset_ns=1000000
 
 # Lockscreen rotation
@@ -88,10 +92,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.media.treble_omx=true
 
-# Mediacodecs
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.stagefright.ccodec=0
-
 # sdcardfs
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
@@ -125,3 +125,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # DRM
 PRODUCT_PROPERTY_OVERRIDES += \
     drm.service.enabled=true
+
