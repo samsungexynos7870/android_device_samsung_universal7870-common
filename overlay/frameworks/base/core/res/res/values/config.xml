@@ -111,6 +111,9 @@
         <item>192.168.51.254</item>
     </string-array>
 
+    <!-- Default values for LiveDisplay -->
+    <bool name="config_enableLiveDisplay">false</bool>
+
     <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
     <string name="config_radio_access_family">GSM | WCDMA | LTE</string>
