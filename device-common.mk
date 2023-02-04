@@ -240,6 +240,10 @@ PRODUCT_PACKAGES += \
     init.wifi.rc \
     ueventd.samsungexynos7870.rc
 
+# Livedisplay
+PRODUCT_PACKAGES += \
+    vendor.lineage.livedisplay@2.1-service.universal7870
+
 # Recorder
 PRODUCT_PACKAGES += \
     Recorder
