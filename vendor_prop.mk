@@ -59,10 +59,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.vsync_event_phase_offset_ns=2000000 \
     ro.surface_flinger.vsync_sf_event_phase_offset_ns=1000000
 
-# Lockscreen rotation
-PRODUCT_PROPERTY_OVERRIDES += \
-    lockscreen.rot_override=true
-
 # Location
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.location.osnlp.package=com.google.android.gms \
