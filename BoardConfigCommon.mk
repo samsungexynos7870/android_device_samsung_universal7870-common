@@ -80,7 +80,6 @@ PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
 # Use these flags if the board has a ext4 partition larger than 2gb
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
 TARGET_FS_CONFIG_GEN := $(LOCAL_PATH)/config.fs
 
 # Partitions
