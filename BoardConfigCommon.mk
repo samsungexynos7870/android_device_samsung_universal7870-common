@@ -69,6 +69,7 @@ TARGET_KERNEL_ADDITIONAL_FLAGS := \
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_LINUX_KERNEL_VERSION := 3.18
+# TARGET_BOARD_KERNEL_HEADERS := hardware/samsung_slsi/exynos/kernel-3.18-headers
 
 # Kernel config
 TARGET_KERNEL_SOURCE := kernel/samsung/exynos7870
