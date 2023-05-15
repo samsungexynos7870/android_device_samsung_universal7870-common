@@ -142,9 +142,11 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-service  \
     android.hardware.graphics.composer@2.2-service  \
     android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.renderscript@1.0-impl \
     libhwc2on1adapter \
     libhwc2onfbadapter \
-    libtinyxml
+    libtinyxml \
+    libion
 
 # Memtrack
 PRODUCT_PACKAGES += \
