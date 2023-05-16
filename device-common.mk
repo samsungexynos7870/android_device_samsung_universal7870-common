@@ -132,6 +132,11 @@ PRODUCT_PACKAGES += \
     android.hardware.cas@1.2 \
     android.hardware.cas@1.1
 
+# GPS
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.0-impl \
+    android.hardware.gnss@1.1-service
+
 # SoundPicker
 PRODUCT_PACKAGES += \
     SoundPicker
@@ -280,15 +285,10 @@ PRODUCT_PACKAGES += \
     libxml2 \
     secril_config_svc
 
-
 # Filesystem tools for resizing system partitions
 PRODUCT_PACKAGES += \
     e2fsck_static \
     resize2fs_static
-
-# GNSS
-PRODUCT_PACKAGES += \
-    android.hardware.gnss@2.0.vendor
 
 # Radio (broadcastradio)
 PRODUCT_PACKAGES += \
