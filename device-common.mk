@@ -108,7 +108,9 @@ PRODUCT_PACKAGES += \
     libcamera_client_symboles_shim \
     camera.universal7870 \
     libcsc \
-    libhwjpeg
+    libhwjpeg \
+    libacryl \
+    libgiantmscl
 
 # explicit built targets
 PRODUCT_PACKAGES += \
@@ -166,6 +168,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.2-service  \
     android.hardware.graphics.mapper@2.0-impl \
     android.hardware.renderscript@1.0-impl \
+    libExynosHWCService \
     gralloc.exynos7870 \
     hwcomposer.exynos7870 \
     libhwc2on1adapter \
