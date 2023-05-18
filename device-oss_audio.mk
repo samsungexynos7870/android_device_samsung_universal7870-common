@@ -17,8 +17,8 @@
 LOCAL_PATH := device/samsung/universal7870-common
 
 PRODUCT_PACKAGES += \
-    audio.primary.universal7870_32 \
-		audio_amplifier.universal7870_32
+    audio.primary.exynos7870_32 \
+    audio_amplifier.exynos7870_32
 
 # Audio configuration OSS
 PRODUCT_COPY_FILES += \

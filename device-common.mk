@@ -105,7 +105,10 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.5-service \
     libstagefright_shim \
-    libcamera_client_symboles_shim
+    libcamera_client_symboles_shim \
+    camera.universal7870 \
+    libcsc \
+    libhwjpeg
 
 # explicit built targets
 PRODUCT_PACKAGES += \
@@ -131,6 +134,21 @@ PRODUCT_PACKAGES += \
     android.hardware.cas@1.2-service \
     android.hardware.cas@1.2 \
     android.hardware.cas@1.1
+    
+# OMX
+PRODUCT_PACKAGES += \
+    libstagefrighthw \
+    libExynosOMX_Core \
+    libExynosOMX_Resourcemanager \
+    libOMX.Exynos.AVC.Decoder \
+    libOMX.Exynos.AVC.Encoder \
+    libOMX.Exynos.HEVC.Decoder \
+    libOMX.Exynos.HEVC.Encoder \
+    libOMX.Exynos.MPEG4.Decoder \
+    libOMX.Exynos.MPEG4.Encoder \
+    libOMX.Exynos.VP8.Decoder \
+    libOMX.Exynos.VP8.Encoder \
+    libOMX.Exynos.WMV.Decoder
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -148,6 +166,8 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.2-service  \
     android.hardware.graphics.mapper@2.0-impl \
     android.hardware.renderscript@1.0-impl \
+    gralloc.exynos7870 \
+    hwcomposer.exynos7870 \
     libhwc2on1adapter \
     libhwc2onfbadapter \
     libtinyxml \
@@ -156,7 +176,8 @@ PRODUCT_PACKAGES += \
 # Memtrack
 PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service
+    android.hardware.memtrack@1.0-service \
+    memtrack.exynos7870
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -378,13 +399,6 @@ PRODUCT_PACKAGES += \
 
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
-
-# call Samsung LSI board support package
-$(call inherit-product, hardware/samsung_slsi/exynos5/exynos5.mk)
-$(call inherit-product, hardware/samsung_slsi/exynos7870/exynos7870.mk)
-
-# Inherit from common (bsp)
-$(call inherit-product, device/samsung/universal7870-common/device-oss_bsp-vndk.mk)
 
 #clang-r383902b missing ld executable (needed to build kernel)
 $(shell cp -r device/samsung/universal7870-common/configs/clang/ld prebuilts/clang/host/linux-x86/clang-r416183b1/bin)
