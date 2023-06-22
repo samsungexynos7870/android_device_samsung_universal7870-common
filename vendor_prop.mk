@@ -71,5 +71,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
+    net.tethering.noprovisioning=true \
     wifi.direct.interface=p2p-dev-wlan0 \
-    net.tethering.noprovisioning=true
+    wlan.wfd.hdcp=disable
+
+# HAL1 apps - stretch bug
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.camera.hal1.packagelist=com.whatsapp,com.instagram.android,com.snapchat.android,com.google.android.GoogleCamera

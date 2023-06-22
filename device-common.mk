@@ -23,6 +23,9 @@ TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 PRODUCT_ENFORCE_RRO_TARGETS := \
     framework-res
 
+# Product Characteristics
+PRODUCT_CHARACTERISTICS := phone
+
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.low_latency.xml \
@@ -95,10 +98,39 @@ PRODUCT_COPY_FILES += \
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.common@1.0-helper \
-    android.hardware.camera.provider@2.5-impl \
-    android.hardware.camera.provider@2.5-service \
+    android.hardware.camera.provider@2.4-impl \
+    android.hardware.camera.provider@2.4-service \
     libion_exynos \
-    Snap
+    libstagefright_shim \
+    camera.universal7870 \
+    libcsc \
+    libhwjpeg \
+    libacryl \
+    libgiantmscl
+    
+# SoundPicker
+PRODUCT_PACKAGES += \
+    SoundPicker
+    
+# OMX
+PRODUCT_PACKAGES += \
+    libstagefrighthw \
+    libExynosOMX_Core \
+    libExynosOMX_Resourcemanager \
+    libOMX.Exynos.AVC.Decoder \
+    libOMX.Exynos.AVC.Encoder \
+    libOMX.Exynos.HEVC.Decoder \
+    libOMX.Exynos.HEVC.Encoder \
+    libOMX.Exynos.MPEG4.Decoder \
+    libOMX.Exynos.MPEG4.Encoder \
+    libOMX.Exynos.VP8.Decoder \
+    libOMX.Exynos.VP8.Encoder \
+    libOMX.Exynos.WMV.Decoder
+
+PRODUCT_PACKAGES += \
+    android.hardware.media.omx@1.0-impl \
+    android.hardware.media.omx@1.0-service \
+    libstagefright_omx
 
 # Camera configurations
 PRODUCT_COPY_FILES += \
@@ -112,22 +144,39 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service  \
-    android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.composer@2.2-service  \
     android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
     android.hardware.renderscript@1.0-impl \
-    gralloc.default \
+    libExynosHWCService \
+    gralloc.exynos7870 \
+    hwcomposer.exynos7870 \
     libhwc2on1adapter \
     libhwc2onfbadapter \
+    libtinyxml \
+    libion \
     libtinyxml
+    
+# Memtrack
+PRODUCT_PACKAGES += \
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.memtrack@1.0-service \
+    memtrack.exynos7870
+
+# Configstore
+PRODUCT_PACKAGES += \
+    android.hardware.configstore@1.0-service \
+    vndservicemanager
 
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
-    android.hardware.drm@1.2-service.clearkey
+    android.hardware.drm@1.2-service.clearkey \
+    android.hardware.drm@1.2.vendor
+    
+# WideVine DRM setup
+PRODUCT_PROPERTY_OVERRIDES += \
+     drm.service.enabled = true
 
 # Flat device tree for boot image
 PRODUCT_HOST_PACKAGES += \
@@ -151,6 +200,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.base@1.0.vendor
+    
+# Filesystem tools for resizing system partitions
+PRODUCT_PACKAGES += \
+    e2fsck_static \
+    resize2fs_static
 
 # Keylayout
 PRODUCT_COPY_FILES += \
@@ -170,6 +224,18 @@ PRODUCT_PACKAGES += \
 # LiveDisplay
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.0-service.samsung-exynos
+    
+# FastCharge
+PRODUCT_PACKAGES += \
+    vendor.lineage.fastcharge@1.0-service.samsung
+    
+# FlipFlap
+PRODUCT_PACKAGES += \
+    FlipFlap
+
+# Touch features    
+PRODUCT_PACKAGES += \
+    vendor.lineage.touch@1.0-service.samsung
 
 # IPv6
 PRODUCT_PACKAGES += \
@@ -212,6 +278,21 @@ PRODUCT_PACKAGES += \
     android.hardware.radio.config@1.2 \
     libxml2
 
+# Recorder
+PRODUCT_PACKAGES += \
+    Recorder
+
+# SamsungDoze
+PRODUCT_PACKAGES += \
+    SamsungDoze
+    
+# Sensors
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-impl \
+    android.hardware.sensors@1.0-service.universal7870 \
+    libsensorndkbridge \
+    libshim_sensorndkbridge
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.samsungexynos7870 \
@@ -227,10 +308,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Recorder
 
-# Samsung Doze
-PRODUCT_PACKAGES += \
-    SamsungDoze
-
 # Seccomp_policy
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
@@ -238,8 +315,10 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl.samsung \
-    android.hardware.sensors@1.0-service
+    android.hardware.sensors@1.0-service.universal7870 \
+    android.hardware.sensors@1.0-impl.universal7870 \
+    libsensorndkbridge \
+    libshim_sensorndkbridge
 
 # Thermal
 PRODUCT_PACKAGES += \
@@ -275,11 +354,16 @@ PRODUCT_PACKAGES += \
 
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.build.vendor_security_patch=2019-11-01
+    ro.build.vendor_security_patch=2022-03-01
 
 # VNDK
 PRODUCT_PACKAGES += \
     libgui_vendor
+    
+# Shims
+PRODUCT_PACKAGES += \
+    libcutils_shim \
+    libexynoscamera_shim
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -291,6 +375,9 @@ PRODUCT_PACKAGES += \
 
 # Properties
 -include $(LOCAL_PATH)/vendor_prop.mk
+    
+# setup dalvik vm configs.
+$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 # call the proprietary setup
 $(call inherit-product, vendor/samsung/universal7870-common/universal7870-common-vendor.mk)

@@ -16,6 +16,10 @@ on init
     symlink /data/app /factory
     symlink /dev/block/platform/13540000.dwmmc0/by-name/PERSISTENT /dev/block/persistent
     symlink /dev/block/platform/13540000.dwmmc0/by-name/STEADY /dev/block/steady
+    
+    # ZRAM setup
+    write /sys/block/zram0/comp_algorithm lz4
+    write /proc/sys/vm/page-cluster 0
 
 on post-fs
     # set RLIMIT_MEMLOCK to 64MB
@@ -787,6 +791,10 @@ on fs
     setprop ro.crypto.fuse_sdcard true
     chown radio system /mnt/vendor/efs
     mount none /mnt/vendor/efs /efs bind
+    
+    # Enable swap
+    swapon_all /vendor/etc/fstab.samsungexynos7870
+    write /proc/sys/vm/swappiness 100
 
 # Permissions for ION
     chmod 0660 /sys/class/ion_cma/ion_video_ext/isolated
