@@ -107,7 +107,7 @@ PRODUCT_PACKAGES += \
     libhwjpeg \
     libacryl \
     libgiantmscl \
-    Snap
+    Camera2
     
 # SoundPicker
 PRODUCT_PACKAGES += \
