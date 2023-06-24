@@ -106,7 +106,8 @@ PRODUCT_PACKAGES += \
     libcsc \
     libhwjpeg \
     libacryl \
-    libgiantmscl
+    libgiantmscl \
+    Snap
     
 # SoundPicker
 PRODUCT_PACKAGES += \
