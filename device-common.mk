@@ -110,6 +110,7 @@ PRODUCT_PACKAGES += \
     libhwjpeg \
     libacryl \
     libgiantmscl \
+    libGrallocWrapper \
     Camera2
     
 # SoundPicker
