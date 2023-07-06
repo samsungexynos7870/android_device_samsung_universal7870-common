@@ -176,9 +176,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
-    android.hardware.drm@1.2-service.clearkey \
-    android.hardware.drm@1.2.vendor
-    
+    android.hardware.drm@1.3-service.clearkey \
+    android.hardware.drm@1.3.vendor
+
 # WideVine DRM setup
 PRODUCT_PROPERTY_OVERRIDES += \
      drm.service.enabled = true
