@@ -781,10 +781,10 @@ on boot
     chmod 0775 /dev/socket
 
 # Move 2 SD card
-service extSdUFSVold /system/bin/extSDCardServiceVold
-    class main
-    user system
-    group system mount radio net_bt sdcard_rw shell media media_rw
+# service extSdUFSVold /system/bin/extSDCardServiceVold
+#    class main
+#    user system
+#    group system mount radio net_bt sdcard_rw shell media media_rw
 
 on fs
     mount_all /vendor/etc/fstab.${ro.hardware}
