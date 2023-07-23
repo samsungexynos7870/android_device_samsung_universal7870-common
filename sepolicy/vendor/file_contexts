@@ -205,7 +205,7 @@
 /(vendor|system/vendor)/bin/wifiloader       u:object_r:wifiloader_exec:s0
 
 /(vendor|system/vendor)/bin/cbd              u:object_r:cpboot-daemon_exec:s0
-/(vendor|system/vendor)/bin/gpsd             u:object_r:gpsd_exec:s0
+/(vendor|system/vendor)/bin/hw/gpsd             u:object_r:gpsd_exec:s0
 /(vendor|system/vendor)/bin/sswap            u:object_r:sswap_exec:s0
 
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@[0-9]\.[0-9]-service\.clearkey    u:object_r:hal_drm_clearkey_exec:s0
