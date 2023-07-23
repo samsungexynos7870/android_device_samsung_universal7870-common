@@ -951,12 +951,6 @@ service charger /system/bin/charger
 #    group drmrpc
 #    class core
 
-# RPMB daemon
-service rpmbd /system/bin/rpmbd
-     user root
-     group drmrpc
-     class main
-
 on property:sys.mobicoredaemon.enable=true
     start cs_service
     write /proc/iccc_ready 1
