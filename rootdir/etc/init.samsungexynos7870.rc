@@ -999,11 +999,11 @@ service fuse_usb1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usb1 /stor
     disabled
 
 # IPSec for VOLTE
-service ipsec-daemon /system/bin/IPSecService
-    class main
-    socket ipsec_socket stream 660 system net_admin
-    user system
-    group system net_raw inet net_admin
+# service ipsec-daemon /system/bin/IPSecService
+#    class main
+#    socket ipsec_socket stream 660 system net_admin
+#    user system
+#    group system net_raw inet net_admin
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd /system/bin/watchdogd 10 20
