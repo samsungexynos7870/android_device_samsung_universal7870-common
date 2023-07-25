@@ -289,13 +289,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     SamsungDoze
     
-# Sensors
-PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl \
-    android.hardware.sensors@1.0-service.universal7870 \
-    libsensorndkbridge \
-    libshim_sensorndkbridge
-
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.samsungexynos7870 \
