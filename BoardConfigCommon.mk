@@ -106,6 +106,7 @@ DEXPREOPT_GENERATE_APEX_IMAGE := true
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
 AUDIOSERVER_MULTILIB := 32
+BOARD_SUPPORTS_SOUND_TRIGGER := true
 
 # Backlight
 BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
