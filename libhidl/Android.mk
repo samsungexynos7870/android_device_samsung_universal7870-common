@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+LOCAL_PATH := device/samsung/universal7870-common/libhidl
+
 include $(CLEAR_VARS)
 LOCAL_SHARED_LIBRARIES := libhidltransport
 LOCAL_MODULE := android.hidl.base@1.0
