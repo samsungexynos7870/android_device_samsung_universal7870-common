@@ -278,6 +278,8 @@ PRODUCT_PACKAGES += \
 # Radio
 PRODUCT_PACKAGES += \
     android.hardware.radio@1.5 \
+    libprotobuf-cpp-full-vendorcompat \
+    libprotobuf-cpp-lite-vendorcompat \
     android.hardware.radio.config@1.2 \
     libxml2
 
