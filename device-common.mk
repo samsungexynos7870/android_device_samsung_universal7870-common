@@ -303,7 +303,7 @@ PRODUCT_PACKAGES += \
     init.vendor.rilchip.rc \
     init.vendor.rilcommon.rc \
     init.samsungexynos7870.wifi.rc \
-    ueventd.rc
+    ueventd.samsungexynos7870.rc
 
 # Recorder
 PRODUCT_PACKAGES += \
