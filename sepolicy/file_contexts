@@ -206,7 +206,7 @@
 /(vendor|system/vendor)/bin/hw/gpsd             u:object_r:gpsd_exec:s0
 /(vendor|system/vendor)/bin/sswap            u:object_r:sswap_exec:s0
 
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service\.samsung-exynos    u:object_r:hal_lineage_livedisplay_sysfs_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.1-service\.universal7870    u:object_r:hal_lineage_livedisplay_sysfs_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.samsung                 u:object_r:hal_lineage_touch_default_exec:s0
 
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@[0-9]\.[0-9]-service\.clearkey    u:object_r:hal_drm_clearkey_exec:s0

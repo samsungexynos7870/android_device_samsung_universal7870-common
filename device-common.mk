@@ -229,7 +229,7 @@ PRODUCT_PACKAGES += \
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service.samsung-exynos
+    vendor.lineage.livedisplay@2.1-service.universal7870
     
 # FastCharge
 PRODUCT_PACKAGES += \
