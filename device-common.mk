@@ -337,7 +337,9 @@ PRODUCT_PACKAGES += \
 # Shims
 PRODUCT_PACKAGES += \
     libexynoscamera_shim \
-    libstagefright_shim
+    libstagefright_shim \
+    libcutils_shim \
+    libexynoscamera_shim
 
 # USB
 PRODUCT_PACKAGES += \
@@ -355,11 +357,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # VNDK
 PRODUCT_PACKAGES += \
     libgui_vendor
-    
-# Shims
-PRODUCT_PACKAGES += \
-    libcutils_shim \
-    libexynoscamera_shim
 
 # Wifi
 PRODUCT_PACKAGES += \
