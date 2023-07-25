@@ -27,7 +27,6 @@ LOCAL_SHARED_LIBRARIES := \
 	libdl \
 	libutils \
 	libhidlbase \
-	libhidltransport \
 	android.hardware.sensors@1.0
 
 LOCAL_MODULE := android.hardware.sensors@1.0-service.universal7870
@@ -51,7 +50,6 @@ LOCAL_SHARED_LIBRARIES := \
 	libbase \
 	libutils \
 	libhidlbase \
-	libhidltransport \
 	android.hardware.sensors@1.0
 
 LOCAL_STATIC_LIBRARIES := \
