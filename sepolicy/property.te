@@ -9,3 +9,6 @@ type tee_prop, property_type;
 
 # sswap
 type sswap_prop, property_type;
+
+# Fastcharge HAL
+type sec_fastcharge_prop, property_type;
