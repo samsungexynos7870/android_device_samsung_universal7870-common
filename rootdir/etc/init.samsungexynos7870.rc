@@ -16,10 +16,6 @@ on init
     symlink /data/app /factory
     symlink /dev/block/platform/13540000.dwmmc0/by-name/PERSISTENT /dev/block/persistent
     symlink /dev/block/platform/13540000.dwmmc0/by-name/STEADY /dev/block/steady
-    
-    # ZRAM setup
-    write /sys/block/zram0/comp_algorithm lz4
-    write /proc/sys/vm/page-cluster 0
 
 on post-fs
     # set RLIMIT_MEMLOCK to 64MB
@@ -74,10 +70,6 @@ on post-fs-data
     chown system audio /sys/class/nxp/tfa_log/data_maxt
     chown system audio /sys/class/nxp/tfa_log/count_overtmax
     
-# MST/NFC Switch
-    chown system /dev/mst_ctrl
-    chmod 0660 /dev/mst_ctrl
-
 # for WIFI MAC address
     mkdir /mnt/vendor/efs/wifi 0775 wifi root
     chown wifi root /mnt/vendor/efs/wifi/.mac.info
@@ -781,20 +773,16 @@ on boot
     chmod 0775 /dev/socket
 
 # Move 2 SD card
-# service extSdUFSVold /system/bin/extSDCardServiceVold
-#    class main
-#    user system
-#    group system mount radio net_bt sdcard_rw shell media media_rw
+service extSdUFSVold /system/bin/extSDCardServiceVold
+    class main
+    user system
+    group system mount radio net_bt sdcard_rw shell media media_rw
 
 on fs
     mount_all /vendor/etc/fstab.${ro.hardware}
     setprop ro.crypto.fuse_sdcard true
     chown radio system /mnt/vendor/efs
     mount none /mnt/vendor/efs /efs bind
-    
-    # Enable swap
-    swapon_all /vendor/etc/fstab.samsungexynos7870
-    write /proc/sys/vm/swappiness 100
 
 # Permissions for ION
     chmod 0660 /sys/class/ion_cma/ion_video_ext/isolated
@@ -951,6 +939,12 @@ service charger /system/bin/charger
 #    group drmrpc
 #    class core
 
+# RPMB daemon
+service rpmbd /system/bin/rpmbd
+     user root
+     group drmrpc
+     class main
+
 on property:sys.mobicoredaemon.enable=true
     start cs_service
     write /proc/iccc_ready 1
@@ -993,11 +987,11 @@ service fuse_usb1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usb1 /stor
     disabled
 
 # IPSec for VOLTE
-# service ipsec-daemon /system/bin/IPSecService
-#    class main
-#    socket ipsec_socket stream 660 system net_admin
-#    user system
-#    group system net_raw inet net_admin
+service ipsec-daemon /system/bin/IPSecService
+    class main
+    socket ipsec_socket stream 660 system net_admin
+    user system
+    group system net_raw inet net_admin
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd /system/bin/watchdogd 10 20

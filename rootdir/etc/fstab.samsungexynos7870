@@ -15,6 +15,3 @@
 # VOLD
 /devices/13560000.dwmmc2/mmc_host/mmc*                    auto        auto    defaults    voldmanaged=sdcard:auto
 /devices/13600000.usb/13600000.dwc3/xhci-hcd.2.auto/usb*  auto        auto    defaults    voldmanaged=usb:auto
-
-# ZRAM
-/dev/block/zram0                                          none        swap    defaults    zramsize=1610612736,max_comp_streams=8
