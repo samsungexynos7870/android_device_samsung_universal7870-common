@@ -14,6 +14,9 @@ vendor.cbd.rfs_check_done          u:object_r:modemloader_prop:s0
 # mobicore
 sys.mobicoredaemon.enable         u:object_r:tee_prop:s0
 
+# Fastcharge HAL
+persist.vendor.sec.fastchg_enabled     u:object_r:sec_fastcharge_prop:s0
+
 # radio
 persist.ril.modem.board    u:object_r:radio_prop:s0
 persist.ril.ims.eutranParam u:object_r:radio_prop:s0
