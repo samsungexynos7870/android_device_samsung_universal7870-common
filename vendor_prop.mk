@@ -68,6 +68,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
 
+# mediacodec cameraserver race workaround
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.fdsan=warn_once
+
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
