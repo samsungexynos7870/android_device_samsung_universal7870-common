@@ -79,6 +79,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.direct.interface=p2p-dev-wlan0 \
     wlan.wfd.hdcp=disable
 
+# Blur
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.surface_flinger.supports_background_blur=0 \
+   persist.sys.sf.disable_blurs=1
+
 # HAL1 apps - stretch bug
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.camera.hal1.packagelist=com.whatsapp,com.instagram.android,com.snapchat.android,com.google.android.GoogleCamera
