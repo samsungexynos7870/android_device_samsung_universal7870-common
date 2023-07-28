@@ -1,2 +1,6 @@
-allow hal_fingerprint_default sysfs_input:dir search;
-allow hal_fingerprint_default sysfs_input:file rw_file_perms;
+typeattribute hal_fingerprint_default data_between_core_and_vendor_violators;
+
+allow hal_fingerprint_default fingerprintd_data_file:dir write;
+allow hal_fingerprint_default sysfs_virtual:dir search;
+allow hal_fingerprint_default sysfs_virtual:file r_file_perms;
+

@@ -3,8 +3,7 @@ allow hal_power_default sysfs:dir r_dir_perms;
 allow hal_power_default sysfs:file r_file_perms;
 
 # Input devices
-allow hal_power_default sysfs_input:dir r_dir_perms;
-allow hal_power_default sysfs_input:file rw_file_perms;
+allow hal_power_default sysfs_input:file r_file_perms;
 
 # CPU devices
 allow hal_power_default sysfs_devices_system_cpu:dir search;
@@ -17,3 +16,6 @@ allow hal_power_default sysfs_light:file rw_file_perms;
 # Graphics
 allow hal_power_default sysfs_graphics:dir search;
 allow hal_power_default sysfs_graphics:file rw_file_perms;
+
+# virtual
+allow hal_power_default sysfs_virtual:dir search;

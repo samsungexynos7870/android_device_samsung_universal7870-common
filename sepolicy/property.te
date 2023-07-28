@@ -12,3 +12,12 @@ type sswap_prop, property_type;
 
 # Fastcharge HAL
 type sec_fastcharge_prop, property_type;
+
+# wifi
+type vendor_wlan_prop, property_type;
+
+# bluetooth
+type vendor_bluetooth_prop, property_type;
+
+# NFC
+type vendor_nfc_prop, property_type;

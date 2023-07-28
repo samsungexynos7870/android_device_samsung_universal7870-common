@@ -1,0 +1,9 @@
+allow hal_audio_default audio_prop:property_service set;
+allow hal_audio_default device:chr_file ioctl;
+allow hal_audio_default imei_efs_file:dir search;
+allow hal_audio_default imei_efs_file:file { getattr open read };
+allow hal_audio_default init:unix_stream_socket connectto;
+allow hal_audio_default property_socket:sock_file write;
+allow hal_audio_default rild:unix_stream_socket connectto;
+allow hal_audio_default vendor_radio_prop:file { getattr open read };
+

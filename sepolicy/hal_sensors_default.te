@@ -2,3 +2,7 @@
 
 # cgroup tasks
 allow hal_sensors_default cgroup:file getattr;
+
+allow hal_sensors_default sysfs:file { getattr open write };
+allow hal_sensors_default sysfs_virtual:dir search;
+allow hal_sensors_default sysfs_virtual:file { open read write };

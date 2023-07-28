@@ -22,7 +22,6 @@
 /dev/ehci_power              u:object_r:mif_device:s0
 /dev/mipi-lli/lli_control    u:object_r:mif_device:s0
 
-/dev/ttyBCM[0-9]*            u:object_r:bbd_device:s0
 /dev/ttySAC[0-9]*            u:object_r:bluetooth_device:s0
 #/dev/ttySAC0                 u:object_r:hci_attach_dev:s0
 
@@ -37,19 +36,8 @@
 
 /dev/rfkill                  u:object_r:rfkill_device:s0
 
-/dev/bbd_control             u:object_r:bbd_device:s0
-/dev/bbd_packet              u:object_r:bbd_device:s0
-/dev/bbd_patch               u:object_r:bbd_device:s0
-/dev/bbd_reliable            u:object_r:bbd_device:s0
-/dev/bbd_sensor              u:object_r:bbd_device:s0
-/dev/bbd_sio                 u:object_r:bbd_device:s0
-#/dev/ttyBCM[0-9]*            u:object_r:bbd_device:s0
-
 /dev/esfp0                   u:object_r:fingerprint_device:s0
 /dev/vfsspi                  u:object_r:fingerprint_device:s0
-
-/dev/batch_io                u:object_r:sensor_device:s0
-/dev/ssp_sensorhub           u:object_r:sensor_device:s0
 
 # TFA98xx amplifier
 /dev/i2c-0                   u:object_r:amplifier_device:s0
@@ -67,24 +55,19 @@
 /efs/FactoryApp/prox_cal     u:object_r:sensor_factoryapp_efs_file:s0
 /efs/FactoryApp/test_nv      u:object_r:radio_factoryapp_efs_file:s0
 
-/efs/Battery(/.*)?           u:object_r:battery_efs_file:s0
-/efs/bluetooth(/.*)?         u:object_r:bluetooth_efs_file:s0
 /efs/drm(/.*)?               u:object_r:drm_efs_file:s0
 /efs/gyro_cal_data           u:object_r:sensor_efs_file:s0
 /efs/h2k\.dat                u:object_r:cpk_efs_file:s0
-/efs/imei(/.*)?              u:object_r:imei_efs_file:s0
 /efs/nv_data.bin(.*)         u:object_r:bin_nv_data_efs_file:s0
 /efs/nv.log                  u:object_r:bin_nv_data_efs_file:s0
 /efs/\.nv_core\.bak(.*)      u:object_r:bin_nv_data_efs_file:s0
-/efs/prov(/.*)?              u:object_r:prov_efs_file:s0
-/efs/prov_data(/.*)?         u:object_r:prov_efs_file:s0
-/efs/wifi(/.*)?              u:object_r:wifi_efs_file:s0
 /efs/wv\.keys                u:object_r:cpk_efs_file:s0
 /cpefs(/.*)?                 u:object_r:sec_efs_file:s0
 
 ####################################
 # data files
 /data/nfc(/.*)?              u:object_r:nfc_data_file:s0
+/data/vendor/nfc(/.*)?       u:object_r:nfc_vendor_data_file:s0
 /data/\.cid\.info                  u:object_r:wifi_data_file:s0
 /data/misc/conn/\.wifiver\.info    u:object_r:wifi_data_file:s0
 /data/misc/radio(/.*)?       u:object_r:radio_data_file:s0
@@ -101,13 +84,6 @@
 /data/camera/ISP_CV          u:object_r:camera_data_file:s0
 
 # vendor
-/data/vendor/biometrics(/.*)?                u:object_r:biometrics_vendor_data_file:s0
-/data/vendor/conn(/.*)?                      u:object_r:conn_vendor_data_file:s0
-/data/vendor/gps(/.*)?                       u:object_r:gps_vendor_data_file:s0
-/data/vendor/wifi(/.*)?                      u:object_r:wifi_vendor_data_file:s0
-/data/vendor/log(/.*)?                       u:object_r:log_vendor_data_file:s0
-/data/vendor/log/cbd(/.*)?                   u:object_r:log_cbd_vendor_data_file:s0
-/data/vendor/secradio(/.*)?                  u:object_r:radio_vendor_data_file:s0
 
 /data/vendor/camera(/.*)?                    u:object_r:camera_vendor_data_file:s0
 /data/vendor/display(/.*)?                   u:object_r:display_vendor_data_file:s0
@@ -133,37 +109,6 @@
 
 # cbd
 /sys/devices/10f24000.mipi-lli/lli_control  u:object_r:sysfs_mipi:s0
-
-# efs
-#/cpefs(/.*)?                                 u:object_r:sec_efs_file:s0
-#/efs/Battery(/.*)?                           u:object_r:battery_efs_file:s0
-#/efs/DAK(/.*)?                               u:object_r:prov_efs_file:s0
-#/efs/afc(/.*)?                               u:object_r:sec_efs_file:s0
-#/efs/bluetooth(/.*)?                         u:object_r:bluetooth_efs_file:s0
-#/efs/cpk(/.*)?                               u:object_r:cpk_efs_file:s0
-#/efs/imei(/.*)?                              u:object_r:imei_efs_file:s0
-#/efs/nfc(/.*)?                               u:object_r:nfc_efs_file:s0
-#/efs/nv_data\.bin(.*)                        u:object_r:bin_nv_data_efs_file:s0
-#/efs/pfw_data(/.*)?                          u:object_r:pfw_efs_file:s0
-#/efs/prov(/.*)?                              u:object_r:prov_efs_file:s0
-#/efs/prov_data(/.*)?                         u:object_r:prov_efs_file:s0
-#/efs/root(/.*)?                              u:object_r:app_efs_file:s0
-#/efs/tee(/.*)?                               u:object_r:tee_efs_file:s0
-#/efs/wifi(/.*)?                              u:object_r:wifi_efs_file:s0
-
-/mnt/vendor/efs(/.*)?                        u:object_r:efs_file:s0
-/mnt/vendor/efs/DAK(/.*)?                    u:object_r:prov_efs_file:s0
-/mnt/vendor/efs/afc(/.*)?                    u:object_r:sec_efs_file:s0
-/mnt/vendor/efs/bluetooth(/.*)?              u:object_r:bluetooth_efs_file:s0
-/mnt/vendor/efs/cpk(/.*)?                    u:object_r:cpk_efs_file:s0
-/mnt/vendor/efs/imei(/.*)?                   u:object_r:imei_efs_file:s0
-/mnt/vendor/efs/nv_data\.bin(.*)             u:object_r:bin_nv_data_efs_file:s0
-#/mnt/vendor/efs/pfw_data(/.*)?               u:object_r:pfw_efs_file:s0
-/mnt/vendor/efs/prov(/.*)?                   u:object_r:prov_efs_file:s0
-/mnt/vendor/efs/prov_data(/.*)?              u:object_r:prov_efs_file:s0
-/mnt/vendor/efs/root(/.*)?                   u:object_r:app_efs_file:s0
-#/mnt/vendor/efs/tee(/.*)?                    u:object_r:tee_efs_file:s0
-/mnt/vendor/efs/wifi(/.*)?                   u:object_r:wifi_efs_file:s0
 
 # gps
 /sys/class/sec/gps                                  u:object_r:sysfs_gps:s0
@@ -204,8 +149,6 @@
 /(vendor|system/vendor)/bin/mcDriverDaemon   u:object_r:tee_exec:s0
 /(vendor|system/vendor)/bin/modemloader      u:object_r:modemloader_exec:s0
 /(vendor|system/vendor)/bin/wifiloader       u:object_r:wifiloader_exec:s0
-
-/(vendor|system/vendor)/bin/cbd              u:object_r:cpboot-daemon_exec:s0
 /(vendor|system/vendor)/bin/hw/gpsd             u:object_r:gpsd_exec:s0
 /(vendor|system/vendor)/bin/sswap            u:object_r:sswap_exec:s0
 

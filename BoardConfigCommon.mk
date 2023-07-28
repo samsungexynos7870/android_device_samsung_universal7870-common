@@ -161,9 +161,9 @@ OVERRIDE_RS_DRIVER := libRSDriverArm.so
 BOARD_SECCOMP_POLICY := $(LOCAL_PATH)/seccomp
 
 # SELinux
+include device/lineage/sepolicy/exynos/sepolicy.mk
+include device/samsung_slsi/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
-# BOARD_SEPOLICY_VERS := $(PLATFORM_SDK_VERSION).0
-SELINUX_IGNORE_NEVERALLOWS := true
 
 # Treble
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
