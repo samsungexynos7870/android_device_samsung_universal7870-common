@@ -807,6 +807,7 @@ on fs
     chown system system /sys/class/lcd/panel/alpm
     chown system system /sys/class/lcd/panel/dpui
     chown system system /sys/class/lcd/panel/dpui_dbg
+    chown system system /sys/class/lcd/panel/smart_on
     chown system system /sys/devices/svc/OCTA/SVC_OCTA
     chown system system /sys/devices/svc/OCTA/SVC_OCTA_CHIPID
 
@@ -816,10 +817,12 @@ on fs
     chown system system /sys/class/mdnie/mdnie/accessibility
     chown system system /sys/class/mdnie/mdnie/sensorRGB
     chown system system /sys/class/mdnie/mdnie/mdnie_ldu
+    chown system system /sys/class/mdnie/mdnie/hdr
     chown system system /sys/class/mdnie/mdnie/night_mode
     chown system system /sys/class/mdnie/mdnie/whiteRGB
     chown system system /sys/class/mdnie/mdnie/light_notification
     chown system system /sys/class/mdnie/mdnie/color_lens
+    chown system system /sys/class/mdnie/mdnie/lux
 
 # Copy DRM Key
     copy /system/app/wv.keys /factory/wv.keys
@@ -847,6 +850,7 @@ on fs
 
 # Permissions for TouchScreen
     chown system radio /sys/class/sec/tsp/cmd
+    chown system radio /sys/class/sec/tsp/cmd2
     chown system system /sys/class/sec/tsp/input/enabled
     chown system system /sys/class/sec/tsp/ito_check
     chown system system /sys/class/sec/tsp/raw_check

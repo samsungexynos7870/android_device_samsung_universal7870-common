@@ -51,7 +51,7 @@
 /dev/video50              0660   mediacodec drmrpc
 /dev/video51              0660   media      graphics
 /dev/m2m1shot_scaler0     0660   mediacodec drmrpc
-/dev/m2m1shot_scaler1     0660   cameraserver   cameraserver
+/dev/m2m1shot_scaler1     0666   cameraserver   cameraserver
 
 /dev/video55              0666   system     graphics
 /dev/fimg2d               0666   system     graphics
@@ -147,7 +147,7 @@
 /sys/devices/system/cpu/cpu*   cpufreq/interactive/go_hispeed_load             0660    system  system
 /sys/devices/system/cpu/cpu*   cpufreq/interactive/above_hispeed_delay         0660    system  system
 /sys/devices/system/cpu/cpu*   cpufreq/interactive/boost                       0660    system  system
-/sys/devices/system/cpu/cpu*   cpufreq/interactive/boostpulse                  0200    system  system
+/sys/devices/system/cpu/cpu*   cpufreq/interactive/boostpulse                  0660    system  system
 /sys/devices/system/cpu/cpu*   cpufreq/interactive/input_boost                 0660    system  system
 /sys/devices/system/cpu/cpu*   cpufreq/interactive/boostpulse_duration         0660    system  system
 /sys/devices/system/cpu/cpu*   cpufreq/interactive/io_is_busy                  0660    system  system
