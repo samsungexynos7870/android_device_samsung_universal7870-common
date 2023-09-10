@@ -37,7 +37,7 @@ LOCAL_SHARED_LIBRARIES := \
 	libtinycompress \
 	libaudioroute \
 	libdl \
-	libsecril-client
+	libvndsecril-client
 
 
 LOCAL_C_INCLUDES += \
@@ -45,7 +45,7 @@ LOCAL_C_INCLUDES += \
 	external/tinyalsa/include \
 	external/tinycompress/include \
 	hardware/libhardware/include \
-	hardware/samsung/ril/libsecril-client \
+	$(LOCAL_PATH)/../libvndsecril-client \
 	$(call include-path-for, audio-utils) \
 	$(call include-path-for, audio-route) \
 	$(call include-path-for, audio-effects)
