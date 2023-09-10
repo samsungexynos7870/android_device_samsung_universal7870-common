@@ -198,10 +198,6 @@ PRODUCT_PACKAGES += \
     android.hardware.media.omx@1.0-service \
     libstagefright_omx
 
-# LiveDisplay
-PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service.samsung-exynos
-
 # FastCharge
 PRODUCT_PACKAGES += \
     vendor.lineage.fastcharge@1.0-service.samsung
