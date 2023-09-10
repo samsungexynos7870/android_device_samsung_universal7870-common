@@ -99,6 +99,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.legacyencoder=true
     ro.vendor.cscsupported=1
 
+# mediacodec cameraserver race workaround
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.fdsan=warn_once
+
 # Bpf
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.ebpf.supported=false
