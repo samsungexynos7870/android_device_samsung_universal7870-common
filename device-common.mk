@@ -152,11 +152,6 @@ PRODUCT_PACKAGES += \
     libOMX.Exynos.VP8.Encoder \
     libOMX.Exynos.WMV.Decoder
 
-# GPS
-PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl \
-    android.hardware.gnss@1.1-service
-
 # SoundPicker
 PRODUCT_PACKAGES += \
     SoundPicker
@@ -394,6 +389,10 @@ PRODUCT_PACKAGES += \
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.vendor_security_patch=2019-11-01
+
+# GNSS
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@2.0.vendor
 
 # VNDK
 PRODUCT_PACKAGES += \
