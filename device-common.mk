@@ -225,7 +225,17 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-service.exynos7870
+    android.hardware.power-service.samsung-libperfmgr
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH) \
+    hardware/google/interfaces \
+    hardware/google/pixel \
+    hardware/samsung/aidl/power-libperfmgr
 
 # Configstore
 PRODUCT_PACKAGES += \
