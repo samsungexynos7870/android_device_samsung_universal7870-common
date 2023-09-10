@@ -1,6 +1,6 @@
-allow hal_fingerprint_default sysfs_input:dir search;
-allow hal_fingerprint_default sysfs_input:file rw_file_perms;
-allow hal_fingerprint_default vendor_data_file:file { rename unlink };
-allow hal_fingerprint_default vendor_data_file:dir { add_name create open read remove_name rmdir write };
-allow hal_fingerprint_default vendor_data_file:file { create getattr open read write };
+typeattribute hal_fingerprint_default data_between_core_and_vendor_violators;
+
+allow hal_fingerprint_default fingerprintd_data_file:dir write;
+allow hal_fingerprint_default sysfs_virtual:dir search;
+allow hal_fingerprint_default sysfs_virtual:file r_file_perms;
 

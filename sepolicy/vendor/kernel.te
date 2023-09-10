@@ -20,3 +20,5 @@ allow kernel wifi_data_file:file rw_file_perms;
 allow kernel tmpfs:dir search;
 
 allow kernel self:capability sys_module;
+allow kernel sysfs_input:dir { search };
+allow kernel sysfs_input:file { open };

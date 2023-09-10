@@ -1,12 +1,4 @@
 # HWC
 allow surfaceflinger secmem_device:chr_file rw_file_perms;
 allow surfaceflinger sysfs_graphics:file rw_file_perms;
-r_dir_file(surfaceflinger, sysfs_graphics);
-allow surfaceflinger platform_app:process getattr;
-allow surfaceflinger system_app:process getattr;
-allow surfaceflinger system_server:process getattr;
-allow surfaceflinger untrusted_app:process getattr;
-allow surfaceflinger bootanim:dir search;
-allow surfaceflinger bootanim:file { open read };
-allow surfaceflinger bootanim:process getattr;
-
+r_dir_file(surfaceflinger, sysfs_graphics)

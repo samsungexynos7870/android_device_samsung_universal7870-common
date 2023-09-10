@@ -8,3 +8,4 @@ r_dir_file(hal_bluetooth_default, bluetooth_efs_file)
 allow hal_bluetooth_default sysfs:file write;
 allow hal_bluetooth_default vendor_default_prop:property_service set;
 
+set_prop(hal_bluetooth_default, vendor_bluetooth_prop)

@@ -1,2 +1,0 @@
-allow idmap mediaserver_exec:file { getattr read };
-

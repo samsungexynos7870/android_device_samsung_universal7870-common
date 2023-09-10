@@ -2,5 +2,3 @@
 # allow netd gpsd:fd use;
 # allow netd gpsd:udp_socket rw_socket_perms;
 # allow netd gpsd:tcp_socket rw_socket_perms;
-allow netd mediaserver_exec:file { getattr read };
-

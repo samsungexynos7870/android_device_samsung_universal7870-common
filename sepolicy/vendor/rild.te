@@ -2,6 +2,7 @@
 
 allow rild block_device:dir search;
 allow rild mnt_vendor_file:dir { getattr search };
+allow rild mif_device:chr_file { ioctl };
 
 # audio hal
 allow rild hal_audio_default:dir search;
@@ -59,12 +60,8 @@ allow rild proc_net:file rw_file_perms;
 # ro.csc.
 get_prop(rild, exported_config_prop);
 
+# ro.boot.cpboot, ril.NwNmId[0-9]
+get_prop(rild, radio_control_prop)
+
 # vendor.cbd.
 # set_prop(rild, vendor_cbd_prop)
-
-allow rild mif_device:chr_file ioctl;
-
-allow rild emmcblk_device:blk_file { open read };
-allow rild mif_device:chr_file { getattr open read write };
-allow rild vendor_default_prop:property_service set;
-

@@ -1,2 +1,1 @@
-allow adbd mediaserver_exec:file { getattr read };
-
+allow adbd proc_last_kmsg:file r_file_perms;

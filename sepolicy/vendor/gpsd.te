@@ -1,11 +1,10 @@
-type gpsd, domain, netdomain;
-type gpsd_exec, exec_type, vendor_file_type, file_type;
 
 # gpsd is started by init, type transit from init domain to gpsd domain
 init_daemon_domain(gpsd)
 
 allow gpsd rild:unix_stream_socket connectto;
 
+get_prop(gpsd, radio_control_prop)
 get_prop(gpsd, exported_config_prop)
 
 get_prop(gpsd, hwservicemanager_prop)
@@ -33,3 +32,6 @@ allow gpsd fwmarkd_socket:sock_file write;
 allow gpsd gps_vendor_data_file:dir rw_dir_perms;
 allow gpsd gps_vendor_data_file:file create_file_perms;
 allow gpsd gps_vendor_data_file:fifo_file create_file_perms;
+
+allow gpsd sysfs_gps:file { getattr open read };
+allow gpsd sysfs_wake_lock:file { open write };
