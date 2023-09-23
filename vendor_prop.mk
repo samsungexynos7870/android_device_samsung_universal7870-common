@@ -60,6 +60,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     telephony.lteOnCdmaDevice=0 \
     ro.vendor.multisim.simslotcount=2
 
+# secril
+PRODUCT_PROPERTY_OVERRIDES += \
+   vendor.sec.rild.libpath=/vendor/lib64/libsec-ril.so \
+   vendor.sec.rild.libpath2=/vendor/lib64/libsec-ril-dsds.so
+
 #Treble
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.media.treble_omx=true
