@@ -25,11 +25,20 @@ on property:hwservicemanager.ready=false
 on property:hwservicemanager.ready=false && property:ro.vendor.multisim.simslotcount=2
     restart ril-daemon1
 
-service secril_config /vendor/bin/secril_config_svc
+service network_config /vendor/bin/secril_config_svc NetworkConfig
     user radio
     group radio
     oneshot
     disabled
 
+service sim_config /vendor/bin/secril_config_svc SimConfig
+    user radio
+    group radio
+    oneshot
+    disabled
+
+on fs
+    exec_start sim_config
+
 on post-fs-data
-    exec_start secril_config
+    exec_start network_config
