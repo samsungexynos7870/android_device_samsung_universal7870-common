@@ -107,7 +107,8 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-service \
     libion_exynos \
     libstagefright_shim \
-    camera.universal7870 \
+    camera.exynos7870 \
+    libcamera_metadata_helper \
     libcsc \
     libhwjpeg \
     libacryl \
