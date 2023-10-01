@@ -1,6 +1,7 @@
 cc_library_shared {
     name: "camera.exynos7870",
     vendor: true,
+    compile_multilib: "32",
     relative_install_path: "hw",
 
     srcs: [
