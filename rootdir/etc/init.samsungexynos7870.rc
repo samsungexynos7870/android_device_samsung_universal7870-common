@@ -80,6 +80,16 @@ on post-fs-data
     chown wifi root /mnt/vendor/efs/wifi/.mac.cob
     chmod 0664 /mnt/vendor/efs/wifi/.mac.cob
 
+# HWC & CBD data
+    mkdir /data/vendor/log 0771 system system
+    mkdir /data/vendor/log/hwc 0771 system graphics
+    rm /data/vendor/log/hwc_error_log.txt
+    write /data/vendor/log/hwc_error_log.txt ""
+    mkdir /data/vendor/log/cbd 0771 system radio
+    mkdir /data/vendor/log/cbd/err 0771 system radio
+    rm /data/vendor/log/cbd/err/last_sr_info_umts
+    write /data/vendor/log/cbd/err/last_sr_info_umts ""
+
 # Magnetic sensor YAS539 lib
     mkdir /data/system/yas_lib 0770 system system
 
