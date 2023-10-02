@@ -154,9 +154,6 @@ VENDOR_SECURITY_PATCH := 2020-12-05
 # CURL
 BOARD_USES_CURL := true
 
-# Renderscript
-OVERRIDE_RS_DRIVER := libRSDriverArm.so
-
 # Seccomp
 BOARD_SECCOMP_POLICY := $(LOCAL_PATH)/seccomp
 
