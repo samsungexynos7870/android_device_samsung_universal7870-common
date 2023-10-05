@@ -93,7 +93,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.ccodec=0 \
     media.stagefright.legacyencoder=true
-    ro.vendor.cscsupported=1
 
 # mediacodec cameraserver race workaround
 PRODUCT_PROPERTY_OVERRIDES += \
