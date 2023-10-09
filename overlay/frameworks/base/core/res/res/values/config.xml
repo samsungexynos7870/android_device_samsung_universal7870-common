@@ -323,5 +323,8 @@
 
     <!-- Flag indicating whether we should enable smart battery. -->
     <bool name="config_smart_battery_available">true</bool>
+   
+   <!-- Boolean indicating whether the HWC setColorTransform function can be performed efficiently in hardware. -->
+    <bool name="config_setColorTransformAccelerated">false</bool>
 </resources>
 
