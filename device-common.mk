@@ -115,26 +115,20 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.camera.common@1.0-helper \
     android.hardware.camera.provider@2.4-impl \
-    android.hardware.camera.provider@2.5-service \
+    android.hardware.camera.provider@2.4-service \
+    libion_exynos \
     libstagefright_shim \
-    libcamera_client_symboles_shim \
-    camera.universal7870 \
+    camera.exynos7870 \
+    libcamera_metadata_helper \
     libcsc \
     libhwjpeg \
     libacryl \
-    libgiantmscl
+    libgiantmscl \
+    libGrallocWrapper \
+    Camera2
 
 # explicit built targets
 PRODUCT_PACKAGES += \
-    android.hardware.camera.device@1.0 \
-    android.hardware.camera.device@3.2 \
-    android.hardware.camera.device@3.3 \
-    android.hardware.camera.device@3.4 \
-    android.hardware.camera.device@3.5 \
-    android.hardware.camera.provider@2.4 \
-    android.hardware.camera.provider@2.4-legacy \
-    android.hardware.camera.provider@2.5 \
-    android.hardware.camera.provider@2.5-legacy \
     android.hardware.graphics.mapper@2.0 \
     android.hardware.graphics.mapper@3.0 \
     android.hardware.graphics.mapper@4.0

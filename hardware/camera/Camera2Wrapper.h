@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 The LineageOS Project
+ * Copyright (C) 2017, The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-extern "C" {
-    void _ZN7android7SurfaceC1ERKNS_2spINS_22IGraphicBufferProducerEEEb() {}
-}
+#include <dlfcn.h>
+#include <hardware/camera2.h>
 
-extern "C" void _ZN7android8String166removeEjj() {}
+int camera2_device_open(const hw_module_t* module, const char* name, hw_device_t** device);
