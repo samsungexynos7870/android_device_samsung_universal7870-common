@@ -16,11 +16,14 @@
 
 LOCAL_PATH := device/samsung/universal7870-common
 
+TARGET_TABLET_LIST := gtaxlwifi gtaxllte gtanotexlwifi gtanotexllte
+TARGET_TABLET_NO_RIL_LIST := gtanotexlwifi gtaxlwifi
+
 # Product Characteristics
-ifeq ($(TARGET_DEVICE), gtaxlwifi, gtaxllte, gtanotexlwifi, gtanotexllte)
-PRODUCT_CHARACTERISTICS := tablet
+ifeq ($(filter $(TARGET_DEVICE),$(TARGET_TABLET_LIST)),)
+    PRODUCT_CHARACTERISTICS := phone
 else
-PRODUCT_CHARACTERISTICS := phone
+    PRODUCT_CHARACTERISTICS := tablet
 endif
 
 # Boot animation
@@ -304,7 +307,7 @@ PRODUCT_PACKAGES += \
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay
 
-ifneq ($(TARGET_DEVICE), gtaxlwifi, gtanotexlwifi)
+ifeq ($(filter $(TARGET_DEVICE),$(TARGET_TABLET_NO_RIL_LIST)),)
 # Radio
 PRODUCT_PACKAGES += \
     android.hardware.radio@1.2.vendor \
@@ -343,10 +346,10 @@ PRODUCT_PACKAGES += \
     init.wifi.rc \
     ueventd.samsungexynos7870.rc
 
-ifneq ($(TARGET_DEVICE), gtaxlwifi, gtanotexlwifi)
-PRODUCT_PACKAGES += \
-    init.vendor.rilchip.rc \
-    init.vendor.rilcommon.rc
+ifeq ($(filter $(TARGET_DEVICE),$(TARGET_TABLET_NO_RIL_LIST)),)
+    PRODUCT_PACKAGES += \
+        init.vendor.rilchip.rc \
+        init.vendor.rilcommon.rc
 endif
 
 # Recorder
