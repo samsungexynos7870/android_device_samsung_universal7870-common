@@ -300,6 +300,7 @@ PRODUCT_PACKAGES += \
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay
 
+ifneq ($(TARGET_DEVICE), gtaxlwifi, gtanotexlwifi)
 # Radio
 PRODUCT_PACKAGES += \
     android.hardware.radio@1.2.vendor \
@@ -310,10 +311,13 @@ PRODUCT_PACKAGES += \
     android.hardware.radio.config@1.1.vendor \
     android.hardware.radio.config@1.2.vendor \
     android.hardware.radio.deprecated@1.0.vendor \
+    secril_config_svc
+endif
+
+PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-vendorcompat \
     libprotobuf-cpp-lite-vendorcompat \
-    libxml2 \
-    secril_config_svc
+    libxml2
 
 # Filesystem tools for resizing system partitions
 PRODUCT_PACKAGES += \
@@ -332,10 +336,14 @@ PRODUCT_PACKAGES += \
     init.baseband.rc \
     init.samsungexynos7870.rc \
     init.samsungexynos7870.usb.rc \
-    init.vendor.rilchip.rc \
-    init.vendor.rilcommon.rc \
     init.wifi.rc \
     ueventd.samsungexynos7870.rc
+
+ifneq ($(TARGET_DEVICE), gtaxlwifi, gtanotexlwifi)
+PRODUCT_PACKAGES += \
+    init.vendor.rilchip.rc \
+    init.vendor.rilcommon.rc
+endif
 
 # Recorder
 PRODUCT_PACKAGES += \
