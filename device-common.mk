@@ -17,7 +17,11 @@
 LOCAL_PATH := device/samsung/universal7870-common
 
 # Product Characteristics
+ifeq ($(TARGET_DEVICE), gtaxlwifi, gtaxllte, gtanotexlwifi, gtanotexllte)
+PRODUCT_CHARACTERISTICS := tablet
+else
 PRODUCT_CHARACTERISTICS := phone
+endif
 
 # Boot animation
 TARGET_BOOTANIMATION_PRELOAD := true
