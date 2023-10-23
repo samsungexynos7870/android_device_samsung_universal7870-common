@@ -907,7 +907,7 @@ int disable_snd_device(struct audio_device *adev,
               snd_device, snd_device_name);
         list_for_each(node, &uc_info->mixer_list) {
             mixer_card = node_to_item(node, struct mixer_card, uc_list_node[uc_info->id]);
-            audio_route_reset_and_update_path(mixer_card->audio_route, snd_device_name);
+            audio_route_force_reset_and_update_path(mixer_card->audio_route, snd_device_name);
             if (snd_device > SND_DEVICE_IN_BEGIN && out_uc_info != NULL) {
                 /*
                  * Cycle the rx device to eliminate routing conflicts.
