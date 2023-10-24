@@ -2,7 +2,7 @@
  * Copyright (C) 2013 The Android Open Source Project
  * Copyright (C) 2017 Christopher N. Hesse <raymanfx@gmail.com>
  * Copyright (C) 2017 Andreas Schneider <asn@cryptomilk.org>
- * Copyright (C) 2018 The LineageOS Project
+ * Copyright (C) 2018-2023 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -3625,18 +3625,22 @@ static int adev_open_output_stream(struct audio_hw_device *dev,
     ALOGV("%s: enter: sample_rate(%d) channel_mask(%#x) devices(%#x) flags(%#x)",
           __func__, config->sample_rate, config->channel_mask, devices, flags);
     *stream_out = NULL;
+
+    /* Allocate memory for Structure audio_stream_out */
     out = (struct stream_out *)calloc(1, sizeof(struct stream_out));
     if (out == NULL) {
         ret = -ENOMEM;
         goto error_config;
     }
-
+    
     if (devices == AUDIO_DEVICE_NONE)
         devices = AUDIO_DEVICE_OUT_SPEAKER;
 
+    out->dev = adev;
+    
+    /* Save common parameters from Android Platform */
     out->flags = flags;
     out->devices = devices;
-    out->dev = adev;
     out->format = config->format;
     out->sample_rate = config->sample_rate;
     out->channel_mask = AUDIO_CHANNEL_OUT_STEREO;
