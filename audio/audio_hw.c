@@ -3628,9 +3628,9 @@ static int adev_open_output_stream(struct audio_hw_device *dev,
 
     /* Allocate memory for Structure audio_stream_out */
     out = (struct stream_out *)calloc(1, sizeof(struct stream_out));
-    if (out == NULL) {
-        ret = -ENOMEM;
-        goto error_config;
+    if (!out) {
+        ALOGE("device-%s: Fail to allocate memory for stream_out", __func__);
+        return -ENOMEM;
     }
     
     if (devices == AUDIO_DEVICE_NONE)
