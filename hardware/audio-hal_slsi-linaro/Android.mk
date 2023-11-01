@@ -30,6 +30,7 @@ LOCAL_SRC_FILES := \
 # inline libaudioroute for vendor support
 
 LOCAL_C_INCLUDES += \
+        $(LOCAL_PATH)/include \
 	external/tinyalsa/include \
 	external/tinycompress/include \
 	external/kernel-headers/original/uapi/sound \
