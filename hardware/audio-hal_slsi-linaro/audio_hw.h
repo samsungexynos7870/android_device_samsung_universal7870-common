@@ -41,7 +41,7 @@
 #include "sec/voice_manager.h"
 
 /* Mixer Path configuration file for working AudioHAL */
-#define VENDOR_MIXER_XML_PATH "/vendor/etc/mixer_paths.xml"
+#define VENDOR_MIXER_XML_PATH "/vendor/etc/mixer_paths_0.xml"
 /* Effect HAL and Visualizer library path for offload scenario */
 #define OFFLOAD_VISUALIZERHAL_PATH "/vendor/lib/soundfx/libexynosvisualizer.so"
 
