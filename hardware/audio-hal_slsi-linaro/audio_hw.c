@@ -2965,14 +2965,6 @@ static int adev_set_parameters(
 
     parms = str_parms_create_str(kvpairs);
 
-    ret = str_parms_get_str(parms, "screen_state", value, sizeof(value));
-    if (ret >= 0) {
-        if (strcmp(value, AUDIO_PARAMETER_VALUE_ON) == 0)
-            adev->screen_off = false;
-        else
-            adev->screen_off = true;
-    }
-
     ret = str_parms_get_int(parms, "rotation", &val);
     if (ret >= 0) {
         switch (val) {
