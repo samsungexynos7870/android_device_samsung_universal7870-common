@@ -341,6 +341,7 @@ struct audio_device {
     audio_mode_t amode;
     audio_usage_mode_t usage_amode;
     call_state_type_t call_state;
+    bool screen_off;
 
     struct stream_out *primary_output;   // Need to know which stream is primary
     struct pcm *pcm_capture;             // Capture PCM Device is unique
