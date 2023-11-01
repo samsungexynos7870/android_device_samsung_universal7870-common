@@ -2966,7 +2966,7 @@ static int adev_set_parameters(
     pthread_mutex_lock(&adev->lock);
 
     parms = str_parms_create_str(kvpairs);
-
+#if SWAP_SPEAKER_ON_SCREEN_ROTATION
     ret = str_parms_get_int(parms, "rotation", &val);
     if (ret >= 0) {
         switch (val) {
@@ -2980,6 +2980,7 @@ static int adev_set_parameters(
             ALOGE("device-%s: unexpected rotation of %d", __func__, val);
         }
     }
+#endif /* SWAP_SPEAKER_ON_SCREEN_ROTATION */
 
     /* LTE Based Communication - CP Centric */
     ret = str_parms_get_str(parms, "VoLTEstate", value, sizeof(value));
