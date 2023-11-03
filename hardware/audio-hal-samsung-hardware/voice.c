@@ -32,47 +32,12 @@
 #include <samsung_audio.h>
 
 #include "audio_hw.h"
+#include "audio_voice_def.h"
 #include "voice.h"
 
 #ifdef AUDIENCE_EARSMART_IC
 #include "audience.h"
 #endif
-
-static struct pcm_config pcm_config_voicecall = {
-    .channels = 2,
-    .rate = 8000,
-    .period_size = CAPTURE_PERIOD_SIZE_LOW_LATENCY,
-    .period_count = CAPTURE_PERIOD_COUNT_LOW_LATENCY,
-    .format = PCM_FORMAT_S16_LE,
-};
-
-static struct pcm_config pcm_config_voicecall_wideband = {
-    .channels = 2,
-    .rate = 16000,
-    .period_size = CAPTURE_PERIOD_SIZE_LOW_LATENCY,
-    .period_count = CAPTURE_PERIOD_COUNT_LOW_LATENCY,
-    .format = PCM_FORMAT_S16_LE,
-};
-
-struct pcm_config pcm_config_voice_sco = {
-    .channels = 1,
-    .rate = SCO_DEFAULT_SAMPLING_RATE,
-    .period_size = SCO_PERIOD_SIZE,
-    .period_count = SCO_PERIOD_COUNT,
-    .format = PCM_FORMAT_S16_LE,
-};
-
-struct pcm_config pcm_config_voice_sco_wb = {
-    .channels = 1,
-    .rate = SCO_WB_SAMPLING_RATE,
-    .period_size = SCO_PERIOD_SIZE,
-    .period_count = SCO_PERIOD_COUNT,
-    .format = PCM_FORMAT_S16_LE,
-};
-
-/* Prototypes */
-int start_voice_call(struct audio_device *adev);
-int stop_voice_call(struct audio_device *adev);
 
 void set_voice_session_audio_path(struct voice_session *session)
 {
