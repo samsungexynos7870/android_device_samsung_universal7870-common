@@ -55,6 +55,34 @@
 #include "sound/compress_params.h"
 
 
+// Convert between TinyALSA and ALSA audio formats
+static audio_format_t audio_pcmformat_from_alsaformat(enum pcm_format pcmformat)
+{
+    audio_format_t format = AUDIO_FORMAT_PCM_16_BIT;
+
+    switch (pcmformat) {
+        case PCM_FORMAT_S16_LE:
+            format = AUDIO_FORMAT_PCM_16_BIT;
+            break;
+        case PCM_FORMAT_S32_LE:
+            format = AUDIO_FORMAT_PCM_32_BIT;
+            break;
+        case PCM_FORMAT_S8:
+            format = AUDIO_FORMAT_PCM_8_BIT;
+            break;
+        case PCM_FORMAT_S24_LE:
+        case PCM_FORMAT_S24_3LE:
+            format = AUDIO_FORMAT_PCM_24_BIT_PACKED;
+            break;
+        case PCM_FORMAT_INVALID:
+        case PCM_FORMAT_MAX:
+            format = AUDIO_FORMAT_PCM_16_BIT;
+            break;
+    }
+
+    return format;
+}
+
 static amplifier_device_t * get_amplifier_device(void)
 {
     if (adev)
@@ -3924,13 +3952,25 @@ static int adev_open_input_stream(struct audio_hw_device *dev,
     struct audio_device *adev = (struct audio_device *)dev;
     struct stream_in *in;
     struct pcm_device_profile *pcm_profile;
+    #define channel_count = audio_channel_count_from_in_mask(config->channel_mask);
 
-    ALOGV("%s: enter", __func__);
+    ALOGD("device-%s: enter: io_handle (%d), sample_rate(%d) channel_mask(%#x) devices(%#x) flags(%#x) source(%d)",
+          __func__, handle, config->sample_rate, config->channel_mask, devices, flags, source);
 
     *stream_in = NULL;
     if (check_input_parameters(config->sample_rate, config->format,
-                               audio_channel_count_from_in_mask(config->channel_mask)) != 0)
-        return -EINVAL;
+                               audio_channel_count_from_in_mask(config->channel_mask)) != 0){
+
+        ALOGE("device-%s: Request has unsupported configuration!", __func__);
+
+        //config->format = pcm_device_capture.config.format;
+        config->format = audio_pcmformat_from_alsaformat(pcm_device_capture.config.format);
+        config->sample_rate = audio_pcmformat_from_alsaformat(pcm_device_capture.config.format);
+        config->channel_mask = audio_channel_in_mask_from_count(pcm_device_capture.config.channels);
+        ALOGD("device-%s: Proposed configuration!", __func__);
+    return -EINVAL;
+
+    }
 
     usecase_type_t usecase_type = flags & AUDIO_INPUT_FLAG_FAST ?
                         PCM_CAPTURE_LOW_LATENCY : PCM_CAPTURE;
@@ -3982,7 +4022,12 @@ static int adev_open_input_stream(struct audio_hw_device *dev,
      * requested channels */
     in->config = pcm_profile->config;
 
-    /* Update config params with the requested sample rate and channels */
+    /* requested sample rate and channels */
+    ALOGV("%s: requested sample rate: %d, requested channels: %d",
+          __func__, config->sample_rate, audio_channel_count_from_in_mask(config->channel_mask));
+    ALOGV("%s: actual sample rate: %d, actual channels: %d",
+           __func__, in_get_sample_rate((const struct audio_stream *)in), in_get_channels((const struct audio_stream *)in));
+
     in->usecase = USECASE_AUDIO_CAPTURE;
     in->usecase_type = usecase_type;
 

@@ -34,6 +34,7 @@ struct ril_handle
 {
     void *client;
     int volume_steps_max;
+    bool connect_required;
 };
 
 

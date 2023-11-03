@@ -85,10 +85,14 @@ static int ril_connect_if_required(struct ril_handle *ril)
         return 0;
     }
 
+    if (!ril->connect_required) {
+        ALOGV("Connection to RILD is intentionally disabled");
+        return -1;
+    }
+
     rc = Connect_RILD(ril->client);
     if (rc != RIL_CLIENT_ERR_SUCCESS) {
-        ALOGE("FATAL: Failed to connect to RILD: %s",
-              strerror(errno));
+        ALOGE("FATAL: Failed to connect to RILD: %s", strerror(errno));
         return -1;
     }
 

@@ -68,6 +68,10 @@ void set_voice_session_audio_path(struct voice_session *session)
             break;
     }
 
+    /* Set ril->connect_required as false to make the connection optional
+       its not working properly with current universal7870 vendor*/
+    session->ril.connect_required = false;
+
     ALOGV("%s: ril_set_call_audio_path(%d)", __func__, device_type);
 
     rc = ril_set_call_audio_path(&session->ril, device_type);
