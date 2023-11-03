@@ -25,7 +25,8 @@ LOCAL_SRC_FILES := \
 	audio_hw.c \
 	compress_offload.c \
 	ril_interface.c \
-	voice.c
+	voice.c \
+	audio_route.c
 
 # TODO: remove resampler if possible when AudioFlinger supports downsampling from 48 to 8
 LOCAL_SHARED_LIBRARIES := \
@@ -37,7 +38,8 @@ LOCAL_SHARED_LIBRARIES := \
 	libtinycompress \
 	libaudioroute \
 	libdl \
-	libsecril-client
+	libsecril-client \
+	libexpat
 
 
 LOCAL_C_INCLUDES += \
@@ -48,7 +50,8 @@ LOCAL_C_INCLUDES += \
 	hardware/samsung/ril/libsecril-client \
 	$(call include-path-for, audio-utils) \
 	$(call include-path-for, audio-route) \
-	$(call include-path-for, audio-effects)
+	$(call include-path-for, audio-effects) \
+	external/expat/lib
 
 LOCAL_CFLAGS := -Werror -Wall
 LOCAL_CFLAGS += -DPREPROCESSING_ENABLED
