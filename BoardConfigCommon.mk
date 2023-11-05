@@ -158,7 +158,7 @@ BOARD_USES_CURL := true
 BOARD_SECCOMP_POLICY := $(LOCAL_PATH)/seccomp
 
 # SELinux
-include device/lineage/sepolicy/exynos/sepolicy.mk
+include device/havoc/sepolicy/exynos/sepolicy.mk
 include device/samsung_slsi/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
 

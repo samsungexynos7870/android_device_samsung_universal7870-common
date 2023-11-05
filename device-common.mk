@@ -256,10 +256,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.1-service.universal7870
     
-# FastCharge
-PRODUCT_PACKAGES += \
-    vendor.lineage.fastcharge@1.0-service.samsung
-    
 # FlipFlap
 PRODUCT_PACKAGES += \
     FlipFlap
