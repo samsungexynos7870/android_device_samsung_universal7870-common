@@ -262,7 +262,7 @@ PRODUCT_PACKAGES += \
 
 # Touch features    
 PRODUCT_PACKAGES += \
-    vendor.lineage.touch@1.0-service.samsung
+    vendor.lineage.touch@1.0-service.exynos7870
 
 # IPv6
 PRODUCT_PACKAGES += \
@@ -297,7 +297,7 @@ DEVICE_PACKAGE_OVERLAYS += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-service.exynos
+    android.hardware.power@1.0-service.exynos7870
 
 # Radio
 PRODUCT_PACKAGES += \
