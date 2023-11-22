@@ -70,6 +70,10 @@ TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
 TARGET_KERNEL_ADDITIONAL_FLAGS := \
     HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
 
+TARGET_KERNEL_ADDITIONAL_FLAGS := \
+    LLVM=1 \
+    LLVM_IAS=1
+
 # Kernel
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
@@ -185,8 +189,8 @@ BOARD_USES_VENDORIMAGE := true
 # Shim
 TARGET_LD_SHIM_LIBS += \
     /system/bin/mediaserver|/system/lib/libstagefright_shim.so \
-    /vendor/lib64/libsec-ril.so|/vendor/lib64/libcutils_shim.so \
-    /vendor/lib64/libsec-ril-dsds.so|/vendor/lib64/libcutils_shim.so
+    /vendor/lib64/libsec-ril.so|/vendor/lib64/libcutils_shim_exynos7870.so \
+    /vendor/lib64/libsec-ril-dsds.so|/vendor/lib64/libcutils_exynos7870.so
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI := true

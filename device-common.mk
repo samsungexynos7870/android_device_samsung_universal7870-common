@@ -15,6 +15,16 @@
 #
 
 LOCAL_PATH := device/samsung/universal7870-common
+     
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH) \
+    hardware/google/interfaces \
+    hardware/google/pixel \
+    hardware/samsung/aidl/power-libperfmgr \
+    hardware/samsung \
+    hardware/ril \
+    hardware/lineage/compat
 
 # Product Characteristics
 PRODUCT_CHARACTERISTICS := phone
@@ -79,7 +89,6 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.service \
     android.hardware.audio@7.0-impl \
     android.hardware.audio.effect@7.0-impl \
-    audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
     libtinycompress
@@ -184,7 +193,6 @@ PRODUCT_HOST_PACKAGES += \
 
 # OMX
 PRODUCT_PACKAGES += \
-    android.hardware.media.omx@1.0-impl \
     android.hardware.media.omx@1.0-service \
     libstagefright_omx
 
@@ -211,12 +219,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
-# Soong namespaces
-PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH) \
-    hardware/google/interfaces \
-    hardware/google/pixel \
-    hardware/samsung/aidl/power-libperfmgr
 
 # Configstore
 PRODUCT_PACKAGES += \
@@ -226,8 +228,7 @@ PRODUCT_PACKAGES += \
 # Healthd
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-impl \
-    android.hardware.health@2.0-service \
-    chargeonlymode
+    android.hardware.health@2.0-service
 
 # HIDL
 PRODUCT_PACKAGES += \
@@ -255,12 +256,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.1-service.universal7870
 
-# IPv6
-PRODUCT_PACKAGES += \
-    ebtables \
-    ethertypes \
-    libebtc
-
 # OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml \
@@ -278,8 +273,7 @@ PRODUCT_PACKAGES += \
 
 # Offmode charger
 PRODUCT_PACKAGES += \
-    charger_res_images \
-    lineage_charger_res_image
+    charger_res_images
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
@@ -340,12 +334,11 @@ PRODUCT_PACKAGES += \
 
 # Keymaster
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.0-impl \
-    android.hardware.keymaster@4.0-service
+    android.hardware.keymaster@4.1-service
 
 # Thermal
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0-service.samsung
+    android.hardware.thermal@2.0-service.exynos
 
 # Touchscreen
 PRODUCT_COPY_FILES += \
@@ -355,12 +348,12 @@ PRODUCT_COPY_FILES += \
 
 # Shims
 PRODUCT_PACKAGES += \
-    libcutils_shim \
+    libcutils_shim_exynos7870 \
     libexynoscamera_shim
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.3-service.samsung \
+    android.hardware.usb@1.0-service \
     com.android.future.usb.accessory
 
 # Vibrator
@@ -394,8 +387,9 @@ PRODUCT_PACKAGES += \
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
-#clang-r383902b missing ld executable (needed to build kernel)
-$(shell cp -r device/samsung/universal7870-common/configs/clang/ld prebuilts/clang/host/linux-x86/clang-r416183b1/bin)
+# clang-r450784d symlink lld linker as ld to fake deprecated gnu linker ld
+# TODO: update kernel to use lld linker
+$(shell [[ -L "prebuilts/clang/host/linux-x86/clang-r450784d/bin/ld" ]] && [[ "$(readlink -f prebuilts/clang/host/linux-x86/clang-r450784d/bin/ld)" == "$(readlink -f prebuilts/clang/host/linux-x86/clang-r450784d/bin/lld)" ]] || ln -sf "lld" "prebuilts/clang/host/linux-x86/clang-r450784d/bin/ld")
 
 # call the proprietary setup
 $(call inherit-product, vendor/samsung/universal7870-common/universal7870-common-vendor.mk)

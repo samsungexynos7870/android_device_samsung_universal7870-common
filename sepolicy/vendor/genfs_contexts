@@ -65,8 +65,8 @@ genfscon sysfs /devices/virtual/audio/earjack       u:object_r:sysfs_jack:s0
 genfscon sysfs /devices/13580000.usb/gadget/lun0    u:object_r:sysfs_android_usb:s0
 
 # MMC block device cache files
-genfscon sysfs /devices/virtual/bdi/179:0/read_ahead_kb     u:object_r:sysfs_block:s0
-genfscon sysfs /devices/virtual/bdi/179:32/read_ahead_kb    u:object_r:sysfs_block:s0
+# genfscon sysfs /devices/virtual/bdi/179:0/read_ahead_kb     u:object_r:sysfs_block:s0
+# genfscon sysfs /devices/virtual/bdi/179:32/read_ahead_kb    u:object_r:sysfs_block:s0
 
 # ION
 genfscon sysfs /devices/virtual/ion_cma     u:object_r:sysfs_ion:s0
