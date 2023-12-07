@@ -365,6 +365,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # GNSS
 PRODUCT_PACKAGES += \
+    android.frameworks.sensorservice@1.0.vendor \
     android.hardware.gnss@2.0.vendor
 
 # VNDK
