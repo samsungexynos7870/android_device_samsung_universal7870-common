@@ -23,8 +23,7 @@ PRODUCT_PACKAGES += \
 # Audio configuration OSS
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/oss/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    $(LOCAL_PATH)/configs/audio/oss/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
-    $(LOCAL_PATH)/configs/audio/oss/mixer_gains.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_gains.xml
+    $(LOCAL_PATH)/configs/audio/oss/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
 
 # call the proprietary audio setup
 $(call inherit-product, vendor/samsung/universal7870-common/universal7870-common-oss-audio_vendor.mk)
