@@ -24,7 +24,8 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/samsung/aidl/power-libperfmgr \
     hardware/samsung \
     hardware/ril \
-    hardware/lineage/compat
+    hardware/lineage/compat \
+    vendor/samsung/universal7870-common
 
 # Product Characteristics
 PRODUCT_CHARACTERISTICS := phone
@@ -106,7 +107,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.camera.common@1.0-helper \
     android.hardware.camera.provider@2.4-impl \
-    android.hardware.camera.provider@2.4-service \
+    android.hardware.camera.provider@2.5-service \
     libion_exynos \
     libstagefright_shim \
     camera.exynos7870 \
@@ -158,7 +159,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service  \
     android.hardware.graphics.composer@2.2-service  \
-    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.mapper@2.0-impl-2.1 \
     android.hardware.renderscript@1.0-impl \
     libExynosHWCService \
     gralloc.exynos7870 \
@@ -199,8 +200,8 @@ PRODUCT_PACKAGES += \
     vendor.lineage.fastcharge@1.0-service.samsung
 
 # Touch features
-#PRODUCT_PACKAGES += \
-#    vendor.lineage.touch@1.0-service.samsung
+PRODUCT_PACKAGES += \
+    vendor.lineage.touch@1.0-service.exynos7870
 
 # FlipFlap
 PRODUCT_PACKAGES += \
@@ -212,11 +213,7 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.samsung-libperfmgr
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
-
+    android.hardware.power@1.0-service.exynos7870
 
 # Configstore
 PRODUCT_PACKAGES += \
@@ -277,17 +274,17 @@ PRODUCT_PACKAGES += \
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay
 
+# public.libraries.txt
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+
 # Radio
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.2.vendor \
-    android.hardware.radio@1.3.vendor \
-    android.hardware.radio@1.4.vendor \
-    android.hardware.radio@1.5.vendor \
-    android.hardware.radio.config@1.0.vendor \
-    android.hardware.radio.config@1.1.vendor \
+    android.hardware.radio@1.6.vendor \
     android.hardware.radio.config@1.2.vendor \
     android.hardware.radio.deprecated@1.0.vendor \
-    secril_config_svc
+    secril_config_svc \
+    libcutils_shim_vendor
 
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-vendorcompat \
@@ -346,7 +343,6 @@ PRODUCT_COPY_FILES += \
 
 # Shims
 PRODUCT_PACKAGES += \
-    libcutils_shim_exynos7870 \
     libexynoscamera_shim
 
 # USB

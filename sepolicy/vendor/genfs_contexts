@@ -47,6 +47,9 @@ genfscon sysfs /class/input_booster/tail    u:object_r:sysfs_input:s0
 # Swap
 genfscon sysfs /devices/virtual/block/vnswap0   u:object_r:sysfs_sswap:s0
 
+# cbd
+genfscon sysfs /firmware/devicetree/base/model_info-system_rev u:object_r:sysfs_info:s0
+
 # CPU/Scheduler devices
 genfscon sysfs /power/cpufreq_table         u:object_r:sysfs_devices_system_cpu:s0
 
@@ -70,16 +73,15 @@ genfscon sysfs /devices/13580000.usb/gadget/lun0    u:object_r:sysfs_android_usb
 
 # ION
 genfscon sysfs /devices/virtual/ion_cma     u:object_r:sysfs_ion:s0
-
 genfscon sysfs /devices/13540000.dwmmc0/mmc_host/mmc0/mmc0:0001/block/mmcblk0 u:object_r:sysfs_mmc:s0
-
 genfscon sysfs /devices/virtual/net/rmnet0 u:object_r:sysfs_net:s0
 genfscon sysfs /devices/virtual/net/rmnet1 u:object_r:sysfs_net:s0
 genfscon sysfs /devices/virtual/net/rmnet2 u:object_r:sysfs_net:s0
 genfscon sysfs /devices/virtual/net/rmnet3 u:object_r:sysfs_net:s0
-
 genfscon sysfs /devices/14830000.decon_fb  u:object_r:sysfs_graphics:s0
 genfscon sysfs /devices/14800000.dsim      u:object_r:sysfs_graphics:s0
 
 # video4linux
 genfscon sysfs /devices/12800000.mfc0/video4linux   u:object_r:sysfs_v4l:s0
+
+

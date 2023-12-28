@@ -62,9 +62,6 @@ allow init mif_device:chr_file rw_file_perms;
 allow init sswap_device:blk_file write;
 allow init sysfs_sswap:file { open write };
 
-# Block device sysfs
-# allow init sysfs_block:file rw_file_perms;
-
 # Audio Jack
 allow init sysfs_jack:file setattr;
 
@@ -82,6 +79,7 @@ allow init sysfs_mdnie:file setattr;
 allow init sysfs_sec:file { rw_file_perms setattr };
 allow init sysfs_sec:lnk_file read;
 allow init sysfs_multipdp:file setattr;
+allow init sysfs_input:file setattr;
 
 # Proc files
 allow init proc_reset_reason:file { rw_file_perms setattr };

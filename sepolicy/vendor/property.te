@@ -1,23 +1,23 @@
 # CP-Boot Daemon
-type cpboot-daemon_prop, property_type;
+vendor_internal_prop(cpboot-daemon_prop)
 
 # modemloader
-type modemloader_prop, property_type;
+vendor_internal_prop(modemloader_prop)
 
 # mobicore (tee)
-type tee_prop, property_type;
+vendor_internal_prop(tee_prop)
 
 # sswap
-type sswap_prop, property_type;
+vendor_internal_prop(sswap_prop)
 
 # Fastcharge HAL
-type sec_fastcharge_prop, property_type;
+vendor_internal_prop(sec_fastcharge_prop)
 
 # wifi
-type vendor_wlan_prop, property_type;
+vendor_internal_prop(vendor_wlan_prop)
 
 # bluetooth
-type vendor_bluetooth_prop, property_type;
+vendor_internal_prop(vendor_bluetooth_prop)
 
 # NFC
-type vendor_nfc_prop, property_type;
+vendor_internal_prop(vendor_nfc_prop)

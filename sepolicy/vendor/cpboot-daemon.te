@@ -20,9 +20,6 @@ allow cpboot-daemon log_vendor_data_file:dir search;
 # sysfs
 allow cpboot-daemon sysfs:file { open read };
 
-# vendor default prop
-allow cpboot-daemon vendor_default_prop:property_service set;
-
 # shell
 allow cpboot-daemon vendor_shell_exec:file execute_no_trans;
 
@@ -59,5 +56,3 @@ allow cpboot-daemon proc_dt_firmware:file { open read };
 
 # set properties on boot
 set_prop(cpboot-daemon, cpboot-daemon_prop)
-set_prop(cpboot-daemon, radio_prop)
-set_prop(cpboot-daemon, system_prop)

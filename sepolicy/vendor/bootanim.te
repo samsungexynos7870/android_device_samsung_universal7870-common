@@ -1,2 +1,2 @@
 allow bootanim userspace_reboot_exported_prop:file { getattr open read };
-
+dontaudit bootanim system_data_file:dir search;

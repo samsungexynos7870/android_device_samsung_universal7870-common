@@ -3,6 +3,12 @@ type factorymode_factoryapp_efs_file, file_type;
 type baro_delta_factoryapp_efs_file, file_type;
 type sensor_factoryapp_efs_file, file_type;
 
+# debugfs types
+type debugfs_mali, fs_type, debugfs_type;
+type debugfs_mali_mem, fs_type, debugfs_type;
+type debugfs_ion, fs_type, debugfs_type;
+type debugfs_ion_dma, fs_type, debugfs_type;
+
 # widewine, drm
 type drm_efs_file, file_type;
 type radio_factoryapp_efs_file, file_type;
@@ -39,7 +45,8 @@ type sysfs_v4l, sysfs_type, fs_type, mlstrustedobject;
 type sysfs_sswap, sysfs_type, fs_type, mlstrustedobject;
 type sysfs_virtual, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_sec_tsp, sysfs_type, fs_type, mlstrustedobject;
-type sysfs_fastcharge, sysfs_type, fs_type;
+type sysfs_fastcharge, sysfs_type, fs_type, mlstrustedobject;
+type sysfs_info, sysfs_type, r_fs_type, fs_type, mlstrustedobject;
 
 ### data types
 type nfc_vendor_data_file, data_file_type, file_type;

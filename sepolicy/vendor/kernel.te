@@ -1,4 +1,5 @@
 allow kernel self:capability { chown mknod };
+allow kernel block_device:dir search;
 
 # /dev/mbin0
 allow kernel emmcblk_device:blk_file r_file_perms;
@@ -22,3 +23,11 @@ allow kernel tmpfs:dir search;
 allow kernel self:capability sys_module;
 allow kernel sysfs_input:dir { search };
 allow kernel sysfs_input:file { open };
+
+# device
+allow kernel device:chr_file { getattr setattr unlink create };
+allow kernel device:dir create_dir_perms;
+
+# sysfs sec
+allow kernel sysfs_sec_key:dir search;
+allow kernel sysfs_sec_key:file { getattr open read };

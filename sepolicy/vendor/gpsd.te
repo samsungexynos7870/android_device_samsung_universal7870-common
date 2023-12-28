@@ -33,5 +33,7 @@ allow gpsd gps_vendor_data_file:dir rw_dir_perms;
 allow gpsd gps_vendor_data_file:file create_file_perms;
 allow gpsd gps_vendor_data_file:fifo_file create_file_perms;
 
-allow gpsd sysfs_gps:file { getattr open read };
+allow gpsd sysfs_gps:file { getattr open read write};
+
+# wakelock
 allow gpsd sysfs_wake_lock:file { open write };

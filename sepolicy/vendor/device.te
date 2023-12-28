@@ -1,5 +1,14 @@
+# /dev/m2m1shot_scaler0
+type m2m1shot_device, dev_type;
+
 # /dev/ttySAC3
 type bluetooth_device, dev_type;
+
+# /dev/goodix_fp
+type goodix_device, dev_type;
+
+# drm
+type drm_device, dev_type;
 
 # /dev/block/mmcblk0p[0-9] (/dev/mbin0)
 type emmcblk_device, file_type;
@@ -27,3 +36,7 @@ type knox_device, dev_type;
 
 # GPS
 type gps_device, dev_type;
+
+# Block devices
+type vendor_block_device, dev_type;
+type product_block_device, dev_type;

@@ -175,7 +175,7 @@ BOARD_SECCOMP_POLICY := $(LOCAL_PATH)/seccomp
 include device/lineage/sepolicy/exynos/sepolicy.mk
 include device/samsung_slsi/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy/vendor
-SELINUX_IGNORE_NEVERALLOWS := true
+# SELINUX_IGNORE_NEVERALLOWS := true
 
 # BOARD_SEPOLICY_VERS := $(PLATFORM_SDK_VERSION).0
 
@@ -188,9 +188,7 @@ BOARD_USES_VENDORIMAGE := true
 
 # Shim
 TARGET_LD_SHIM_LIBS += \
-    /system/bin/mediaserver|/system/lib/libstagefright_shim.so \
-    /vendor/lib64/libsec-ril.so|/vendor/lib64/libcutils_shim_exynos7870.so \
-    /vendor/lib64/libsec-ril-dsds.so|/vendor/lib64/libcutils_shim_exynos7870.so
+    /system/bin/mediaserver|/system/lib/libstagefright_shim.so
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI := true

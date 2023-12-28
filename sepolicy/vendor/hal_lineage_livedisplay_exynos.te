@@ -1,0 +1,9 @@
+# Allow LiveDisplay hal_lineage_livedisplay_exynos the ability to search directories labeled with sysfs_graphics
+allow hal_lineage_livedisplay_exynos sysfs_graphics:dir search;
+
+# access to sysfs_mdnie is required
+allow hal_lineage_livedisplay_exynos sysfs_mdnie:dir search; 
+
+# Allow LiveDisplay hal_lineage_livedisplay_exynos to read/write to files under sysfs_graphics, sysfs_mdnie
+allow hal_lineage_livedisplay_exynos sysfs_graphics:file rw_file_perms;
+allow hal_lineage_livedisplay_exynos sysfs_mdnie:file rw_file_perms;
