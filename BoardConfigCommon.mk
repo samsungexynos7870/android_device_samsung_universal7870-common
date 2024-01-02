@@ -184,9 +184,7 @@ BOARD_USES_VENDORIMAGE := true
 
 # Shim
 TARGET_LD_SHIM_LIBS += \
-    /system/bin/mediaserver|/system/lib/libstagefright_shim.so \
-    /vendor/lib64/libsec-ril.so|/vendor/lib64/libcutils_shim_vendor.so \
-    /vendor/lib64/libsec-ril-dsds.so|/vendor/lib64/libcutils_shim_vendor.so
+    /system/bin/mediaserver|/system/lib/libstagefright_shim.so
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI := true

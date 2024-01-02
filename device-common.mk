@@ -358,7 +358,7 @@ PRODUCT_COPY_FILES += \
 
 # Shims
 PRODUCT_PACKAGES += \
-    libcutils_shim \
+    libcutils_shim_vendor \
     libexynoscamera_shim
 
 # USB
