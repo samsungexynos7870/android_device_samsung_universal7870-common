@@ -193,8 +193,8 @@ PRODUCT_PACKAGES += \
     vendor.lineage.fastcharge@1.0-service.samsung
 
 # Touch features
-#PRODUCT_PACKAGES += \
-#    vendor.lineage.touch@1.0-service.samsung
+PRODUCT_PACKAGES += \
+    vendor.lineage.touch@1.0-service.samsung
 
 # FlipFlap
 PRODUCT_PACKAGES += \
@@ -205,11 +205,14 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service.software
 
 # Power
-PRODUCT_PACKAGES += \
-    android.hardware.power-service.samsung-libperfmgr
+#PRODUCT_PACKAGES += \
+#    android.hardware.power-service.samsung-libperfmgr
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+#PRODUCT_COPY_FILES += \
+#    $(LOCAL_PATH)/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+
+PRODUCT_PACKAGES += \
+     android.hardware.power@1.0-service.exynos7870
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018 The LineageOS Project
+# Copyright (C) 2020 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,29 +12,36 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-    GraphicBufferMapper.cpp
+    Power.cpp \
+    service.cpp
+
+LOCAL_C_INCLUDES := \
+    $(LOCAL_PATH)/include \
+    hardware/samsung/aidl/light/include
 
 LOCAL_SHARED_LIBRARIES := \
     libbase \
-    libcutils \
-    libhardware \
-    liblog \
-    libnativewindow \
-    libsync \
-    libui
+    libbinder \
+    libhidlbase \
+    libutils \
+    android.hardware.power@1.0 \
+    vendor.lineage7870.power@1.0
 
-LOCAL_STATIC_LIBRARIES := \
-    libarect
+LOCAL_STATIC_LIBRARIES := libc++fs
 
-LOCAL_MODULE := libui_shim
+LOCAL_MODULE := android.hardware.power@1.0-service.exynos7870
+LOCAL_INIT_RC := android.hardware.power@1.0-service.exynos7870.rc
+LOCAL_VINTF_FRAGMENTS := android.hardware.power@1.0-service.exynos7870.xml
+LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-LOCAL_PROPRIETARY_MODULE := true
+LOCAL_MODULE_OWNER := samsung
+LOCAL_VENDOR_MODULE := true
 
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_EXECUTABLE)

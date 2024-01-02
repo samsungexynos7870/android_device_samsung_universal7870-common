@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vendor.customelineage.power@1.0;
+package vendor.lineage7870.power@1.0;
 
 /** Power hint identifiers passed to powerHint() */
 enum LineagePowerHint : uint32_t {
