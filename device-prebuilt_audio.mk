@@ -22,9 +22,8 @@ $(warning ********************************************************************)
 
 # Audio configuration for prebuilt samsung stock audio
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio/prebuilt/audio_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy.conf \
     $(LOCAL_PATH)/configs/audio/prebuilt/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(LOCAL_PATH)/configs/audio/prebuilt/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
 
 # call the proprietary audio setup
-$(call inherit-product, vendor/samsung/universal7870-common/universal7870-common-prebuilt-audio_vendor.mk)
+#$(call inherit-product, vendor/samsung/universal7870-common/universal7870-common-prebuilt-audio_vendor.mk)
