@@ -216,7 +216,7 @@ PRODUCT_PACKAGES += \
 
 # Touch features
 PRODUCT_PACKAGES += \
-    vendor.lineage.touch@1.0-service.samsung
+    vendor.lineage.touch@1.0-service.exynos7870
 
 # FlipFlap
 PRODUCT_PACKAGES += \

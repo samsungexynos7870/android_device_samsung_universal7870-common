@@ -2,13 +2,3 @@
 system/vendor/lib64/egl/libGLES_mali.so:vendor/lib64/egl/libGLES_mali.so
 system/vendor/lib/egl/libGLES_mali.so:vendor/lib/egl/libGLES_mali.so
 
-# thermal
--system/vendor/lib64/hw/thermal.universal7880.so:vendor/lib64/hw/thermal.universal7870.so
--system/vendor/lib/hw/thermal.universal7880.so:vendor/lib/hw/thermal.universal7870.so
-
-# Firmware
-vendor/firmware/mfc_fw.bin
-
-# libuniplugin
--vendor/lib64/libuniplugin.so
--vendor/lib/libuniplugin.so

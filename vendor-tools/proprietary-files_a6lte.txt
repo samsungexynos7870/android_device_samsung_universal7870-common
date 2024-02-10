@@ -1,10 +1,9 @@
-# M105FDDS5CWA1
+# A600FJXU9CUH3
 
-# START_GUARD:TARGET_DEVICE_HAS_M10LTE_AUDIO_HAL
-# START_EXTRA_FOLDER:M10LTE_AUDIO
+# START_GUARD:TARGET_DEVICE_HAS_A6LTE_AUDIO_HAL
+# START_EXTRA_FOLDER:A6LTE_AUDIO
 
 # Audio
-vendor/etc/Tfa9896.cnt
 vendor/lib/libaudioroute.so:vendor/lib/libaudior7870.so
 vendor/lib/libLifevibes_lvverx.so
 vendor/lib/libLifevibes_lvvetx.so
@@ -12,11 +11,10 @@ vendor/lib/libpreprocessing_nxp.so
 vendor/lib/librecordalive.so
 vendor/lib/libsamsungDiamondVoice.so
 vendor/lib/libSamsungPostProcessConvertor.so
-vendor/lib/lib_SamsungRec_06006.so
+vendor/lib/lib_SamsungRec_06004.so
 vendor/lib/libsecaudioinfo.so
 vendor/lib/lib_soundaliveresampler.so
 vendor/lib/lib_SoundAlive_SRC384_ver320.so
-vendor/lib/libtfa98xx.so
 vendor/lib/libtinyalsa.so:vendor/lib/libalsa7870.so
 vendor/lib/hw/audio.primary.exynos7870.so
 
@@ -188,16 +186,6 @@ vendor/etc/nxp/voiceexperience/WifiCallingHAC/Tx_ControlParams_WIDEBAND_SPEAKER.
 vendor/etc/nxp/voiceexperience/WifiCallingHAC/Tx_ControlParams_WIDEBAND_WIRED_HEADPHONE.txt
 vendor/etc/nxp/voiceexperience/WifiCallingHAC/Tx_ControlParams_WIDEBAND_WIRED_HEADSET.txt
 
-# END_EXTRA_FOLDER:M10LTE_AUDIO
-# END_GUARD:TARGET_HAS_M10LTE_AUDIO_HAL
+# END_EXTRA_FOLDER:A6LTE_AUDIO
+# END_GUARD:TARGET_HAS_A6LTE_AUDIO_HAL
 
-# Firmware
-vendor/firmware/mfc_fw.bin
-
-# RIL Firmware
-vendor/etc/plmn_se13.bin
-vendor/etc/plmn_delta.bin
-vendor/etc/plmn_delta_hktw.bin
-vendor/etc/plmn_delta_attaio.bin
-vendor/etc/plmn_delta_usagsm.bin
-vendor/etc/plmn_delta_usacdma.bin

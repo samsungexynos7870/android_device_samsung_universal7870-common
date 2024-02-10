@@ -1,0 +1,88 @@
+#
+# Copyright (C) 2019 The LineageOS Project
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+
+# libaptX
+product/lib64/libaptX_encoder.so
+product/lib64/libaptXHD_encoder.so
+
+# mcRegistry
+vendor/app/mcRegistry/00060308060501020000000000000000.tlbin
+vendor/app/mcRegistry/07010000000000000000000000000000.tlbin
+vendor/app/mcRegistry/07060000000000000000000000000000.tlbin
+vendor/app/mcRegistry/08130000000000000000000000000000.tlbin
+vendor/app/mcRegistry/FFFFFFFF000000000000000000000001.drbin
+vendor/app/mcRegistry/ffffffff000000000000000000000005.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000a.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000b.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000c.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000d.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000f.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000012.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000013.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000016.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000017.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000019.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000002e.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000002f.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000030.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000038.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000003e.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000041.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000045.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000059.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000060.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000073.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000077.tlbin
+vendor/app/mcRegistry/ffffffffd00000000000000000000014.tlbin
+vendor/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
+vendor/app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
+vendor/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
+vendor/app/mcRegistry/ffffffffd00000000000000000000062.tlbin
+vendor/bin/mcDriverDaemon
+vendor/lib/libMcClient.so
+vendor/lib/libMcRegistry.so
+vendor/lib/liboemcrypto.so
+vendor/bin/sswap
+
+# libstainkiller
+-vendor/lib/libstainkiller.so
+
+# libuniplugin
+-vendor/lib64/libuniplugin.so
+-vendor/lib/libuniplugin.so
+
+# Thermal
+-vendor/lib64/hw/thermal.universal7870.so
+-vendor/lib/hw/thermal.universal7870.so
+
+# Sensors
+-vendor/lib64/libsensorlistener.so
+-vendor/lib/libsensorlistener.so
+
+# Camera
+-vendor/lib/hw/camera.vendor.exynos7870.so
+
+# GPS
+-vendor/bin/hw/gpsd
+-vendor/bin/hw/vendor.samsung.hardware.gnss@2.0-service
+vendor/etc/gnss/ca.pem
+vendor/etc/gnss/gps.cfg
+vendor/etc/init/init.gps.rc
+vendor/etc/init/vendor.samsung.hardware.gnss@2.0-service.rc
+-vendor/lib/libwrappergps.so
+-vendor/lib/vendor.samsung.hardware.gnss@2.0.so
+-vendor/lib64/hw/android.hardware.gnss@2.0-impl.so
+-vendor/lib64/hw/vendor.samsung.hardware.gnss@2.0-impl.so
+-vendor/lib64/libwrappergps.so
+-vendor/lib64/vendor.samsung.hardware.gnss@2.0.so
