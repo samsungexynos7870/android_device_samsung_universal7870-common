@@ -777,12 +777,6 @@ setprop sys.usb.ffs.aio_compat 1
     chown root system /dev/socket
     chmod 0775 /dev/socket
 
-# Move 2 SD card
-service extSdUFSVold /system/bin/extSDCardServiceVold
-    class main
-    user system
-    group system mount radio net_bt sdcard_rw shell media media_rw
-
 on fs
     mount_all /vendor/etc/fstab.${ro.hardware}
     chown radio system /mnt/vendor/efs
