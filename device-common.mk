@@ -348,7 +348,7 @@ PRODUCT_PACKAGES += \
 
 # Thermal
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0-service.samsung
+    android.hardware.thermal@2.0-service.exynos
 
 # Touchscreen
 PRODUCT_COPY_FILES += \
