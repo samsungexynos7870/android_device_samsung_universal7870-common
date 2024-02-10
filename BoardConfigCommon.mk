@@ -19,6 +19,12 @@ LOCAL_PATH := device/samsung/universal7870-common
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
+# audio hal
+ifeq ($(TARGET_BOARD_HAS_OSS_AUDIO_HAL),true)
+TARGET_AUDIOHAL_VARIANT := samsung-exynos7870
+TARGET_SECRIL_VARIANT:= samsung-exynos7870
+endif
+
 # misc
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
