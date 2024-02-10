@@ -84,6 +84,28 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     libtinycompress
 
+ifeq ($(TARGET_DEVICE_HAS_OSS_AUDIO_HAL),true)
+PRODUCT_PACKAGES += \
+    audio.primary.exynos7870_32
+
+# Audio configuration OSS
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/audio/oss/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+    $(LOCAL_PATH)/configs/audio/oss/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
+    $(LOCAL_PATH)/configs/audio/oss/mixer_gains.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_gains.xml
+
+else
+# Audio configuration for prebuilt samsung stock audio
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/audio/prebuilt/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+    $(LOCAL_PATH)/configs/audio/prebuilt/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
+endif
+
+ifeq ($(TARGET_DEVICE_HAS_TFA_AMP),true)
+PRODUCT_PACKAGES += \
+    audio_amplifier.exynos7870_32
+endif
+
 # Audio Permissions common
 PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
