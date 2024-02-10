@@ -7,6 +7,10 @@ vendor.bluetooth_fw_ver                u:object_r:vendor_bluetooth_prop:s0
 # samsung audio
 persist.audio.sales_code    u:object_r:audio_prop:s0
 
+persist.vendor.audio.            u:object_r:vendor_audio_prop:s0
+ro.vendor.audio_hal.             u:object_r:vendor_audio_prop:s0
+
+
 # modemloader
 hw.revision            u:object_r:modemloader_prop:s0
 ro.cbd.dt_revision     u:object_r:modemloader_prop:s0
@@ -20,6 +24,10 @@ vendor.cbd.rfs_check_done                   u:object_r:vendor_cbd_prop:s0
 # mobicore vendor
 vendor.sys.mobicoredaemon.enable         u:object_r:tee_prop:s0
 
+# OMX
+ro.vendor.cscsupported           u:object_r:vendor_omx_prop:s0
+ro.vendor.debug.omx.level             u:object_r:vendor_omx_prop:s0
+
 # NFC
 persist.nfc.log.index            u:object_r:vendor_nfc_prop:s0
 vendor.nfc.fw.                   u:object_r:vendor_nfc_prop:s0
@@ -30,9 +38,12 @@ persist.ril.modem.board    u:object_r:radio_prop:s0
 persist.ril.ims.eutranParam u:object_r:radio_prop:s0
 persist.ril.ims.utranParam  u:object_r:radio_prop:s0
 persist.ril.interfaceconf.failed u:object_r:radio_prop:s0
+ril.clatd.                 u:object_r:clatd_radio_prop:s0
 
 # wlan
 vendor.wlan.               u:object_r:vendor_wlan_prop:s0
 
 # sswap
 persist.sys.swapoff     u:object_r:sswap_prop:s0
+
+

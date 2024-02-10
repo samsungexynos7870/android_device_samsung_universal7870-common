@@ -1,0 +1,6 @@
+# /dev/mobicore-user
+allow hal_gatekeeper_default tee_device:chr_file rw_file_perms;
+
+# /vendor/app/mcRegistry/
+allow hal_gatekeeper_default mobicore_vendor_file:dir search;
+allow hal_gatekeeper_default mobicore_vendor_file:file r_file_perms;

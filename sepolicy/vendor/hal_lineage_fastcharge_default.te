@@ -1,7 +1,16 @@
 # hal_lineage_fastcharge_default.te
 
 init_daemon_domain(hal_lineage_fastcharge_default)
+
+# fastcharge
 allow hal_lineage_fastcharge_default sysfs_fastcharge:file rw_file_perms;
+
+# socket
 allow hal_lineage_fastcharge_default init:unix_stream_socket connectto;
 allow hal_lineage_fastcharge_default property_socket:sock_file write;
-allow hal_lineage_fastcharge_default vendor_default_prop:property_service set;
+
+# virtual
+allow hal_lineage_fastcharge_default sysfs_virtual:dir r_dir_perms;
+
+# switch
+allow hal_lineage_fastcharge_default sysfs_switch:file rw_file_perms;

@@ -1,0 +1,2 @@
+allow cbd sysfs_info:file r_file_perms;
+allow cbd proc_net:file r_file_perms;

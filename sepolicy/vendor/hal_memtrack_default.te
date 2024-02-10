@@ -1,1 +1,8 @@
 allow hal_memtrack_default debugfs:dir { open  read };
+r_dir_file(hal_memtrack_default, debugfs_ion);
+r_dir_file(hal_memtrack_default, debugfs_mali_mem);
+
+# debugfs
+allow hal_memtrack_default debugfs_ion_dma:dir search;
+allow hal_memtrack_default debugfs_mali:dir { open read };
+

@@ -1,9 +1,33 @@
-allow hal_audio_default audio_prop:property_service set;
+# Allow hal_audio_default perform ioctl operations on character device files labeled with device
 allow hal_audio_default device:chr_file ioctl;
-allow hal_audio_default imei_efs_file:dir search;
-allow hal_audio_default imei_efs_file:file { getattr open read };
+
+# Allow hal_audio_default search directories labeled with efs_file
+allow hal_audio_default efs_file:dir r_dir_perms;
+
+# Allow hal_audio_default connect to unix_stream_socket of init domain
 allow hal_audio_default init:unix_stream_socket connectto;
+
+# Allow hal_audio_default search directories labeled with imei_efs_file, and get attributes of, open and read files labeled with imei_efs_file.
+allow hal_audio_default imei_efs_file:dir r_dir_perms;
+allow hal_audio_default imei_efs_file:file { getattr open read };
+
+# Allow hal_audio_default search directories labeled with mnt_vendor_file
+allow hal_audio_default mnt_vendor_file:dir r_dir_perms;
+
+# Allow hal_audio_default write to socket files labeled with property_socket
 allow hal_audio_default property_socket:sock_file write;
+
+# Allow hal_audio_default connect to unix_stream_socket of rild domain
 allow hal_audio_default rild:unix_stream_socket connectto;
+
+# Allow hal_audio_default find the hwservice_manager labeled with system_suspend_hwservice
+allow hal_audio_default system_suspend_hwservice:hwservice_manager find;
+
+# Allow hal_audio_default get attributes of, open and read files labeled with vendor_radio_prop
 allow hal_audio_default vendor_radio_prop:file { getattr open read };
+
+# Allow hal to take wakelock
+wakelock_use(hal_audio_default)
+
+get_prop(hal_audio_default, vendor_audio_prop)
 

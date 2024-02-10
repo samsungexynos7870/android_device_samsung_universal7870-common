@@ -1,13 +1,21 @@
-allow hal_light_default sysfs_light:dir search;
+# light
+allow hal_light_default sysfs_light:dir r_dir_perms;
 allow hal_light_default sysfs_light:file rw_file_perms;
 
-allow hal_light_default sysfs_graphics:dir search;
+# graphics
+allow hal_light_default sysfs_graphics:dir r_dir_perms;
 allow hal_light_default sysfs_graphics:file rw_file_perms;
 
-allow hal_light_default sysfs_sec:dir search;
+# sec
+allow hal_light_default sysfs_sec:dir r_dir_perms;
 allow hal_light_default sysfs_sec:lnk_file read;
 allow hal_light_default sysfs_sec:file rw_file_perms;
 
-allow hal_light_default sysfs_brightness:file { open read write getattr };
-allow hal_light_default sysfs_virtual:dir search;
-allow hal_light_default sysfs_virtual:file { read write open getattr };
+# brightness
+allow hal_light_default sysfs_brightness:file rw_file_perms;
+
+# vritual
+allow hal_light_default sysfs_virtual:dir r_dir_perms;
+allow hal_light_default sysfs_virtual:file rw_file_perms;
+
+r_dir_file(hal_light_default, sysfs_graphics)

@@ -173,11 +173,12 @@ OVERRIDE_RS_DRIVER := libRSDriverArm.so
 # Seccomp
 BOARD_SECCOMP_POLICY := $(LOCAL_PATH)/seccomp
 
-# SELinux
-include device/lineage/sepolicy/exynos/sepolicy.mk
-include device/samsung_slsi/sepolicy/sepolicy.mk
+# no need to set in for sepolicy_slsi_exynos7870
+# BOARD_SEPOLICY_TEE_FLAVOR := mobicore
+# only needed by livedisplay wich is labled inline
+# include device/lineage/sepolicy/exynos/sepolicy.mk
+include device/samsung/universal7870-common/sepolicy_slsi_exynos7870/sepolicy.mk
 BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy/vendor
-SELINUX_IGNORE_NEVERALLOWS := true
 
 # BOARD_SEPOLICY_VERS := $(PLATFORM_SDK_VERSION).0
 

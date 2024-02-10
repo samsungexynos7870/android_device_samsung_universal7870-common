@@ -1,0 +1,5 @@
+dontaudit domain mediaserver_exec:file { getattr read };
+
+dontaudit {
+  flags_health_check
+} property_type:file r_file_perms;

@@ -55,6 +55,21 @@ allow rild proc_qtaguid_stat:file r_file_perms;
 # /proc/sys/net/ipv6/conf/*/accept_ra_defrtr
 allow rild proc_net:file rw_file_perms;
 
+# sec radio
+allow rild hal_sec_radio_bridge_hwservice:hwservice_manager { add find };
+allow rild hal_sec_radio_channel_hwservice:hwservice_manager { add find };
+allow rild hal_sec_radio_hwservice:hwservice_manager { add find };
+
+
+# TODO: find a better way to do this | triggers neverallow
+dontaudit rild radio_core_data_file:dir r_dir_perms;
+dontaudit rild radio_core_data_file:file rw_file_perms;
+# allow rild radio_core_data_file:dir search;
+# allow rild radio_core_data_file:file open;
+
+# works
+allow rild radio_core_data_file:file { getattr read };
+
 # mdc.
 # persist.sys.omc_support
 # ro.csc.
@@ -64,4 +79,4 @@ get_prop(rild, exported_config_prop);
 get_prop(rild, radio_control_prop)
 
 # vendor.cbd.
-# set_prop(rild, vendor_cbd_prop)
+set_prop(rild, vendor_cbd_prop)

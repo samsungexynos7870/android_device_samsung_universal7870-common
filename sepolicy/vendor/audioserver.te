@@ -7,3 +7,10 @@ r_dir_file(audioserver, sec_efs_file);
 
 # TFA98xx amplifier
 allow audioserver amplifier_device:chr_file rw_file_perms;
+
+allow audioserver audio_service:service_manager find;
+
+# prop
+# allow audioserver vendor_default_prop:file r_file_perms;
+dontaudit hal_audio_default default_prop:file { read open getattr };
+

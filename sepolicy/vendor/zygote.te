@@ -1,1 +1,11 @@
-dontaudit zygote proc_cmdline:file r_file_perms;
+dontaudit zygote device:dir rw_dir_perms;
+dontaudit zygote device:file rw_file_perms;
+dontaudit zygote proc_cmdline:file rw_file_perms;
+# neverallow
+# allow zygote sysfs:dir rw_dir_perms;
+# allow zygote sysfs:file rw_file_perms;
+# allow zygote sysfs:dir create_dir_perms;
+
+dontaudit zygote sysfs:dir r_dir_perms;
+dontaudit zygote sysfs:file rw_file_perms;
+dontaudit zygote sysfs:dir create_dir_perms;

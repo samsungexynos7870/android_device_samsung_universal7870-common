@@ -1,5 +1,5 @@
 # Graphics sysfs
-allow hal_graphics_composer_default sysfs_graphics:dir  search;
+allow hal_graphics_composer_default sysfs_graphics:dir r_dir_perms;
 allow hal_graphics_composer_default sysfs_graphics:file rw_file_perms;
 
 # uevent socket

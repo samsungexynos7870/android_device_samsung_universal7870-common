@@ -1,0 +1,77 @@
+typeattribute vendor_init data_between_core_and_vendor_violators;
+
+get_prop(vendor_init, vendor_radio_prop)
+set_prop(vendor_init, tee_prop)
+
+# data
+allow vendor_init system_data_file:dir rw_dir_perms;
+allow vendor_init system_data_file:file r_file_perms;
+
+# tmpfs
+allow vendor_init tmpfs:dir rw_dir_perms;
+
+# wifi
+allow vendor_init wifi_data_file:dir r_dir_perms;
+
+# wpa
+allow vendor_init wpa_socket:dir getattr;
+
+# camera
+allow vendor_init camera_data_file:dir create_dir_perms;
+
+# hostpad
+allow vendor_init hostapd_data_file:dir create_dir_perms;
+
+# Allow vendor_init to read vts_status_prop
+allow vendor_init vts_status_prop:file { getattr open read };
+
+# Allow vendor_init to read radio_prop
+allow vendor_init vendor_radio_prop:file { getattr open read };
+
+# Allow vendor_init to read system_prop
+allow vendor_init system_prop:file { getattr open read };
+
+# Allow vendor_init to read hwservicemanager_prop
+allow vendor_init hwservicemanager_prop:file { getattr open read };
+
+# NAD_REFER
+allow vendor_init block_device:lnk_file setattr;
+
+allow vendor_init cache_backup_file:dir setattr;
+allow vendor_init cache_file:dir r_file_perms;
+allow vendor_init cache_private_backup_file:dir setattr;
+
+allow vendor_init cache_file:dir r_dir_perms;
+
+# default prop
+# allow vendor_init default_prop:file { read open };
+
+# Allow init to create tmpfs
+allow vendor_init tmpfs:dir create_dir_perms;
+
+# proc 
+allow vendor_init proc_vm:file rw_file_perms;
+
+# radio
+# allow vendor_init radio_prop:file read;
+
+# sysfs
+allow vendor_init sysfs:lnk_file setattr;
+
+# cgroup
+allow vendor_init cgroup:file getattr;
+
+allow vendor_init {
+  backup_data_file
+  cas_data_file
+  dhcp_data_file
+  fingerprintd_data_file
+  media_rw_data_file
+  mobicore_data_file
+  system_data_file
+  tombstone_data_file
+}:dir { create search getattr open read setattr ioctl write add_name remove_name rmdir relabelfrom };
+
+get_prop(vendor_init, clatd_radio_prop)
+set_prop(vendor_init, vendor_audio_prop)
+

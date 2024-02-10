@@ -22,8 +22,13 @@ allow gpsd port:tcp_socket { name_bind name_connect };
 allow gpsd port:udp_socket name_bind;
 allow gpsd node:{ tcp_socket udp_socket } node_bind;
 
+# allow gpsd bootanim_system_prop:file r_file_perms;
+
 # /acct/tasks
 allow gpsd cgroup:file getattr;
+
+# /sys/power/wake_unlock
+allow gpsd sysfs_wake_lock:file rw_file_perms;
 
 # /dev/socket/fwmarkd
 allow gpsd fwmarkd_socket:sock_file write;
@@ -33,5 +38,14 @@ allow gpsd gps_vendor_data_file:dir rw_dir_perms;
 allow gpsd gps_vendor_data_file:file create_file_perms;
 allow gpsd gps_vendor_data_file:fifo_file create_file_perms;
 
-allow gpsd sysfs_gps:file { getattr open read };
-allow gpsd sysfs_wake_lock:file { open write };
+
+# allow gpsd system_data_file:dir search;
+
+# gps
+allow gpsd sysfs_gps:file rw_file_perms;
+
+# device
+allow gpsd gps_device:chr_file rw_file_perms;
+
+# info
+allow gpsd sysfs_model_info:file r_file_perms;

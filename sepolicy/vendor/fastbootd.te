@@ -1,0 +1,4 @@
+allow fastbootd {
+    system_block_device
+    vendor_block_device
+}:blk_file rw_file_perms;

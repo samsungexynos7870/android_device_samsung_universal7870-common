@@ -1,4 +1,11 @@
 allow system_app sysfs_mdnie:{ file lnk_file } rw_file_perms;
-allow system_app sysfs_mdnie:dir search;
-allow system_app sysfs_graphics:dir search;
+allow system_app sysfs_mdnie:dir r_dir_perms;
+allow system_app sysfs_graphics:dir r_dir_perms;
 allow system_app wificond:binder call;
+
+# allow access to system app for radio files
+allow system_app radio_core_data_file:dir rw_dir_perms;
+allow system_app radio_core_data_file:file create_file_perms;
+
+# biometrics
+allow shell vendor_file:file { getattr read };
