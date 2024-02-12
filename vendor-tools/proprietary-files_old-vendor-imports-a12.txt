@@ -62,10 +62,6 @@ vendor/bin/sswap
 -vendor/lib64/libuniplugin.so
 -vendor/lib/libuniplugin.so
 
-# Thermal
--vendor/lib64/hw/thermal.universal7870.so
--vendor/lib/hw/thermal.universal7870.so
-
 # Sensors
 -vendor/lib64/libsensorlistener.so
 -vendor/lib/libsensorlistener.so
