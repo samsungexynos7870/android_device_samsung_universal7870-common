@@ -672,6 +672,7 @@ PRODUCT_PACKAGES += \\
     libGLES_mali
 
 # common audio
+ifeq (\$(TARGET_DEVICE_HAS_PREBUILT_AUDIO_HAL),true)
 PRODUCT_PACKAGES += \\
     libaudior7870 \\
     libLifevibes_lvverx \\
@@ -685,6 +686,7 @@ PRODUCT_PACKAGES += \\
     lib_SoundAlive_SRC384_ver320 \\
     libalsa7870 \\
     audio.primary.exynos7870
+endif
 
 # a6lte audio
 ifeq (\$(TARGET_DEVICE_HAS_A6LTE_AUDIO_HAL),true)

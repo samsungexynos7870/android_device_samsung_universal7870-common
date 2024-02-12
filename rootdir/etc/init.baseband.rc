@@ -60,6 +60,8 @@ on fs && property:ro.boot.cpefs_wp=1
     chmod 0660 /sys/module/modem_utils/parameters/cp_crash_info
     chown radio system /sys/module/modem_utils/parameters/cp_crash_link
     chmod 0660 /sys/module/modem_utils/parameters/cp_crash_link
+    rm /data/vendor/log/cbd/err/last_sr_info_umts
+    write /data/vendor/log/cbd/err/last_sr_info_umts ""
 
 on property:ril.clatd.v4-rmnet0=up
     write /sys/class/net/rmnet0/queues/rx-0/rps_cpus 4
