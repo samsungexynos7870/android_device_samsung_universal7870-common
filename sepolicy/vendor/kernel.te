@@ -18,16 +18,19 @@ r_dir_file(kernel, wifi_efs_file);
 allow kernel wifi_data_file:file rw_file_perms;
 
 # Allow kernel to search tmpfs
-allow kernel tmpfs:dir search;
+allow kernel tmpfs:dir r_dir_perms;
 
+# sys module
 allow kernel self:capability sys_module;
-allow kernel sysfs_input:dir { search };
-allow kernel sysfs_input:file { open };
+
+# input
+allow kernel sysfs_input:dir r_dir_perms;
+allow kernel sysfs_input:file r_file_perms;
 
 # device
 allow kernel device:chr_file { getattr setattr unlink create };
 allow kernel device:dir create_dir_perms;
 
 # sysfs sec
-allow kernel sysfs_sec_key:dir search;
-allow kernel sysfs_sec_key:file { getattr open read };
+allow kernel sysfs_sec_key:dir r_dir_perms;
+allow kernel sysfs_sec_key:file r_file_perms;

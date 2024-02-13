@@ -20,11 +20,12 @@ LOCAL_SRC_FILES := GraphicBuffer.cpp Fence.cpp
 
 LOCAL_C_INCLUDES := frameworks/native/include
 
-LOCAL_SHARED_LIBRARIES := libgui_vendor libui
+LOCAL_SHARED_LIBRARIES := libgui_vendor libui libgui2vendor
 
 LOCAL_MODULE := libexynoscamera_shim
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_PROPRIETARY_MODULE := true
+LOCAL_MODULE_TARGET_ARCH:= arm
 
 include $(BUILD_SHARED_LIBRARY)

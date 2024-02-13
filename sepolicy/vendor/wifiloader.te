@@ -9,12 +9,14 @@ unix_socket_connect(wifiloader, property, init)
 allow wifiloader proc:file r_file_perms;
 allow wifiloader sysfs_wlan_fwpath:file setattr;
 # allow wifiloader wifi_data_file:file rw_file_perms;
+set_prop(wifiloader, vendor_wlan_prop)
+get_prop(wifiloader, vendor_wifi_prop)
 
 # /efs
-allow wifiloader efs_file:dir search;
+allow wifiloader efs_file:dir r_dir_perms;
 
 # /efs/wifi
-allow wifiloader wifi_efs_file:dir search;
+allow wifiloader wifi_efs_file:dir r_dir_perms;
 allow wifiloader wifi_efs_file:file r_file_perms;
 
 # load .ko modules

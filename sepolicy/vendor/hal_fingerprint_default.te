@@ -1,8 +1,37 @@
 typeattribute hal_fingerprint_default data_between_core_and_vendor_violators;
 
-allow hal_fingerprint_default fingerprintd_data_file:dir write;
-allow hal_fingerprint_default sysfs_virtual:dir search;
-allow hal_fingerprint_default sysfs_virtual:file r_file_perms;
-allow hal_fingerprint_default goodix_device:chr_file { ioctl open read write };
-allow hal_fingerprint_default uhid_device:chr_file { ioctl open write };
+# allow hal_fingerprint_default to communicate with various devices
+binder_call(system_app, hal_fingerprint_default)
+
+# kernel fp device
+allow hal_fingerprint_default fingerprint_device:chr_file rw_file_perms;
+
+# secure memory device
+allow hal_fingerprint_default secmem_device:chr_file rw_file_perms;
+
+# trust zone device
+allow hal_fingerprint_default tee:unix_stream_socket connectto;
+
+# /data/biometrics/*
+allow hal_fingerprint_default fingerprintd_data_file:dir create_dir_perms;
+allow hal_fingerprint_default fingerprintd_data_file:file create_file_perms;
+
+# /data/vendor/biometrics/*
+allow hal_fingerprint_default biometrics_vendor_data_file:dir create_dir_perms;
+allow hal_fingerprint_default biometrics_vendor_data_file:file create_file_perms;
+
+# Fingerprint sysfs
+allow hal_fingerprint_default sysfs_fingerprint:dir search;
+allow hal_fingerprint_default sysfs_fingerprint:file r_file_perms;
+
+# /data/biometrics/*
+allow hal_fingerprint_default fingerprintd_data_file:dir create_dir_perms;
+allow hal_fingerprint_default fingerprintd_data_file:file create_file_perms;
+
+# virtual
+allow hal_fingerprint_default sysfs_virtual:dir r_dir_perms;
+allow hal_fingerprint_default sysfs_virtual:file rw_file_perms;
+
+allow hal_fingerprint_default goodix_device:chr_file rw_file_perms;
+allow hal_fingerprint_default uhid_device:chr_file rw_file_perms;
 allow hal_fingerprint_default hal_fingerprint_default:netlink_socket { create bind read write };

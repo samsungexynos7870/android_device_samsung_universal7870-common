@@ -7,6 +7,12 @@ allow init efs_file:dir  mounton;
 # Mount CPEFS on /cpefs
 allow init sec_efs_file:dir mounton;
 
+# virtual
+allow init sysfs_virtual:file w_file_perms;
+
+# default prop
+allow init default_prop:file { read open };
+
 # /dev/block/mmcblk0p[0-9]
 allow init emmcblk_device:blk_file rw_file_perms;
 
@@ -16,11 +22,15 @@ allow init tmpfs:lnk_file create_file_perms;
 # /sys/class/power_supply/battery and /sys/class/android_usb/android0
 allow init sysfs_usb_supply:file { rw_file_perms setattr };
 
+#  fs-cgroup2 and fs-cpuset
+allow init kernel:system module_request;
+
 # /data
 allow init sdcardd_exec:file r_file_perms;
 
 # sysfs iio:device[0-9]
 allow init sysfs:lnk_file setattr;
+allow init sysfs:file setattr;
 
 # sysfs ion device
 allow init sysfs_ion:file setattr;
@@ -48,9 +58,13 @@ allow init sysfs_bluetooth_writable:file setattr;
 # GPS permissions
 allow init sysfs_gps:lnk_file read;
 allow init sysfs_gps:file { rw_file_perms setattr };
+
+# data
 allow init gps_data_file:fifo_file write;
 allow init gps_data_file:file lock;
-allow init gps_device:chr_file { open read write };
+
+# device
+allow init gps_device:chr_file r_file_perms;
 
 # CPU permissions
 allow init sysfs_devices_system_cpu:file rw_file_perms;
@@ -60,7 +74,10 @@ allow init mif_device:chr_file rw_file_perms;
 
 # sswap permissions
 allow init sswap_device:blk_file write;
-allow init sysfs_sswap:file { open write };
+allow init sysfs_sswap:file rw_file_perms;
+
+# Block device sysfs
+# allow init sysfs_block:file rw_file_perms;
 
 # Audio Jack
 allow init sysfs_jack:file setattr;
@@ -70,24 +87,106 @@ unix_socket_connect(init, property, rild)
 # Allow access to /proc/device-tree nodes
 r_dir_file(init, proc_dt_firmware)
 
+# radio
+# r_dir_file(init, radio_prop)
+
+# biometrics
+allow init fingerprint_device:chr_file { rw_file_perms setattr };
+allow init vendor_data_file:file rename;
+
+# vendor file
+allow init vendor_file:file r_file_perms;
+
+# mmc
 allow init sysfs_mmc:file { w_file_perms setattr };
+
+# net
 allow init sysfs_net:file rw_file_perms;
+
+# graphics
 allow init sysfs_graphics:file { rw_file_perms setattr };
+
+# light
 allow init sysfs_light:file { rw_file_perms setattr };
 allow init sysfs_light:lnk_file { rw_file_perms setattr };
-allow init sysfs_mdnie:file setattr;
+
+# mdnie
+allow init sysfs_mdnie:file { rw_file_perms setattr };
+
+# sec
 allow init sysfs_sec:file { rw_file_perms setattr };
 allow init sysfs_sec:lnk_file read;
-allow init sysfs_multipdp:file setattr;
+
+# multipdp
+allow init sysfs_multipdp:file r_file_perms;
 allow init sysfs_input:file setattr;
+
+# dns
+allow init dnsmasq_exec:file getattr;
+
+# hwservicemanager
+allow init hwservicemanager:binder { call transfer };
+
+# virtual
+allow init sysfs_virtual:file { r_file_perms setattr };
+allow init sysfs_virtual:lnk_file read;
+
+# iorap
+allow init iorap_inode2filename_exec:file getattr;
+
+# netutils
+allow init netutils_wrapper_exec:file getattr;
+
+# ppp
+allow init ppp_exec:file getattr;
+
+# rs
+allow init rs_exec:file getattr;
+
+# runas
+allow init runas_exec:file getattr;
+
+# sgdisk
+allow init sgdisk_exec:file getattr;
+
+# simpleperf
+allow init simpleperf_app_runner_exec:file getattr;
+
+# tcp dump
+allow init tcpdump_exec:file getattr;
+
+# vold
+allow init vold_prepare_subdirs_exec:file getattr;
+
+# neverallow
+# allow init sysfs:dir rw_dir_perms;
+# allow init sysfs:file rw_file_perms;
+# allow init sysfs:dir create_dir_perms;
+
+dontaudit init sysfs:dir r_dir_perms;
+dontaudit init sysfs:file rw_file_perms;
+dontaudit init sysfs:dir create_dir_perms;
 
 # Proc files
 allow init proc_reset_reason:file { rw_file_perms setattr };
 allow init proc_vm:file rw_file_perms;
+allow init proc_vm:file write;
 allow init proc_simslot_count:file rw_file_perms;
 allow init proc_sec:file { rw_file_perms setattr };
 
 # Sockets
 allow init socket_device:sock_file { read write getattr setattr create unlink };
+allow init node:tcp_socket node_bind;
+allow init self:netlink_kobject_uevent_socket { bind create setopt };
+allow init dnsproxyd_socket:sock_file write;
+allow init fwmarkd_socket:sock_file write;
+allow init netd:unix_stream_socket connectto;
+allow init port:tcp_socket { name_bind name_connect };
+allow init self:tcp_socket { bind connect create write getopt read };
+
+allow init fwk_sensor_hwservice:hwservice_manager find;
+allow init hidl_base_hwservice:hwservice_manager add;
 
 # allow init hal_drm_hwservice:hwservice_manager add;
+
+unix_socket_connect(init, property, rild)

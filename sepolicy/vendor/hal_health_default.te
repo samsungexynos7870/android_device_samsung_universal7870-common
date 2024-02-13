@@ -1,9 +1,12 @@
 r_dir_file(hal_health_default, sysfs_usb_supply)
 allow hal_health_default sysfs_usb_supply:file rw_file_perms;
 
-allow hal_health_default sysfs:file { open read write getattr };
-allow hal_health_default sysfs_battery:dir { open read search getattr };
-allow hal_health_default sysfs_battery:file getattr;
-allow hal_health_default sysfs_battery_writable:dir search;
-allow hal_health_default sysfs_battery_writable:file { getattr open read };
+# sysfs
+allow hal_health_default sysfs:file rw_file_perms;
+
+# battery
+allow hal_health_default sysfs_battery:dir r_dir_perms;
+allow hal_health_default sysfs_battery:file r_file_perms;
+allow hal_health_default sysfs_battery_writable:dir r_dir_perms;
+allow hal_health_default sysfs_battery_writable:file r_file_perms;
 

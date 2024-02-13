@@ -1,0 +1,5 @@
+# /dev/mobicore-user
+allow hal_fingerprint_default tee_device:chr_file rw_file_perms;
+
+# /vendor/app/mcRegistry/
+r_dir_file(hal_fingerprint_default, mobicore_vendor_file)

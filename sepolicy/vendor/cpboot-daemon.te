@@ -18,7 +18,7 @@ allow cpboot-daemon cgroup:dir create_dir_perms;
 allow cpboot-daemon log_vendor_data_file:dir search;
 
 # sysfs
-allow cpboot-daemon sysfs:file { open read };
+allow cpboot-daemon sysfs:file r_file_perms;
 
 # shell
 allow cpboot-daemon vendor_shell_exec:file execute_no_trans;
@@ -51,8 +51,8 @@ allow cpboot-daemon efs_file:file rw_file_perms;
 
 # /proc permissions
 allow cpboot-daemon proc_cmdline:file r_file_perms;
-allow cpboot-daemon proc_dt_firmware:dir search;
-allow cpboot-daemon proc_dt_firmware:file { open read };
+allow cpboot-daemon proc_dt_firmware:dir r_dir_perms;
+allow cpboot-daemon proc_dt_firmware:file r_file_perms;
 
 # set properties on boot
 set_prop(cpboot-daemon, cpboot-daemon_prop)

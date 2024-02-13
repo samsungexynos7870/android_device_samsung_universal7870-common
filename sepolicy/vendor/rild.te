@@ -60,9 +60,15 @@ allow rild hal_sec_radio_bridge_hwservice:hwservice_manager { add find };
 allow rild hal_sec_radio_channel_hwservice:hwservice_manager { add find };
 allow rild hal_sec_radio_hwservice:hwservice_manager { add find };
 
+
 # TODO: find a better way to do this | triggers neverallow
-# allow rild radio_core_data_file:dir r_dir_perms;
-# allow rild radio_core_data_file:file r_file_perms;
+dontaudit rild radio_core_data_file:dir r_dir_perms;
+dontaudit rild radio_core_data_file:file rw_file_perms;
+# allow rild radio_core_data_file:dir search;
+# allow rild radio_core_data_file:file open;
+
+# works
+allow rild radio_core_data_file:file { getattr read };
 
 # mdc.
 # persist.sys.omc_support
@@ -73,4 +79,4 @@ get_prop(rild, exported_config_prop);
 get_prop(rild, radio_control_prop)
 
 # vendor.cbd.
-# set_prop(rild, vendor_cbd_prop)
+set_prop(rild, vendor_cbd_prop)

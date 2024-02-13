@@ -40,3 +40,15 @@ type gps_device, dev_type;
 # Block devices
 type vendor_block_device, dev_type;
 type product_block_device, dev_type;
+type bota_block_device, dev_type;
+type cid_block_device, dev_type;
+type debug_block_device, dev_type;
+type dnt_block_device, dev_type;
+type hidden_block_device, dev_type;
+type NAD_REFER_block_device, dev_type;
+type ota_block_device, dev_type;
+type param_block_device, dev_type;
+type persdata_block_device, dev_type;
+type steady_block_device, dev_type;
+type tombstones_block_device, dev_type;
+

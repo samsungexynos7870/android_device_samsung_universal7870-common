@@ -1,0 +1,2 @@
+allow hal_usb_default sysfs_virtual:dir r_dir_perms;
+allow hal_usb_default sysfs_virtual:file rw_file_perms;

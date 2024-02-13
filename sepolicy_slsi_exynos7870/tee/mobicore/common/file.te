@@ -1,0 +1,4 @@
+type mobicore_vendor_data_file, file_type, data_file_type;
+type mobicore_data_file, file_type, core_data_file_type, data_file_type;
+type gatekeeper_efs_file, file_type;
+type mobicore_vendor_file, file_type, vendor_file_type;

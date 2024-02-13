@@ -2,8 +2,9 @@
 allow cameraserver camera_device:chr_file rw_file_perms;
 
 # /sys/devices/virtual/camera/*/*_camfw
-allow cameraserver sysfs_camera:dir search;
+allow cameraserver sysfs_camera:dir r_dir_perms;
 allow cameraserver sysfs_camera:file rw_file_perms;
+allow cameraserver sysfs_camera:chr_file rw_file_perms;
 
 # /data/camera/ISP_CV
 allow cameraserver camera_data_file:file r_file_perms;

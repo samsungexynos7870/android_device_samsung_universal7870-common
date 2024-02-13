@@ -9,8 +9,10 @@
 /dev/ttySAC3                 u:object_r:bluetooth_device:s0
 
 /dev/s5p-smem                u:object_r:secmem_device:s0
-/dev/mobicore                u:object_r:tee_device:s0
-/dev/mobicore-user           u:object_r:tee_device:s0
+
+# /dev/mobicore                u:object_r:tee_device:s0
+# /dev/mobicore                u:object_r:mobicore_admin_device:s0
+# /dev/mobicore-user           u:object_r:mobicore_user_device:s0
 
 /dev/v4l-subdev[0-9]*        u:object_r:video_device:s0
 /dev/m2m1shot_scaler[0-9]*   u:object_r:video_device:s0
@@ -28,16 +30,19 @@
 /dev/block/vnswap0           u:object_r:sswap_device:s0
 /dev/block/zram0             u:object_r:swap_block_device:s0
 
-/dev/block/mmcblk0p0	u:object_r:emmcblk_device:s0
-/dev/block/mmcblk0p1	u:object_r:emmcblk_device:s0
-/dev/block/mmcblk0p2    u:object_r:emmcblk_device:s0
-/dev/block/mmcblk0p3	u:object_r:emmcblk_device:s0
-/dev/block/mmcblk0p4	u:object_r:emmcblk_device:s0
-/dev/block/mmcblk0p5	u:object_r:emmcblk_device:s0
-/dev/block/mmcblk0p6	u:object_r:emmcblk_device:s0
-/dev/block/mmcblk0p7	u:object_r:emmcblk_device:s0
-/dev/block/mmcblk0p8	u:object_r:emmcblk_device:s0
-/dev/block/mmcblk0p9	u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p0	u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p1	u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p2    u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p3	u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p4	u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p5	u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p6	u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p7	u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p8	u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p9	u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p20   u:object_r:emmcblk_device:s0
+# /dev/block/mmcblk0p24   u:object_r:emmcblk_device:s0
+
 
 # Blocks
 #/dev/block/platform/13540000.dwmmc0/by-name/EFS u:object_r:efs_block_device:s0
@@ -45,6 +50,19 @@
 #/dev/block/platform/13540000.dwmmc0/by-name/RADIO u:object_r:radio_block_device:s0
 /dev/block/platform/13500000.dwmmc0/by-name/(system|SYSTEM)   u:object_r:system_block_device:s0
 /dev/block/platform/13500000.dwmmc0/by-name/(vendor|VENDOR)   u:object_r:vendor_block_device:s0
+/dev/block/sda9              u:object_r:tombstones_block_device:s0
+/dev/block/sda17             u:object_r:debug_block_device:s0
+/dev/block/sda10             u:object_r:dnt_block_device:s0
+/dev/block/sda16             u:object_r:hidden_block_device:s0
+/dev/block/NAD_REFER         u:object_r:NAD_REFER_block_device:s0
+/dev/block/sda1              u:object_r:bota_block_device:s0
+/dev/block/sda2              u:object_r:bota_block_device:s0
+/dev/block/sda7              u:object_r:ota_block_device:s0
+/dev/block/sda4              u:object_r:param_block_device:s0
+/dev/block/sda13             u:object_r:persdata_block_device:s0
+/dev/block/sda12             u:object_r:steady_block_device:s0
+
+/dev/stune(/.*)?             u:object_r:cgroup:s0
 
 /dev/rfkill                  u:object_r:rfkill_device:s0
 
@@ -92,11 +110,16 @@
 /data/gps/ctrlpipe                                   u:object_r:gps_data_file:s0
 /data/gps/\.gpslogd\.pipe                            u:object_r:gps_data_file:s0
 /data/gps/nmeapipe                                   u:object_r:gps_data_file:s0
+/dev/gnss_ipc	                                     u:object_r:gps_device:s0
+
+# cas
+/data/\.cas(/.*)?                 u:object_r:cas_data_file:s0
 
 /data/biometrics(/.*)?       u:object_r:fingerprintd_data_file:s0
 
 # camera
 /data/camera/ISP_CV          u:object_r:camera_data_file:s0
+/sys/class/camera(/.*)?                      u:object_r:sysfs_camera:s0
 
 # vendor
 
@@ -165,6 +188,22 @@
 /sys/devices/hall/input/input4(/.*)?                        u:object_r:sysfs_input:s0
 /sys/devices/certify_hall/input/input5(/.*)?                u:object_r:sysfs_input:s0
 
+# mmc
+/sys/devices/platform/[0-9]+\.dwmmc2/mmc_host(/.*)?		u:object_r:sysfs_mmc_host:s0
+/sys/devices/platform/[0-9]+\.dwmmc0/mmc_host(/.*)?		u:object_r:sysfs_mmc_host:s0
+/sys/devices/platform/[0-9]+\.dwmmc1/mmc_host(/.*)?		u:object_r:sysfs_mmc_host:s0
+
+
+/sys/devices/virtual/block/ram[0-9]*\./uevent(/.*)? u:object_r:sysfs_virtual:s0
+/sys/devices/virtual/timed_output/vibrator(/.*)?  u:object_r:sysfs_virtual:s0
+/sys/devices/virtual/thermal/thermal_zone0(/.*)?  u:object_r:sysfs_virtual:s0
+/sys/devices/virtual/thermal/cooling_device0(/.*)? u:object_r:sysfs_virtual:s0
+/sys/devices/virtual/thermal/thermal_zone1(/.*)?  u:object_r:sysfs_virtual:s0
+/sys/devices/virtual/thermal/cooling_device1(/.*)? u:object_r:sysfs_virtual:s0
+/sys/devices/virtual/android_usb/android0(/.*)? u:object_r:sysfs_virtual:s0
+/sys/devices/virtual/fingerprint/fingerprint(/.*)? u:object_r:sysfs_virtual:s0
+/sys/devices/virtual/camera/flash/rear_torch_flash(/.*)? u:object_r:sysfs_virtual:s0
+
 # virtual
 /sys/devices/virtual(/.*)?    u:object_r:sysfs_virtual:s0
 
@@ -175,20 +214,16 @@
 # deamons
 #
 
-/(vendor|system/vendor)/bin/mcDriverDaemon   u:object_r:tee_exec:s0
 /(vendor|system/vendor)/bin/modemloader      u:object_r:modemloader_exec:s0
 /(vendor|system/vendor)/bin/wifiloader       u:object_r:wifiloader_exec:s0
 /(vendor|system/vendor)/bin/sswap            u:object_r:sswap_exec:s0
 
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.1-service\.universal7870   u:object_r:hal_lineage_livedisplay_exynos_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.samsung                 u:object_r:hal_lineage_touch_default_exec:s0
-
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light-service\.samsung u:object_r:hal_light_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.thermal@2\.0-service\.exynos                u:object_r:hal_thermal_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors@1\.0-service\.universal7870                u:object_r:hal_sensors_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.fastcharge@1\.0-service\.samsung u:object_r:hal_lineage_fastcharge_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.power@1\.0-service\.exynos                u:object_r:hal_power_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider@[0-9]\.[0-9]-service\.universal7870 u:object_r:hal_camera_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.power@1\.0-service\.exynos7870                u:object_r:hal_power_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch\@1\.0-service\.exynos7870                u:object_r:hal_lineage_touch_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.0-service-qti         u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.gatekeeper@1\.0-service\.software u:object_r:hal_gatekeeper_default_exec:s0
 

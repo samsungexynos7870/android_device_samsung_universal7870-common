@@ -3,23 +3,12 @@
 # mcRegistry
 -vendor/lib/liboemcrypto.so
 
-# Firmware
-vendor/firmware/mfc_fw.bin
-
-# libuniplugin
--vendor/lib64/libuniplugin.so
--vendor/lib/libuniplugin.so
-
 # DRM
 -vendor/lib/libwvhidl.so
 -vendor/lib/mediadrm/libwvdrmengine.so
 -vendor/lib/mediadrm/libdrmclearkeyplugin.so
 vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc
 -vendor/bin/hw/android.hardware.drm@1.2-service.widevine
-
-# Sensors
--vendor/lib64/libsensorlistener.so
--vendor/lib/libsensorlistener.so
 
 # VNDK
 -vendor/lib/libvkmanager_vendor.so
@@ -40,9 +29,7 @@ vendor/etc/floating_feature.xml
 -vendor/lib64/vendor.samsung.hardware.radio@2.0.so
 -vendor/lib64/vendor.samsung.hardware.radio@2.1.so
 vendor/lib64/libvndsecril-client.so
-vendor/lib64/libreference-ril.so
-vendor/lib64/libril.so
-vendor/lib64/librilutils.so
+-vendor/lib64/libril.so:vendor/lib64/libril-samsung.so
 -vendor/lib64/libsec-ril-dsds.so
 -vendor/lib64/libsec-ril.so
 -vendor/lib64/libsec_semRil.so
@@ -51,9 +38,7 @@ vendor/lib64/librilutils.so
 -vendor/lib/vendor.samsung.hardware.radio@2.0.so
 -vendor/lib/vendor.samsung.hardware.radio@2.1.so
 vendor/lib/libvndsecril-client.so
-vendor/lib/libreference-ril.so
-vendor/lib/libril.so
-vendor/lib/librilutils.so
+-vendor/lib/libril.so:vendor/lib/libril-samsung.so
 -vendor/lib/libsec-ril-dsds.so
 -vendor/lib/libsec-ril.so
 -vendor/lib/libsec_semRil.so
@@ -74,5 +59,5 @@ vendor/etc/pdpcnt-conf.xml
 vendor/etc/mtu-conf.xml
 
 # RIL Audio
-vendor/lib/libaudio-ril.so
+-vendor/lib/libaudio-ril.so
 

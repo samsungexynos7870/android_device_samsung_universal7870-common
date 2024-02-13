@@ -1,0 +1,5 @@
+get_prop(hal_keymaster_default, tee_prop)
+
+# /vendor/app/mcRegistry/
+allow hal_keymaster_default mobicore_vendor_file:dir search;
+allow hal_keymaster_default mobicore_vendor_file:file r_file_perms;

@@ -19,6 +19,12 @@ LOCAL_PATH := device/samsung/universal7870-common
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
+# audio hal
+ifeq ($(TARGET_BOARD_HAS_OSS_AUDIO_HAL),true)
+TARGET_AUDIOHAL_VARIANT := samsung-exynos7870
+TARGET_SECRIL_VARIANT:= samsung-exynos7870
+endif
+
 # misc
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
@@ -70,10 +76,6 @@ TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
 TARGET_KERNEL_ADDITIONAL_FLAGS := \
     HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
 
-TARGET_KERNEL_ADDITIONAL_FLAGS := \
-    LLVM=1 \
-    LLVM_IAS=1
-
 # Kernel
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
@@ -116,7 +118,7 @@ DEXPREOPT_GENERATE_APEX_IMAGE := true
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
 AUDIOSERVER_MULTILIB := 32
-BOARD_SUPPORTS_SOUND_TRIGGER := true
+BOARD_SUPPORTS_SOUND_TRIGGER := false
 
 # Backlight
 BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
@@ -171,11 +173,12 @@ OVERRIDE_RS_DRIVER := libRSDriverArm.so
 # Seccomp
 BOARD_SECCOMP_POLICY := $(LOCAL_PATH)/seccomp
 
-# SELinux
-include device/lineage/sepolicy/exynos/sepolicy.mk
-include device/samsung_slsi/sepolicy/sepolicy.mk
+# no need to set in for sepolicy_slsi_exynos7870
+# BOARD_SEPOLICY_TEE_FLAVOR := mobicore
+# only needed by livedisplay wich is labled inline
+# include device/lineage/sepolicy/exynos/sepolicy.mk
+include device/samsung/universal7870-common/sepolicy_slsi_exynos7870/sepolicy.mk
 BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy/vendor
-# SELINUX_IGNORE_NEVERALLOWS := true
 
 # BOARD_SEPOLICY_VERS := $(PLATFORM_SDK_VERSION).0
 

@@ -1,6 +1,9 @@
 # /dev/block/mmcblk0p[0-9]*
 allow fsck emmcblk_device:blk_file rw_file_perms;
-allowxperm fsck emmcblk_device:blk_file ioctl { BLKDISCARDZEROES BLKROGET };
-allow fsck cpefs_block_device:blk_file { ioctl open read write };
-allow fsck efs_block_device:blk_file { ioctl open read write };
-allow fsck sysfs_battery:dir search;
+allow fsck cpefs_block_device:blk_file rw_file_perms;
+allow fsck efs_block_device:blk_file rw_file_perms;
+allow fsck sysfs_battery:dir r_dir_perms;
+
+allow fsck{
+    cid_block_device
+}:blk_file rw_file_perms;

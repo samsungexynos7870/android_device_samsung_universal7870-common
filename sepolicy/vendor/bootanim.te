@@ -1,2 +1,5 @@
-allow bootanim userspace_reboot_exported_prop:file { getattr open read };
-dontaudit bootanim system_data_file:dir search;
+# bootanim.te
+
+allow bootanim video_device:chr_file rw_file_perms;
+
+get_prop(bootanim, userspace_reboot_exported_prop)

@@ -4,9 +4,6 @@ vendor_internal_prop(cpboot-daemon_prop)
 # modemloader
 vendor_internal_prop(modemloader_prop)
 
-# mobicore (tee)
-vendor_internal_prop(tee_prop)
-
 # sswap
 vendor_internal_prop(sswap_prop)
 
@@ -21,3 +18,12 @@ vendor_internal_prop(vendor_bluetooth_prop)
 
 # NFC
 vendor_internal_prop(vendor_nfc_prop)
+
+# OMX
+vendor_internal_prop(vendor_omx_prop);
+
+# radio
+vendor_internal_prop(clatd_radio_prop)
+
+# audio
+vendor_internal_prop(vendor_audio_prop);

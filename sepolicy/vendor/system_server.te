@@ -39,8 +39,23 @@ allow system_server sensor_device:chr_file rw_file_perms;
 allow system_server baro_delta_factoryapp_efs_file:file r_file_perms;
 allow system_server sensor_factoryapp_efs_file:file r_file_perms;
 
-# sysfs
-allow system_server sysfs_virtual:file write;
+# apps platform
+allow system_server platform_app:file r_file_perms;
+
+# gms
+allow system_server gmscore_app:file r_file_perms;
+
+# priv app
+allow system_server priv_app:file r_file_perms;
+
+# vold
+allow vold system_server:file r_file_perms;
+
+# radio
+allow system_server radio:file r_file_perms;
+
+# permissioncontroller
+# allow system_server permissioncontroller_app:file r_file_perms;
 
 # /data/system/gps/xtraee.bin
 allow system_server gps_data_file:file create_file_perms;
@@ -55,7 +70,7 @@ allow system_server sysfs_graphics:file rw_file_perms;
 allow system_server proc_input_devices:file r_file_perms;
 
 # virual
-allow system_server sysfs_virtual:file { getattr open read };
+allow system_server sysfs_virtual:file rw_file_perms;
 
 # userspace
 allow system_server userspace_reboot_config_prop:file { getattr open read };

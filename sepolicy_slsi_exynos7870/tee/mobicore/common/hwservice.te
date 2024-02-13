@@ -1,0 +1,2 @@
+type hal_tee_hwservice, hwservice_manager_type;
+type hal_teeregistry_hwservice, hwservice_manager_type;
