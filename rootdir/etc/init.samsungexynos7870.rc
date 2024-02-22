@@ -694,6 +694,9 @@ setprop sys.usb.ffs.aio_compat 1
     chown system radio	/sys/bus/iio/devices/iio:device2/trigger/current_trigger
     chown system radio	/sys/class/sensors/sensor_dev/flush
 
+    # Fastcharge switch
+    chown system radio /sys/class/sec/switch/afc_disable
+
     chmod 760	/sys/bus/iio/devices/iio:device2/buffer
     chmod 760	/sys/bus/iio/devices/iio:device2/buffer/enable
     chmod 760	/sys/bus/iio/devices/iio:device2/buffer/length

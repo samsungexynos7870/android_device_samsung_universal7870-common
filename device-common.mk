@@ -237,7 +237,10 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-service.exynos7870
+    android.hardware.power-service.samsung-libperfmgr
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # Configstore
 PRODUCT_PACKAGES += \
@@ -407,10 +410,6 @@ PRODUCT_PACKAGES += \
 
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
-
-# clang-r450784d symlink lld linker as ld to fake deprecated gnu linker ld
-# TODO: update kernel to use lld linker
-$(shell [[ -L "prebuilts/clang/host/linux-x86/clang-r450784d/bin/ld" ]] && [[ "$(readlink -f prebuilts/clang/host/linux-x86/clang-r450784d/bin/ld)" == "$(readlink -f prebuilts/clang/host/linux-x86/clang-r450784d/bin/lld)" ]] || ln -sf "lld" "prebuilts/clang/host/linux-x86/clang-r450784d/bin/ld")
 
 # call the proprietary setup
 $(call inherit-product, vendor/samsung/universal7870-common/universal7870-common-vendor.mk)
