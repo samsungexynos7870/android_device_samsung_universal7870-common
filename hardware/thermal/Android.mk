@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018 The LineageOS Project
+# Copyright 2017 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+#
 LOCAL_PATH := $(call my-dir)
-
-include $(call all-subdir-makefiles,$(LOCAL_PATH))
+include $(CLEAR_VARS)
+LOCAL_CFLAGS := -Wno-unused-parameter
+LOCAL_MODULE_RELATIVE_PATH := hw
+LOCAL_PROPRIETARY_MODULE := true
+LOCAL_SRC_FILES := thermal.c
+LOCAL_SHARED_LIBRARIES := liblog libcutils libhardware
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE := thermal.exynos7870
+include $(BUILD_SHARED_LIBRARY)
