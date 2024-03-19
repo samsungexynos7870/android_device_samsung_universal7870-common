@@ -929,6 +929,20 @@ on fs
     chmod 0660 /dev/radio0
     chown bluetooth bluetooth /sys/devices/bluetooth/lna_en
 
+# Access permission for input_suspend
+    mkdir /sys/class/power_supply/battery/input_suspend 0770 system system
+    mkdir /sys/power/suspend_stats 0770 system system
+    mkdir /sys/class/wakeup 0770 system system
+    mkdir /sys/class/wake_unlock 0770 system system
+    chown system system /sys/class/power_supply/battery/input_suspend
+    chown system system /sys/power/suspend_stats
+    chown system system /sys/class/wakeup
+    chown system system /sys/class/wake_unlock
+    chmod 0666 /sys/class/power_supply/battery/input_suspend
+    chmod 0666 /sys/power/suspend_stats
+    chmod 0666 /sys/class/wakeup
+    chmod 0666 /sys/class/wake_unlock
+
 # ARGOSD network_throughput
     chown system system /dev/network_throughput
 
