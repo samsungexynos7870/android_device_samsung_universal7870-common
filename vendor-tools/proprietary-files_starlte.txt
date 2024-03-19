@@ -1,0 +1,73 @@
+# G960FXXUHFVG4
+
+# AptX - from crosshatch - QP1A.190711.020
+# product/lib64/libaptX_encoder.so|df1c89d7af1bb35808d5fe3496b04ba066c10cbc
+
+# mcRegistry
+-vendor/lib/liboemcrypto.so
+
+# DRM - Widevine
+-vendor/lib/libwvhidl.so
+-vendor/lib/mediadrm/libwvdrmengine.so
+-vendor/lib/mediadrm/libdrmclearkeyplugin.so
+-vendor/lib64/mediadrm/libdrmclearkeyplugin.so
+vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc
+vendor/bin/hw/android.hardware.drm@1.2-service.widevine
+
+# DRM - Widevine key provisioning (unused)
+# vendor/bin/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service
+# vendor/bin/wvkprov
+# vendor/etc/init/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service.rc
+# vendor/lib64/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0.so
+
+# VNDK
+-vendor/lib/libvkmanager_vendor.so
+-vendor/lib64/libvkmanager_vendor.so
+
+# libsecnativefeature
+-vendor/lib/libsecnativefeature.so
+-vendor/lib64/libsecnativefeature.so
+
+# libfloatingfeature
+-vendor/lib/libfloatingfeature.so
+-vendor/lib64/libfloatingfeature.so
+vendor/etc/floating_feature.xml
+
+# Radio
+-vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0.so
+-vendor/lib64/vendor.samsung.hardware.radio.channel@2.0.so
+-vendor/lib64/vendor.samsung.hardware.radio@2.0.so
+-vendor/lib64/vendor.samsung.hardware.radio@2.1.so
+vendor/lib64/libvndsecril-client.so
+-vendor/lib64/libril.so:vendor/lib64/libril-samsung.so
+-vendor/lib64/libsec-ril-dsds.so
+-vendor/lib64/libsec-ril.so
+-vendor/lib64/libsec_semRil.so
+-vendor/lib/vendor.samsung.hardware.radio.bridge@2.0.so
+-vendor/lib/vendor.samsung.hardware.radio.channel@2.0.so
+-vendor/lib/vendor.samsung.hardware.radio@2.0.so
+-vendor/lib/vendor.samsung.hardware.radio@2.1.so
+vendor/lib/libvndsecril-client.so
+-vendor/lib/libril.so:vendor/lib/libril-samsung.so
+-vendor/lib/libsec-ril-dsds.so
+-vendor/lib/libsec-ril.so
+-vendor/lib/libsec_semRil.so
+vendor/bin/hw/rild
+vendor/bin/cbd
+vendor/bin/secril_config_svc
+
+# China Unicom & TW Mobile
+vendor/etc/locale/plmn_delta_eng.bin
+vendor/etc/locale/plmn_delta_zh-rCN.bin
+vendor/etc/locale/plmn_delta_zh-rHK.bin
+vendor/etc/locale/plmn_delta_zh-rTW.bin
+
+# pdpcnt
+vendor/etc/pdpcnt-conf.xml
+
+# mtu
+vendor/etc/mtu-conf.xml
+
+# RIL Audio
+-vendor/lib/libaudio-ril.so
+

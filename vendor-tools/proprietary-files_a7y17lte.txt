@@ -1,0 +1,4 @@
+# ARM Mali-T830 A720SKSU5CTL2
+system/vendor/lib64/egl/libGLES_mali.so:vendor/lib64/egl/libGLES_mali.so
+system/vendor/lib/egl/libGLES_mali.so:vendor/lib/egl/libGLES_mali.so
+
