@@ -164,6 +164,9 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors@1\.0-service\.universal7870                u:object_r:hal_sensors_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.fastcharge@1\.0-service\.samsung u:object_r:hal_lineage_fastcharge_default_exec:s0
 
+/(vendor|system/vendor)/bin/hw/android\.hardware\.gatekeeper@1\.0-service\.exynos7870 u:object_r:hal_gatekeeper_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@3\.0-service\.exynos7870 u:object_r:hal_keymaster_default_exec:s0
+
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service\.samsung-a3y17lte u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.0-service-qti         u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.gatekeeper@1\.0-service\.software u:object_r:hal_gatekeeper_default_exec:s0
