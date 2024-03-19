@@ -372,7 +372,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libexynoscamera_shim \
     libstagefright_shim \
-    libcutils_shim
+    libcutils_shim_vendor
+    
+#PRODUCT_PACKAGES += \
+#    libaudioproxy_shim
 
 # USB
 PRODUCT_PACKAGES += \

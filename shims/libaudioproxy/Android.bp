@@ -1,0 +1,19 @@
+//
+// Copyright (C) 2021-2024 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_library_shared {
+    name: "libaudioproxy_shim",
+    proprietary: true,
+    compile_multilib: "32",
+    srcs: ["libaudiopoxy_shim.cpp"],
+    shared_libs: ["liblog", "libutils","libaudioroute","libtinyalsa",],
+        include_dirs: [
+        "system/media/audio_route/include/audio_route",
+    ],
+    vendor: true,
+}
+
+subdirs = ["test"]

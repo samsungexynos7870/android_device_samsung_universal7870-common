@@ -1,0 +1,14 @@
+cc_test {
+    name: "libaudioproxy_shim_test",
+    clang: true,
+    vendor: true,
+    proprietary: true,
+    compile_multilib: "32",
+    shared_libs: ["libaudioproxy_shim"],
+    include_dirs: [
+        "system/media/audio_route/include/audio_route"
+    ],
+    srcs: [
+        "libaudioproxy_test_missing_ctl.cpp",
+    ],
+}
