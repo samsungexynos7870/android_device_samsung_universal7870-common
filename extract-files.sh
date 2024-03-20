@@ -394,17 +394,4 @@ sed -i 's|libtinyalsa.so|libalsa7870.so|g' "${BLOB_ROOT}/A6LTE_AUDIO/vendor/lib/
 # shim needed by camera
 "${PATCHELF}" --add-needed "libshim_sensorndkbridge.so" "${BLOB_ROOT}/vendor/lib/libsensorlistener.so"
 
-# ffffffff00000000000000000000002f.tlbin | We are universal7870 not universal7880
-#sed -i 's|universal7880|universal7870|g' "${BLOB_ROOT}/vendor/app/mcRegistry/ffffffff00000000000000000000002f.tlbin"
-
-# ffffffff000000000000000000000041.tlbin | We are smdk7870 not smdk7880
-#sed -i 's|smdk7880|smdk7870|g' "${BLOB_ROOT}/vendor/app/mcRegistry/ffffffff000000000000000000000041.tlbin"
-
-# we are exynos7870 not exynos7880
-#sed -i 's|exynos7880|exynos7870|g' "${BLOB_ROOT}/vendor/lib/libMcClient.so"
-#sed -i 's|exynos7880|exynos7870|g' "${BLOB_ROOT}/vendor/lib64/libMcClient.so"
-
-#sed -i 's|exynos7880|exynos7870|g' "${BLOB_ROOT}/vendor/lib/libMcRegistry.so"
-#sed -i 's|exynos7880|exynos7870|g' "${BLOB_ROOT}/vendor/lib64/libMcRegistry.so"
-
 "${MY_DIR}/setup-makefiles.sh"
