@@ -191,7 +191,6 @@ cleanup_product_copy_files() {
         libGLES_mali
         Tfa9896.cnt
         libvndsecril-client
-        RootPA.apk
     )
 
     # The file to cleanup
@@ -418,20 +417,6 @@ ALL_MODULES.\$(LOCAL_MODULE).INSTALLED := \\
 	\$(ALL_MODULES.\$(LOCAL_MODULE).INSTALLED) \$(SYMLINKS)
 
 include \$(BUILD_PREBUILT)
-
-
-# only for android pie devices
-# include \$(CLEAR_VARS)
-# LOCAL_MODULE := RootPA
-# LOCAL_MODULE_OWNER := samsung
-# LOCAL_SRC_FILES := proprietary/vendor/app/RootPA/RootPA.apk
-# LOCAL_CERTIFICATE := platform
-# LOCAL_MODULE_TAGS := optional
-# LOCAL_MODULE_CLASS := APPS
-# LOCAL_DEX_PREOPT := false
-# LOCAL_MODULE_SUFFIX := .apk
-# LOCAL_VENDOR_MODULE := true
-# include \$(BUILD_PREBUILT)
 
 
 ifeq (\$(TARGET_BOARD_HAS_A6LTE_AUDIO_HAL),true)
