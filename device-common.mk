@@ -91,12 +91,9 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.common@1.0-helper \
     android.hardware.camera.provider@2.5-impl \
     android.hardware.camera.provider@2.5-service \
+    camera.universal7870 \
     libion_exynos \
     Snap
-
-# KillCamera app as a ugly workaround for camera stuck in some devices // Needs ROOT to work
-PRODUCT_PACKAGES += \
-    killcamera
 
 # Camera configurations
 PRODUCT_COPY_FILES += \
