@@ -1,0 +1,73 @@
+cc_defaults {
+    name: "cbd_v1.defaults",
+    static_executable: false,
+    proprietary: true,
+    stem: "cbd",
+
+    include_dirs: [
+        "bionic/libc/bionic",
+    ],
+
+    cflags: [
+        "-Wall",
+        "-Wno-unused-parameter",
+        "-D_GNU_SOURCE",
+    ],
+
+    srcs: [
+        "main.c",
+        "util.c",
+        "boot_xmm626x.c",
+        "boot_xmm72xx.c",
+        "boot_xmm72xx_lli.c",
+        "boot_cmc221.c",
+        "boot_cbp72.c",
+        "boot_esc6270.c",
+        "hdlc.c",
+        "std_boot.c",
+        "boot_shannon.c",
+        "boot_shannon_hsic.c",
+        "boot_shannon333.c",
+        "boot_shannon310.c",
+        "boot_shannon5100.c",
+        "util_srinfo.c"
+    ],
+
+    shared_libs: [
+        "liblog",
+        "libcutils",
+        "libc",
+    ],
+}
+
+cbd_enabled_preset  {
+    name: "cbd_v1.sipc.enabled",
+    enabled: false,
+}
+
+cc_binary {
+    name: "cbd_v1.sipc",
+    defaults: ["cbd_v1.defaults", "cbd_v1.sipc.enabled"],
+}
+
+cc_defaults {
+    name: "cld_v1.defaults",
+    static_executable: false,
+    proprietary: true,
+    stem: "cld",
+
+    include_dirs: ["bionic/libc/bionic"],
+
+    srcs: ["lb_main.c"],
+
+    shared_libs: [
+        "liblog",
+        "libcutils",
+        "libc",
+    ],
+}
+
+cc_binary {
+    name: "cld_v1.sipc",
+    defaults: ["cld_v1.defaults", "cbd_v1.sipc.enabled"],
+}

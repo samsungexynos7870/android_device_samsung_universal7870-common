@@ -1,0 +1,94 @@
+#ifndef __CBD_CONFIG_H__
+#define __CBD_CONFIG_H__
+
+/*
+ * Default Modem settings
+ */
+#if defined(MODEM_XMM626X)
+#define DEFAULT_MODEM IMC_XMM626X
+#elif defined(MODEM_CMC22X)
+#define DEFAULT_MODEM SEC_CMC22X
+#elif defined(MODEM_CBP7X)
+#define DEFAULT_MODEM VIA_CBP72
+#elif defined(MODEM_SS222)
+#define DEFAULT_MODEM SEC_SS222
+#elif defined(MODEM_SHANNON_HSIC)
+#define DEFAULT_MODEM SEC_SHANNON_HSIC
+#elif defined(MODEM_ESC6270)
+#define DEFAULT_MODEM QC_ESC6270
+#elif defined(MODEM_SS300)
+#define DEFAULT_MODEM SEC_SS300
+#elif defined(MODEM_SS333)
+#define DEFAULT_MODEM SEC_SS333
+#elif defined(MODEM_XMM72XX)
+#define DEFAULT_MODEM IMC_XMM72XX
+#elif defined(MODEM_XMM72XX_LLI)
+#define DEFAULT_MODEM IMC_XMM72XX_LLI
+#elif defined(MODEM_SEC_MODAP_AP)
+#define DEFAULT_MODEM SEC_MODAP_AP
+#elif defined(MODEM_SEC_SS310)
+#define DEFAULT_MODEM SEC_SS310
+#elif defined(MODEM_SEC_S5100)
+#define DEFAULT_MODEM SEC_S5100
+#else
+/* for skip abnormal cp reset */
+#define DEFAULT_MODEM MODEM_INVALID
+#endif
+
+/*
+ * Default Boot link device settings
+ */
+#if defined(LINK_BOOT_MIPI)
+#define DEFAULT_BOOT_LINK LINKDEV_MIPI
+#elif defined(LINK_BOOT_DPRAM)
+#define DEFAULT_BOOT_LINK LINKDEV_DPRAM
+#elif defined(LINK_BOOT_SPI)
+#define DEFAULT_BOOT_LINK LINKDEV_SPI
+#elif defined(LINK_BOOT_USB)
+#define DEFAULT_BOOT_LINK LINKDEV_USB
+#elif defined(LINK_BOOT_HSIC)
+#define DEFAULT_BOOT_LINK LINKDEV_HSIC
+#elif defined(LINK_BOOT_C2C)
+#define DEFAULT_BOOT_LINK LINKDEV_C2C
+#elif defined(LINK_BOOT_UART)
+#define DEFAULT_BOOT_LINK LINKDEV_UART
+#elif defined(LINK_BOOT_PLD)
+#define DEFAULT_BOOT_LINK LINKDEV_PLD
+#elif defined(LINK_BOOT_SHMEM)
+#define DEFAULT_BOOT_LINK LINKDEV_SHMEM
+#elif defined(LINK_BOOT_LLI)
+#define DEFAULT_BOOT_LINK LINKDEV_LLI
+#else
+#define DEFAULT_BOOT_LINK LINKDEV_DPRAM
+#endif
+
+/*
+ * Default Main link device settings
+ */
+#if defined(LINK_MAIN_MIPI)
+#define DEFAULT_MAIN_LINK LINKDEV_MIPI
+#elif defined(LINK_MAIN_DPRAM)
+#define DEFAULT_MAIN_LINK LINKDEV_DPRAM
+#elif defined(LINK_MAIN_SPI)
+#define DEFAULT_MAIN_LINK LINKDEV_SPI
+#elif defined(LINK_MAIN_USB)
+#define DEFAULT_MAIN_LINK LINKDEV_USB
+#elif defined(LINK_MAIN_HSIC)
+#define DEFAULT_MAIN_LINK LINKDEV_HSIC
+#elif defined(LINK_MAIN_C2C)
+#define DEFAULT_MAIN_LINK LINKDEV_C2C
+#elif defined(LINK_MAIN_UART)
+#define DEFAULT_MAIN_LINK LINKDEV_UART
+#elif defined(LINK_MAIN_PLD)
+#define DEFAULT_MAIN_LINK LINKDEV_PLD
+#elif defined(LINK_MAIN_SHMEM)
+#define DEFAULT_MAIN_LINK LINKDEV_SHMEM
+#elif defined(LINK_MAIN_LLI)
+#define DEFAULT_MAIN_LINK LINKDEV_LLI
+#elif defined(LINK_MAIN_PCIE)
+#define DEFAULT_MAIN_LINK LINKDEV_PCIE
+#else
+#define DEFAULT_MAIN_LINK LINKDEV_HSIC
+#endif
+
+#endif
