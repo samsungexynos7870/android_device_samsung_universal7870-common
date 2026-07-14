@@ -1,3 +1,11 @@
+ifeq ($(TARGET_BOARD_HAS_TFA_SEC_AUDIO_HAL),true)
+TARGET_BOARD_HAS_SEC_AUDIO_ROUTE := true
+else ifeq ($(TARGET_BOARD_HAS_SEC_AUDIO_HAL),true)
+TARGET_BOARD_HAS_SEC_AUDIO_ROUTE := true
+endif
+
+ifeq ($(TARGET_BOARD_HAS_SEC_AUDIO_ROUTE),true)
+
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -25,3 +33,5 @@ LOCAL_CFLAGS := \
     -Wall
 
 include $(BUILD_SHARED_LIBRARY)
+
+endif

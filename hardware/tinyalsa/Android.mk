@@ -1,3 +1,11 @@
+ifeq ($(TARGET_BOARD_HAS_TFA_SEC_AUDIO_HAL),true)
+TARGET_BOARD_HAS_SEC_ALSA := true
+else ifeq ($(TARGET_BOARD_HAS_SEC_AUDIO_HAL),true)
+TARGET_BOARD_HAS_SEC_ALSA := true
+endif
+
+ifeq ($(TARGET_BOARD_HAS_SEC_ALSA),true)
+
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -19,3 +27,5 @@ LOCAL_EXPORT_C_INCLUDE_DIRS := $(LOCAL_PATH)/include
 LOCAL_CFLAGS := -Werror -Wno-macro-redefined
 
 include $(BUILD_SHARED_LIBRARY)
+
+endif
