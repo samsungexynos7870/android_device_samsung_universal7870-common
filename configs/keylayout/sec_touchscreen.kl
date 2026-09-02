@@ -16,3 +16,5 @@
 
 key 158 BACK
 key 254 APP_SWITCH
+key 116 POWER             WAKE
+key 143 WAKEUP            WAKE
