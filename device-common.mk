@@ -280,9 +280,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.power-service.samsung-libperfmgr
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
-
 # Configstore
 PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
