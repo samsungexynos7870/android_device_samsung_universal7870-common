@@ -243,8 +243,8 @@ for PROP_FILE in "${!PROP_FILES[@]}"; do
     if [[ "$PROP_FILE" == "proprietary-files_a6ltep.txt" ]]; then
     SOURCE_DIR_A6LTE_P=${PROP_FILES[$PROP_FILE]}
     fi
-    if [[ "$PROP_FILE" == "proprietary-files_starlte.txt" ]]; then
-    SOURCE_DIR_STARLTE=${PROP_FILES[$PROP_FILE]}
+    if [[ "$PROP_FILE" == "proprietary-files_j7duolte.txt" ]]; then
+    SOURCE_DIR_J7DUOLTE=${PROP_FILES[$PROP_FILE]}
     fi
     if [[ "$PROP_FILE" == "proprietary-files_a7y17lte.txt" ]]; then
     SOURCE_DIR_A7Y17LTE=${PROP_FILES[$PROP_FILE]}
@@ -269,8 +269,8 @@ for PROP_FILE in "${!PROP_FILES[@]}"; do
     if [[ "$PROP_FILE" == proprietary-files_m10lte*.txt ]]; then
     extract "${MY_DIR}/${TOOLS_DIR}/m10lte/${PROP_FILE}" "${SOURCE_DIR_M10LTE}" "${KANG}" --section "${SECTION}"
     fi
-    if [[ "$PROP_FILE" == proprietary-files_starlte*.txt ]]; then
-    extract "${MY_DIR}/${TOOLS_DIR}/starlte/${PROP_FILE}" "${SOURCE_DIR_STARLTE}" "${KANG}" --section "${SECTION}"
+    if [[ "$PROP_FILE" == proprietary-files_j7duolte*.txt ]]; then
+    extract "${MY_DIR}/${TOOLS_DIR}/j7duolte/${PROP_FILE}" "${SOURCE_DIR_J7DUOLTE}" "${KANG}" --section "${SECTION}"
     fi
     if [[ "$PROP_FILE" == proprietary-files_a6ltep*.txt ]]; then
     if [[ "$PROP_FILE" != proprietary-files_a6ltep.txt ]]; then
@@ -435,24 +435,24 @@ for key in "${!INTERNAL_DEVICE_COMMON[@]}"; do
     # Add other gracerlte specific patches as needed
     fi
 
-    if [[ "$COMMON_NAME" == starlte_radio ]]; then
-    BLOB_ROOT_STARLTE_SEC_RADIO="${!mk_root_varname}/proprietary"
-    echo "Patching files in: ${BLOB_ROOT_STARLTE_SEC_RADIO}"
+    if [[ "$COMMON_NAME" == j7duolte_radio ]]; then
+    BLOB_ROOT_J7DUOLTE_SEC_RADIO="${!mk_root_varname}/proprietary"
+    echo "Patching files in: ${BLOB_ROOT_J7DUOLTE_SEC_RADIO}"
 
     # rild
-    "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${BLOB_ROOT_STARLTE_SEC_RADIO}/vendor/bin/hw/rild"
+    "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${BLOB_ROOT_J7DUOLTE_SEC_RADIO}/vendor/bin/hw/rild"
 
     # libsec-ril.so
-    "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${BLOB_ROOT_STARLTE_SEC_RADIO}/vendor/lib64/libsec-ril.so"
-    "${PATCHELF}" --add-needed "libcutils_shim_vendor.so" "${BLOB_ROOT_STARLTE_SEC_RADIO}/vendor/lib64/libsec-ril.so"
-    "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${BLOB_ROOT_STARLTE_SEC_RADIO}/vendor/lib/libsec-ril.so" 
-    "${PATCHELF}" --add-needed "libcutils_shim_vendor.so" "${BLOB_ROOT_STARLTE_SEC_RADIO}/vendor/lib/libsec-ril.so"
+    "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${BLOB_ROOT_J7DUOLTE_SEC_RADIO}/vendor/lib64/libsec-ril.so"
+    "${PATCHELF}" --add-needed "libcutils_shim_vendor.so" "${BLOB_ROOT_J7DUOLTE_SEC_RADIO}/vendor/lib64/libsec-ril.so"
+    "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${BLOB_ROOT_J7DUOLTE_SEC_RADIO}/vendor/lib/libsec-ril.so" 
+    "${PATCHELF}" --add-needed "libcutils_shim_vendor.so" "${BLOB_ROOT_J7DUOLTE_SEC_RADIO}/vendor/lib/libsec-ril.so"
 
     # libsec-ril-dsds.so
-    "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${BLOB_ROOT_STARLTE_SEC_RADIO}/vendor/lib64/libsec-ril-dsds.so"
-    "${PATCHELF}" --add-needed "libcutils_shim_vendor.so" "${BLOB_ROOT_STARLTE_SEC_RADIO}/vendor/lib64/libsec-ril-dsds.so"
-    "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${BLOB_ROOT_STARLTE_SEC_RADIO}/vendor/lib/libsec-ril-dsds.so"
-    "${PATCHELF}" --add-needed "libcutils_shim_vendor.so" "${BLOB_ROOT_STARLTE_SEC_RADIO}/vendor/lib/libsec-ril-dsds.so"
+    "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${BLOB_ROOT_J7DUOLTE_SEC_RADIO}/vendor/lib64/libsec-ril-dsds.so"
+    "${PATCHELF}" --add-needed "libcutils_shim_vendor.so" "${BLOB_ROOT_J7DUOLTE_SEC_RADIO}/vendor/lib64/libsec-ril-dsds.so"
+    "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${BLOB_ROOT_J7DUOLTE_SEC_RADIO}/vendor/lib/libsec-ril-dsds.so"
+    "${PATCHELF}" --add-needed "libcutils_shim_vendor.so" "${BLOB_ROOT_J7DUOLTE_SEC_RADIO}/vendor/lib/libsec-ril-dsds.so"
     fi
 
     if [[ "$COMMON_NAME" == m10lte ]]; then

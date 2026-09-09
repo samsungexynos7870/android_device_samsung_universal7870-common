@@ -186,8 +186,8 @@ for PROP_FILE in "${!PROP_FILES[@]}"; do
     write_makefiles "${MY_DIR}/${TOOLS_DIR}/m10lte/${PROP_FILE}" true
     write_footers
     fi
-    if [[ "$PROP_FILE" == proprietary-files_starlte*.txt ]]; then
-    write_makefiles "${MY_DIR}/${TOOLS_DIR}/starlte/${PROP_FILE}"
+    if [[ "$PROP_FILE" == proprietary-files_j7duolte*.txt ]]; then
+    write_makefiles "${MY_DIR}/${TOOLS_DIR}/j7duolte/${PROP_FILE}"
     write_footers
     fi
     if [[ "$PROP_FILE" == proprietary-files_a6ltep*.txt ]]; then
@@ -221,9 +221,9 @@ for PROP_FILE in "${!PROP_FILES[@]}"; do
     
 done
 
-# cp -r ${INTERNAL_VENDOR_MK_ROOT_STARLTE} ${VENDOR_MK_ROOT}
+# cp -r ${INTERNAL_VENDOR_MK_ROOT_J7DUOLTE} ${VENDOR_MK_ROOT}
 
-DEVICE_COMMON_RADIO="sec_radio" #m10lte_radio #starlte_radio
+DEVICE_COMMON_RADIO="sec_radio" #m10lte_radio #j7duolte_radio
 DEVICE_COMMON_GNSS="sec_gnss" #a6lte_gnss
 DEVICE_COMMON_TEE="tee" #a6lte_tee
 DEVICE_COMMON_SECAPP="secapp" #a6lte_secapp
@@ -269,7 +269,7 @@ for key in "${!INTERNAL_DEVICE_COMMON[@]}"; do
         #a6lte_gatekeeper
         #m10lte_gatekeeper
         #common
-        #starlte
+        #j7duolte
         #a7y17lte_secapp
         #a6lte
         #m10lte_radio
@@ -279,7 +279,7 @@ for key in "${!INTERNAL_DEVICE_COMMON[@]}"; do
         #a7y17lte
         #m10lte
         #a6lte_tee
-        #starlte_radio
+        #j7duolte_radio
         #a6lte_audio
         #a6lte_gnss
 
@@ -290,7 +290,7 @@ for key in "${!INTERNAL_DEVICE_COMMON[@]}"; do
             cat "${VENDOR_MK_ROOT_INTERNAL_COMMON}/${COMMON_NAME}-vendor.mk" >> "${VENDOR_MK_ROOT}/${DEVICE_COMMON_RADIO}/${DEVICE_COMMON_RADIO}-vendor.mk"
         fi
 
-        if [[ "$COMMON_NAME" == starlte_radio ]]; then
+        if [[ "$COMMON_NAME" == j7duolte_radio ]]; then
             sed -i '1,6d' "${VENDOR_MK_ROOT_INTERNAL_COMMON}/${COMMON_NAME}-vendor.mk"
             sed -i '1,10d' "${VENDOR_MK_ROOT_INTERNAL_COMMON}/Android.mk"
             sed -i '1,6d' "${VENDOR_MK_ROOT_INTERNAL_COMMON}/BoardConfigVendor.mk"
@@ -441,14 +441,14 @@ sed -i "/\b\(libLifevibes_lvverx\|libLifevibes_lvvetx\|libpreprocessing_nxp\|lib
     #    cat "${VENDOR_MK_ROOT_INTERNAL_COMMON}/${COMMON_NAME}-vendor.mk" >> "${VENDOR_MK_ROOT}/${DEVICE_COMMON_SAMSUNG_SLSI_Q}/${DEVICE_COMMON_SAMSUNG_SLSI_Q}-vendor.mk"
     #fi
 
-    if [[ "$COMMON_NAME" == m10lte || "$COMMON_NAME" == starlte || "$COMMON_NAME" == a7y17lte ]]; then
+    if [[ "$COMMON_NAME" == m10lte || "$COMMON_NAME" == j7duolte || "$COMMON_NAME" == a7y17lte ]]; then
         mkdir -p "${VENDOR_MK_ROOT}"/proprietary
         cp -r "${VENDOR_MK_ROOT_INTERNAL_COMMON}"/proprietary "${VENDOR_MK_ROOT}"
 
         # common
         sed -i "s|${DEVICE_COMMON}/${COMMON_NAME}|${DEVICE_COMMON}|g" "${VENDOR_MK_ROOT_INTERNAL_COMMON}"/*.mk
 
-        if [[ "$COMMON_NAME" != starlte ]]; then
+        if [[ "$COMMON_NAME" != j7duolte ]]; then
         sed -i '1,6d' "${VENDOR_MK_ROOT_INTERNAL_COMMON}/${COMMON_NAME}-vendor.mk"
         sed -i '1,10d' "${VENDOR_MK_ROOT_INTERNAL_COMMON}/Android.mk"
         sed -i '1,6d' "${VENDOR_MK_ROOT_INTERNAL_COMMON}/BoardConfigVendor.mk"
@@ -474,7 +474,7 @@ sed -i "/\b\(libLifevibes_lvverx\|libLifevibes_lvvetx\|libpreprocessing_nxp\|lib
 #a6lte_gatekeeper
 #m10lte_gatekeeper
 #common
-#starlte
+#j7duolte
 #a7y17lte_secapp
 #a6lte
 #hello radio
@@ -486,7 +486,7 @@ sed -i "/\b\(libLifevibes_lvverx\|libLifevibes_lvvetx\|libpreprocessing_nxp\|lib
 #m10lte
 #a6lte_tee
 #hello radio
-#starlte_radio
+#j7duolte_radio
 #a6lte_audio
 #a6lte_gnss
 
@@ -545,9 +545,7 @@ ifeq (\$(TARGET_DEVICE_HAS_SAMSUNG_SLSI_EXYNOS7870),true)
 endif
 
 # keymaster & keystore
-ifeq (\$(TARGET_DEVICE_HAS_SEC_KEYMASTER),true)
 -include vendor/samsung/${DEVICE_COMMON}/${DEVICE_COMMON_KEYMASTER}/${DEVICE_COMMON_KEYMASTER}-vendor.mk
-endif
 EOF
 
 
@@ -898,6 +896,6 @@ done
 rm -rf $ANDROID_ROOT/device/$VENDOR/$DEVICE_COMMON/$TOOLS_DIR/a6lte
 rm -rf $ANDROID_ROOT/device/$VENDOR/$DEVICE_COMMON/$TOOLS_DIR/a6ltep
 rm -rf $ANDROID_ROOT/device/$VENDOR/$DEVICE_COMMON/$TOOLS_DIR/m10lte
-rm -rf $ANDROID_ROOT/device/$VENDOR/$DEVICE_COMMON/$TOOLS_DIR/starlte
+rm -rf $ANDROID_ROOT/device/$VENDOR/$DEVICE_COMMON/$TOOLS_DIR/j7duolte
 rm -rf $ANDROID_ROOT/device/$VENDOR/$DEVICE_COMMON/$TOOLS_DIR/a7y17lte
 

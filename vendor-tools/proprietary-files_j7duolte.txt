@@ -1,0 +1,50 @@
+###FILE###:proprietary-files_j7duolte_radio.txt
+# J720FDDS7CUL1
+
+# libsecnativefeature
+-vendor/lib/libsecnativefeature.so
+-vendor/lib64/libsecnativefeature.so
+
+# Radio
+vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0.so
+vendor/lib64/vendor.samsung.hardware.radio.channel@2.0_vendor.so
+vendor/lib64/vendor.samsung.hardware.radio@2.0_vendor.so
+vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0_vendor.so
+vendor/lib64/libvndsecril-client.so
+-vendor/lib64/libril.so:vendor/lib64/libril-samsung.so
+-vendor/lib64/libsec-ril-dsds.so
+-vendor/lib64/libsec-ril.so
+vendor/lib/vendor.samsung.hardware.radio.bridge@2.0.so
+vendor/lib/vendor.samsung.hardware.radio.channel@2.0_vendor.so
+vendor/lib/vendor.samsung.hardware.radio@2.0_vendor.so
+vendor/lib/vendor.samsung.hardware.radio.bridge@2.0_vendor.so
+vendor/lib/libvndsecril-client.so
+-vendor/lib/libril.so:vendor/lib/libril-samsung.so
+-vendor/lib/libsec-ril-dsds.so
+-vendor/lib/libsec-ril.so
+vendor/bin/hw/rild
+vendor/bin/secril_config_svc
+
+# pdpcnt
+vendor/etc/pdpcnt-conf.xml
+
+# mtu
+vendor/etc/mtu-conf.xml
+
+# RIL Audio
+-vendor/lib/libaudio-ril.so
+
+
+
+###FILE###:proprietary-files_j7duolte.txt
+# J720FDDS7CUL1
+
+# AptX
+-system/system/lib64/libaptX_encoder.so:product/lib64/libaptX_encoder.so
+
+# libfloatingfeature
+-vendor/lib/libfloatingfeature.so
+-vendor/lib64/libfloatingfeature.so
+vendor/etc/floating_feature.xml
+
+
