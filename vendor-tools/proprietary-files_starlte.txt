@@ -29,7 +29,6 @@ vendor/lib/libvndsecril-client.so
 -vendor/lib/libsec-ril.so
 -vendor/lib/libsec_semRil.so
 vendor/bin/hw/rild
-vendor/bin/cbd
 vendor/bin/secril_config_svc
 
 # China Unicom & TW Mobile
