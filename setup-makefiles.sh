@@ -649,18 +649,6 @@ include \$(BUILD_PREBUILT)
 endif
 
 ifeq (\$(LOCAL_EXYNOS7870_AUDIO_GUARD),true)
-include \$(CLEAR_VARS)
-LOCAL_MODULE := libaudior7870
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_VENDOR_MODULE := true
-LOCAL_SRC_FILES_32 := \$(LOCAL_AUDIO_VARIANT_DIR)/proprietary/vendor/lib/libaudior7870.so
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_MULTILIB := 32
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-LOCAL_SHARED_LIBRARIES := liblog libcutils libutils libexpat libalsa7870 libc++ libc libm libdl
-include \$(BUILD_PREBUILT)
-
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libLifevibes_lvverx
@@ -816,19 +804,6 @@ LOCAL_MODULE_SUFFIX := .so
 LOCAL_MULTILIB := 32
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_SHARED_LIBRARIES := libc libdl liblog libm
-include \$(BUILD_PREBUILT)
-
-
-include \$(CLEAR_VARS)
-LOCAL_MODULE := libalsa7870
-LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_VENDOR_MODULE := true
-LOCAL_SRC_FILES_32 := \$(LOCAL_AUDIO_VARIANT_DIR)/proprietary/vendor/lib/libalsa7870.so
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := .so
-LOCAL_MULTILIB := 32
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-LOCAL_SHARED_LIBRARIES := libc++ libc libm libdl
 include \$(BUILD_PREBUILT)
 
 

@@ -12,12 +12,6 @@ vendor/lib/lib_soundaliveresampler.so
 vendor/lib/lib_SoundAlive_SRC384_ver320.so
 vendor/lib/hw/audio.primary.exynos7870.so
 
-# audio vndk - needed because samsungs implementation, implements extra functions and extra functionality, that is missing/incompatible 
-# in aosp libaudioroute and libtinyalsa.
-# TODO: implement working libaudioproxy_shim or libaudioroute_sec and libtinyalsa_sec
-vendor/lib/libaudioroute.so:vendor/lib/libaudior7870.so
-vendor/lib/libtinyalsa.so:vendor/lib/libalsa7870.so
-
 # NXP
 vendor/etc/nxp/AzControlParams_SPEAKER.txt
 vendor/etc/nxp/LVAZFS_Configuration.txt
