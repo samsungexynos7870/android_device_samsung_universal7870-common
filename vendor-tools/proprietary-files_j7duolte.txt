@@ -6,18 +6,18 @@
 -vendor/lib64/libsecnativefeature.so
 
 # Radio
-vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0.so
-vendor/lib64/vendor.samsung.hardware.radio.channel@2.0_vendor.so
-vendor/lib64/vendor.samsung.hardware.radio@2.0_vendor.so
-vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0_vendor.so
+-vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0.so
+-vendor/lib64/vendor.samsung.hardware.radio.channel@2.0_vendor.so
+-vendor/lib64/vendor.samsung.hardware.radio@2.0_vendor.so
+-vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0_vendor.so
 vendor/lib64/libvndsecril-client.so
 -vendor/lib64/libril.so:vendor/lib64/libril-samsung.so
 -vendor/lib64/libsec-ril-dsds.so
 -vendor/lib64/libsec-ril.so
-vendor/lib/vendor.samsung.hardware.radio.bridge@2.0.so
-vendor/lib/vendor.samsung.hardware.radio.channel@2.0_vendor.so
-vendor/lib/vendor.samsung.hardware.radio@2.0_vendor.so
-vendor/lib/vendor.samsung.hardware.radio.bridge@2.0_vendor.so
+-vendor/lib/vendor.samsung.hardware.radio.bridge@2.0.so
+-vendor/lib/vendor.samsung.hardware.radio.channel@2.0_vendor.so
+-vendor/lib/vendor.samsung.hardware.radio@2.0_vendor.so
+-vendor/lib/vendor.samsung.hardware.radio.bridge@2.0_vendor.so
 vendor/lib/libvndsecril-client.so
 -vendor/lib/libril.so:vendor/lib/libril-samsung.so
 -vendor/lib/libsec-ril-dsds.so
