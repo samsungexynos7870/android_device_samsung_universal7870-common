@@ -1,4 +1,4 @@
-###FILE###:proprietary-files_oss_hwc.txt
+###FILE###:proprietary-files_R_oss_hwc.txt
 
 # only oss hwc works without quirks - no virtualdisplay support                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      support
 vendor/lib/libhwcutils.so

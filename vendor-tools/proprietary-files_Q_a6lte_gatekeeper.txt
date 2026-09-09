@@ -1,0 +1,4 @@
+###FILE###:proprietary-files_Q_a6lte_gatekeeper.txt
+# gatekeeper
+-vendor/lib/hw/gatekeeper.exynos7870.so
+

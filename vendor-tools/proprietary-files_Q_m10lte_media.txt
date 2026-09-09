@@ -1,0 +1,6 @@
+###FILE###:proprietary-files_Q_m10lte_media.txt
+# Firmware
+vendor/firmware/mfc_fw.bin
+
+
+

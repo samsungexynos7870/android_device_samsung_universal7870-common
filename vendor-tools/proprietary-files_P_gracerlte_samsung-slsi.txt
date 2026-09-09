@@ -1,6 +1,6 @@
-###FILE###:proprietary-files_gracerlte_bsp_p.txt
+###FILE###:proprietary-files_P_gracerlte_samsung-slsi.txt
 
-# OMX with full VP9 Decoder and VP9 Encoder support                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           support
+# OMX with full VP9 Decoder and VP9 Encoder support
 system/lib64/libExynosOMX_Core.so:vendor/lib64/libExynosOMX_Core.so
 system/lib/libExynosOMX_Core.so:vendor/lib/libExynosOMX_Core.so
 system/lib64/libExynosOMX_Resourcemanager.so:vendor/lib64/libExynosOMX_Resourcemanager.so

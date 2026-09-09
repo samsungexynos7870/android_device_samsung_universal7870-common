@@ -1,0 +1,6 @@
+###FILE###:proprietary-files_Q_m10lte_sensors.txt
+# M105FDDS5CWA1
+
+# Sensors
+-vendor/lib/libsensorlistener.so
+

@@ -1,4 +1,4 @@
-###FILE###:proprietary-files_m10lte_audio.txt
+###FILE###:proprietary-files_Q_m10lte_audio.txt
 # M105FDDS5CWA1
 
 # Audio
@@ -183,43 +183,5 @@ vendor/etc/nxp/voiceexperience/WifiCallingHAC/Tx_ControlParams_WIDEBAND_EARPIECE
 vendor/etc/nxp/voiceexperience/WifiCallingHAC/Tx_ControlParams_WIDEBAND_SPEAKER.txt
 vendor/etc/nxp/voiceexperience/WifiCallingHAC/Tx_ControlParams_WIDEBAND_WIRED_HEADPHONE.txt
 vendor/etc/nxp/voiceexperience/WifiCallingHAC/Tx_ControlParams_WIDEBAND_WIRED_HEADSET.txt
-
-
-###FILE###:proprietary-files_m10lte_gatekeeper.txt
-# M105FDDS5CWA1
-
-# gatekeeper for devices without biometrics
--vendor/lib/hw/gatekeeper.exynos7870.so
-
-
-
-###FILE###:proprietary-files_m10lte_radio.txt
-# M105FDDS5CWA1
-
-# RIL Firmware
-vendor/etc/plmn_se13.bin
-vendor/etc/plmn_delta.bin
-vendor/etc/plmn_delta_hktw.bin
-vendor/etc/plmn_delta_attaio.bin
-vendor/etc/plmn_delta_usagsm.bin
-vendor/etc/plmn_delta_usacdma.bin
-
-
-###FILE###:proprietary-files_m10lte.txt
-# M105FDDS5CWA1
-
-# libuniplugin
--vendor/lib/libuniplugin.so
-
-# Sensors
--vendor/lib/libsensorlistener.so
-
-# camera
--vendor/lib/hw/camera.exynos7870.so:vendor/lib/hw/camera.vendor.exynos7870.so
--vendor/lib/libstainkiller.so
-
-# Firmware
-vendor/firmware/mfc_fw.bin
-
 
 

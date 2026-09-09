@@ -1,0 +1,7 @@
+###FILE###:proprietary-files_Q_a6lte_keymaster.txt
+# Keystore & Keymaster
+-vendor/lib/hw/keystore.mdfpp.so
+-vendor/lib/libkeymaster2_mdfpp.so
+-vendor/lib/libskeymaster3device.so
+-vendor/lib/libkeymaster_helper_vendor.so
+

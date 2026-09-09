@@ -1,4 +1,4 @@
-###FILE###:proprietary-files_a7y17lte_bsp.txt
+###FILE###:proprietary-files_P_a7y17lte_samsung-slsi.txt
 # Graphics
 system/lib64/hw/gralloc.exynos5.so:vendor/lib64/hw/gralloc.exynos7870.so
 system/lib/hw/gralloc.exynos5.so:vendor/lib/hw/gralloc.exynos7870.so
@@ -49,29 +49,10 @@ system/vendor/lib64/hw/memtrack.universal7880.so:vendor/lib64/hw/memtrack.exynos
 # system/lib/omx/libOMX.Exynos.WMV.Decoder.so:vendor/lib/omx/libOMX.Exynos.WMV.Decoder.so
 
 
-###FILE###:proprietary-files_a7y17lte_secapp.txt
+# ###FILE###:proprietary-files_P_a7y17lte_secapp.txt
 # DRM
 
 # Widevine
 # -vendor/app/mcRegistry/00060308060501020000000000000000.tlbin
-
-
-###FILE###:proprietary-files_a7y17lte.txt
-# DRM
-vendor/lib/liboemcrypto.so
-system/vendor/lib/mediadrm/libwvdrmengine.so:vendor/lib/mediadrm/libwvdrmengine.so
-
-# DRM (Widevine HIDL)
-system/vendor/bin/hw/android.hardware.drm@1.1-service.widevine:vendor/bin/hw/android.hardware.drm@1.1-service.widevine
-system/vendor/lib/libwvhidl.so:vendor/lib/libwvhidl.so
-
-# drm
--system/vendor/lib/mediadrm/libdrmclearkeyplugin.so:vendor/lib/mediadrm/libdrmclearkeyplugin.so
--system/vendor/lib64/mediadrm/libdrmclearkeyplugin.so:vendor/lib64/mediadrm/libdrmclearkeyplugin.so
-
-# ARM Mali-T830 A720SKSU5CTL2
-system/vendor/lib64/egl/libGLES_mali.so:vendor/lib64/egl/libGLES_mali.so
-system/vendor/lib/egl/libGLES_mali.so:vendor/lib/egl/libGLES_mali.so
-
 
 

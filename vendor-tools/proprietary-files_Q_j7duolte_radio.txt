@@ -1,4 +1,4 @@
-###FILE###:proprietary-files_j7duolte_radio.txt
+###FILE###:proprietary-files_Q_j7duolte_radio.txt
 # J720FDDS7CUL1
 
 # libsecnativefeature
@@ -25,6 +25,7 @@ vendor/lib/libvndsecril-client.so
 vendor/bin/hw/rild
 vendor/bin/secril_config_svc
 
+
 # pdpcnt
 vendor/etc/pdpcnt-conf.xml
 
@@ -32,12 +33,7 @@ vendor/etc/pdpcnt-conf.xml
 vendor/etc/mtu-conf.xml
 
 # RIL Audio
--vendor/lib/libaudio-ril.so
-
-
-
-###FILE###:proprietary-files_j7duolte.txt
-# J720FDDS7CUL1
+vendor/lib/libaudio-ril.so
 
 # AptX
 -system/system/lib64/libaptX_encoder.so:product/lib64/libaptX_encoder.so
@@ -46,5 +42,6 @@ vendor/etc/mtu-conf.xml
 -vendor/lib/libfloatingfeature.so
 -vendor/lib64/libfloatingfeature.so
 vendor/etc/floating_feature.xml
+
 
 

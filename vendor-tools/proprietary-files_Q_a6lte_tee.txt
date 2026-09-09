@@ -1,0 +1,6 @@
+###FILE###:proprietary-files_Q_a6lte_tee.txt
+# TEE (MobiCore)
+vendor/bin/mcDriverDaemon
+vendor/lib/libMcClient.so
+vendor/lib/libMcRegistry.so
+

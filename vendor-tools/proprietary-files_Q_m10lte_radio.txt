@@ -1,0 +1,12 @@
+###FILE###:proprietary-files_Q_m10lte_radio.txt
+# M105FDDS5CWA1
+
+# RIL Firmware
+vendor/etc/plmn_se13.bin
+vendor/etc/plmn_delta.bin
+vendor/etc/plmn_delta_hktw.bin
+vendor/etc/plmn_delta_attaio.bin
+vendor/etc/plmn_delta_usagsm.bin
+vendor/etc/plmn_delta_usacdma.bin
+
+

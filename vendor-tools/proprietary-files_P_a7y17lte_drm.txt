@@ -1,0 +1,13 @@
+###FILE###:proprietary-files_P_a7y17lte_drm.txt
+# DRM
+vendor/lib/liboemcrypto.so
+system/vendor/lib/mediadrm/libwvdrmengine.so:vendor/lib/mediadrm/libwvdrmengine.so
+
+# DRM (Widevine HIDL)
+system/vendor/bin/hw/android.hardware.drm@1.1-service.widevine:vendor/bin/hw/android.hardware.drm@1.1-service.widevine
+system/vendor/lib/libwvhidl.so:vendor/lib/libwvhidl.so
+
+# drm
+-system/vendor/lib/mediadrm/libdrmclearkeyplugin.so:vendor/lib/mediadrm/libdrmclearkeyplugin.so
+-system/vendor/lib64/mediadrm/libdrmclearkeyplugin.so:vendor/lib64/mediadrm/libdrmclearkeyplugin.so
+
