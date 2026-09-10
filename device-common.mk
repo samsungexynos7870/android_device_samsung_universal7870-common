@@ -308,17 +308,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/keylayout/sec_touchscreen.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/sec_touchscreen.kl
 
 # Keymaster
-# android.hardware.keymaster@3.0-impl.exynos7870 with samsungs MDFPP keystore support
-# NOTICE: works only with trusted devices
-# android.hardware.keymaster@3.0-service.exynos7870 (arm only service)
-#PRODUCT_PACKAGES += \
-#    android.hardware.keymaster@3.0-impl.exynos7870 \
-#    android.hardware.keymaster@3.0-service.exynos7870
-#PRODUCT_PACKAGES += \
-#    android.hardware.keymaster@3.0-impl:32 \
-#    android.hardware.keymaster@3.0-service.exynos7870
-
-# Keymaster
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.1-service
 

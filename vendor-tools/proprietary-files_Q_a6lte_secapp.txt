@@ -12,10 +12,6 @@ vendor/app/mcRegistry/ffffffff000000000000000000000013.tlbin
 vendor/app/mcRegistry/ffffffff000000000000000000000038.tlbin
 vendor/app/mcRegistry/ffffffff00000000000000000000000b.tlbin
 
-# Keymanager & keymaster
-vendor/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
-vendor/app/mcRegistry/07060000000000000000000000000000.tlbin
-
 # Secure Driver
 vendor/app/mcRegistry/FFFFFFFF000000000000000000000001.drbin
 
@@ -36,16 +32,6 @@ vendor/app/mcRegistry/08130000000000000000000000000000.tlbin
 
 # hdcp (sec)
 vendor/app/mcRegistry/ffffffff000000000000000000000005.tlbin
-
-# mldap or m10lte keystore stuff
-# vendor/app/mcRegistry/ffffffff000000000000000000000017.tlbin (unused)
-
-# MDFPP keymaster
-vendor/app/mcRegistry/ffffffff00000000000000000000003e.tlbin
-
-# SKMM_TA & crypto
-system/system/app/mcRegistry/ffffffff000000000000000000000016.tlbin:vendor/app/mcRegistry/ffffffff000000000000000000000016.tlbin
-system/system/app/mcRegistry/ffffffff000000000000000000000019.tlbin:vendor/app/mcRegistry/ffffffff000000000000000000000019.tlbin
 
 # Fingerprint Feature
 vendor/app/mcRegistry/ffffffff00000000000000000000002e.tlbin

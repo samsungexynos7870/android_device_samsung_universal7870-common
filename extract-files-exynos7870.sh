@@ -56,7 +56,6 @@ COMMON_R_OSS_PATH="${TARGET_SOURCES_DIR}/lineage-18_17-11-2025"
 #proprietary-files_Q_a6lte_audio.txt
 #proprietary-files_Q_a6lte_gatekeeper.txt
 #proprietary-files_Q_a6lte_gnss.txt
-#proprietary-files_Q_a6lte_keymaster.txt
 #proprietary-files_Q_a6lte_secapp.txt
 #proprietary-files_Q_a6lte_tee.txt
 #proprietary-files_Q_m10lte_audio.txt
@@ -78,9 +77,6 @@ COMMON_R_OSS_PATH="${TARGET_SOURCES_DIR}/lineage-18_17-11-2025"
 
 # GNSS files
 ./extract-files.sh universal7870-common/gnss vendor-tools/proprietary-files_Q_a6lte_gnss.txt -n -k $COMMON_Q_A6LTE_PATH
-
-# Keymaster files
-./extract-files.sh universal7870-common/keymaster vendor-tools/proprietary-files_Q_a6lte_keymaster.txt -n -k $COMMON_Q_A6LTE_PATH
 
 # Secapp files
 ./extract-files.sh universal7870-common/secapp vendor-tools/proprietary-files_Q_a6lte_secapp.txt -n -k $COMMON_Q_A6LTE_PATH

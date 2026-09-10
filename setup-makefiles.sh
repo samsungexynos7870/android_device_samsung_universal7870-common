@@ -576,17 +576,6 @@ case "${VENDOR}" in
                     echo "GNSS already in makefile"
                 fi
                 ;;
-            keymaster)
-                VENDOR_DEVICE_MAKEFILE_CASE="${ANDROID_ROOT}/vendor/${VENDOR}/${DEVICE_COMMON}/${DEVICE_COMMON}-vendor.mk"
-                if ! grep -q "# Keymaster" "${VENDOR_DEVICE_MAKEFILE}" ; then
-                    echo "# Keymaster" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "-include vendor/samsung/universal7870-common/keymaster/keymaster-vendor.mk" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "Added Keymaster to makefile"
-                else
-                    echo "Keymaster already in makefile"
-                fi
-                ;;
             samsung-slsi)
                 VENDOR_DEVICE_MAKEFILE_CASE="${ANDROID_ROOT}/vendor/${VENDOR}/${DEVICE_COMMON}/${DEVICE_COMMON}-vendor.mk"
                 if ! grep -q "# Samsung SLSI" "${VENDOR_DEVICE_MAKEFILE}" ; then

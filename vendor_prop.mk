@@ -98,10 +98,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.fdsan=warn_once
 
-# keystore
-#PRODUCT_PROPERTY_OVERRIDES += \
-#    ro.hardware.keystore=mdfpp
-
 # Bpf
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.ebpf.supported=false
