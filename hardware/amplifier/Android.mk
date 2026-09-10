@@ -16,13 +16,22 @@ ifeq ($(BOARD_USE_SPKAMP),true)
 
 LOCAL_PATH := $(call my-dir)
 
+# The amplifier IC differs per device: TFA9890 or TFA9896. Each model gets
+# its own source directory and its own register map/container file name
+# (see hardware/tfa98xx/tfa98xx_cust.h). Device trees select it with
+# TARGET_BOARD_TFA_MODEL, same as on lineage-18.1-lts.
+ifeq ($(filter $(TARGET_BOARD_TFA_MODEL),9890 9896),)
+$(error TARGET_BOARD_TFA_MODEL must be set to 9890 or 9896 when BOARD_USE_SPKAMP is true)
+endif
+
 include $(CLEAR_VARS)
 
 LOCAL_SHARED_LIBRARIES := \
 	liblog \
 	libutils \
 	libcutils \
-        libhardware \
+	libhardware \
+	libtfa98xx_oss \
 	libtinyalsa
 
 LOCAL_C_INCLUDES := \
@@ -36,11 +45,12 @@ LOCAL_C_INCLUDES := \
 	$(call include-path-for, audio-effects)
 
 LOCAL_SRC_FILES := \
-	amplifier.c \
-	tfa.c
+	tfa$(TARGET_BOARD_TFA_MODEL)/amplifier.c \
+	tfa$(TARGET_BOARD_TFA_MODEL)/tfa.c
 
 LOCAL_CFLAGS := -Werror -Wall
 LOCAL_CFLAGS += -DPREPROCESSING_ENABLED
+LOCAL_CFLAGS += -DTFA_MODEL_$(TARGET_BOARD_TFA_MODEL)
 
 LOCAL_MODULE := audio_amplifier.$(TARGET_BOOTLOADER_BOARD_NAME)
 LOCAL_VENDOR_MODULE := true

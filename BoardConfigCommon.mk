@@ -126,6 +126,12 @@ USE_XML_AUDIO_POLICY_CONF := 1
 AUDIOSERVER_MULTILIB := 32
 BOARD_SUPPORTS_SOUND_TRIGGER := false
 
+# TFA98xx amplifier IC. Selects the source set built by hardware/amplifier
+# (tfa9890/ or tfa9896/), the register map built into libtfa98xx_oss and the
+# container file name (/vendor/etc/Tfa<TARGET_BOARD_TFA_MODEL>.cnt).
+# Devices with a TFA9890 must override this to 9890.
+TARGET_BOARD_TFA_MODEL ?= 9896
+
 # Backlight
 BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
 

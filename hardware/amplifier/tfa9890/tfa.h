@@ -21,9 +21,6 @@
 #include <stdatomic.h>
 #include <stdbool.h>
 
-#define TFA_LIBRARY_PATH "/vendor/lib/libtfa98xx.so"
-
-
 /*
  * Amplifier audio modes for different usecases.
  */
@@ -44,27 +41,25 @@ typedef struct {
 } __attribute__((packed)) tfa_handle_t;
 
 /*
- * Vendor functions that we dlsym.
+ * Vendor functions – directly linked.
  */
-typedef int (*tfa_device_open_t)(tfa_handle_t*, int);
-typedef int (*tfa_enable_t)(tfa_handle_t*, int);
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int tfa_device_open(tfa_handle_t *handle, int something);
+int tfa_enable(tfa_handle_t *handle, int enable);
+
+#ifdef __cplusplus
+}
+#endif
 
 /*
  * TFA Amplifier device abstraction.
- *
- * lib_handle:       The prebuilt vendor blob, loaded into memory
- * tfa_handle:       Misc data we need to pass to the vendor function calls
- * tfa_lock:         A mutex guarding amplifier enable/disable operations
- * tfa_device_open:  Vendor function for initializing the amplifier
- * tfa_enable:       Vendor function for enabling/disabling the amplifier
- * mode:             Audio mode for the current audio device
  */
 typedef struct {
-    void *lib_handle;
     tfa_handle_t* tfa_handle;
     pthread_mutex_t tfa_lock;
-    tfa_device_open_t tfa_device_open;
-    tfa_enable_t tfa_enable;
     tfa_mode_t mode;
 
     // for clock init
@@ -80,7 +75,7 @@ typedef struct {
  * Public API
  */
 int tfa_power(tfa_device_t *tfa_dev, bool on);
-tfa_device_t * tfa_device_open();
+tfa_device_t * tfa_dev_open(void);      // avoid conflict with vendor function
 void tfa_device_close(tfa_device_t *tfa_dev);
 
 #endif // TFA_H
