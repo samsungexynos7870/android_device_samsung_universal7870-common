@@ -193,7 +193,7 @@ PRODUCT_PACKAGES += \\
     libtfa98xx
     
 PRODUCT_COPY_FILES += \\
-    vendor/samsung/universal7870-common/audio/sec_tfa/proprietary/vendor/etc/Tfa\$(TARGET_BOARD_TFA_MODEL).cnt:\$(TARGET_COPY_OUT_VENDOR)/etc/Tfa\$(TARGET_BOARD_TFA_MODEL).cnt
+    vendor/samsung/universal7870-common/audio/sec_tfa/proprietary/vendor/etc/Tfa\$(TARGET_DEVICE_TFA_MODEL).cnt:\$(TARGET_COPY_OUT_VENDOR)/etc/Tfa\$(TARGET_DEVICE_TFA_MODEL).cnt
 endif"
     
     printf '%s\n' "$content" >> "${VENDOR_DEVICE_MAKEFILE}"
