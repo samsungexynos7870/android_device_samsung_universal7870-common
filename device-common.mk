@@ -275,6 +275,9 @@ PRODUCT_PACKAGES += \
     FlipFlap
 
 # Gatekeeper
+# gatekeeper.exynos7870 is built from the OSS BSP
+# (hardware/samsung_slsi-linaro/exynos7870/libgatekeeper), not from a
+# prebuilt blob.
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl:32 \
     android.hardware.gatekeeper@1.0-service.exynos7870 \

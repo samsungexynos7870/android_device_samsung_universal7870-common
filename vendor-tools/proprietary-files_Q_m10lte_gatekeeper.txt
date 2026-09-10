@@ -1,4 +1,0 @@
-###FILE###:proprietary-files_Q_m10lte_gatekeeper.txt
-# gatekeeper for devices without biometrics
--vendor/lib/hw/gatekeeper.exynos7870.so
-

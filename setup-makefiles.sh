@@ -606,32 +606,6 @@ case "${VENDOR}" in
                     echo "Radio already in makefile"
                 fi
                 ;;
-            gatekeeper)
-                VENDOR_DEVICE_MAKEFILE_CASE="${ANDROID_ROOT}/vendor/${VENDOR}/${DEVICE_COMMON}/${DEVICE_COMMON}-vendor.mk"
-                if ! grep -q "# Gatekeeper" "${VENDOR_DEVICE_MAKEFILE}" ; then
-                    echo "# Gatekeeper" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "ifeq (\$(TARGET_DEVICE_HAS_HW_GATEKEEPER_COMMON),true)" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "-include vendor/samsung/universal7870-common/gatekeeper/gatekeeper-vendor.mk" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "endif" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "Added Gatekeeper to makefile"
-                else
-                    echo "Gatekeeper already in makefile"
-                fi
-                ;;
-            gatekeeper-biometrics)
-                VENDOR_DEVICE_MAKEFILE_CASE="${ANDROID_ROOT}/vendor/${VENDOR}/${DEVICE_COMMON}/${DEVICE_COMMON}-vendor.mk"
-                if ! grep -q "# Gatekeeper Biometrics" "${VENDOR_DEVICE_MAKEFILE}" ; then
-                    echo "# Gatekeeper Biometrics" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "ifeq (\$(TARGET_DEVICE_HAS_HW_GATEKEEPER_BIOMETRICS),true)" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "-include vendor/samsung/universal7870-common/gatekeeper-biometrics/gatekeeper-biometrics-vendor.mk" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "endif" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "Added Gatekeeper Biometrics to makefile"
-                else
-                    echo "Gatekeeper Biometrics already in makefile"
-                fi
-                ;;
             tee)
                 VENDOR_DEVICE_MAKEFILE_CASE="${ANDROID_ROOT}/vendor/${VENDOR}/${DEVICE_COMMON}/${DEVICE_COMMON}-vendor.mk"
                 if ! grep -q "# Teegris" "${VENDOR_DEVICE_MAKEFILE}" ; then

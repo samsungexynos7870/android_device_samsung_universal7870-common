@@ -54,13 +54,11 @@ COMMON_R_OSS_PATH="${TARGET_SOURCES_DIR}/lineage-18_17-11-2025"
 #proprietary-files_P_a7y17lte_samsung-slsi.txt
 #proprietary-files_P_gracerlte_samsung-slsi.txt
 #proprietary-files_Q_a6lte_audio.txt
-#proprietary-files_Q_a6lte_gatekeeper.txt
 #proprietary-files_Q_a6lte_gnss.txt
 #proprietary-files_Q_a6lte_secapp.txt
 #proprietary-files_Q_a6lte_tee.txt
 #proprietary-files_Q_m10lte_audio.txt
 #proprietary-files_Q_m10lte_camera.txt
-#proprietary-files_Q_m10lte_gatekeeper.txt
 #proprietary-files_Q_m10lte_media.txt
 #proprietary-files_Q_m10lte_radio.txt
 #proprietary-files_Q_m10lte_sensors.txt
@@ -104,10 +102,6 @@ COMMON_R_OSS_PATH="${TARGET_SOURCES_DIR}/lineage-18_17-11-2025"
 
 # HWC files (OSS - Android R)
 ./extract-files.sh universal7870-common/samsung-slsi vendor-tools/proprietary-files_R_oss_hwc.txt -n -k $COMMON_R_OSS_PATH
-
-# Gatekeeper files
-./extract-files.sh universal7870-common/gatekeeper vendor-tools/proprietary-files_Q_m10lte_gatekeeper.txt -n -k $COMMON_Q_M10LTE_PATH
-./extract-files.sh universal7870-common/gatekeeper-biometrics vendor-tools/proprietary-files_Q_a6lte_gatekeeper.txt -n -k $COMMON_Q_A6LTE_PATH
 
 # TEE files
 ./extract-files.sh universal7870-common/tee vendor-tools/proprietary-files_Q_a6lte_tee.txt -n -k $COMMON_Q_A6LTE_PATH
