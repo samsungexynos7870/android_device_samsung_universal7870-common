@@ -499,24 +499,6 @@ case "${VENDOR}" in
     esac
     ;;
 
-    samsung/universal7870-common/camera)
-        case "${DEVICE_COMMON}" in
-            Q)
-                VENDOR_DEVICE_MAKEFILE_CASE="${ANDROID_ROOT}/vendor/${VENDOR}/${DEVICE_COMMON}/${DEVICE_COMMON}-vendor.mk"
-                
-                if ! grep -q "# Camera" "${VENDOR_DEVICE_MAKEFILE}"; then
-                    echo "# Camera" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "-include vendor/samsung/universal7870-common/camera/Q/Q-vendor.mk" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "Added Camera to makefile"
-                else
-                    echo "Camera already in makefile"
-                fi
-                ;;
-
-        esac
-        ;;
-        
     samsung/universal7870-common)
         case "${DEVICE_COMMON}" in
             secapp)

@@ -58,16 +58,12 @@ COMMON_R_OSS_PATH="${TARGET_SOURCES_DIR}/lineage-18_17-11-2025"
 #proprietary-files_Q_a6lte_secapp.txt
 #proprietary-files_Q_a6lte_tee.txt
 #proprietary-files_Q_m10lte_audio.txt
-#proprietary-files_Q_m10lte_camera.txt
 #proprietary-files_Q_m10lte_media.txt
 #proprietary-files_Q_m10lte_radio.txt
 #proprietary-files_Q_m10lte_sensors.txt
 #proprietary-files_Q_j7duolte_radio.txt
 #proprietary-files_R_oss_hwc.txt
 
-
-# Camera files
-./extract-files.sh universal7870-common/camera/Q vendor-tools/proprietary-files_Q_m10lte_camera.txt -n -k $COMMON_Q_M10LTE_PATH
 
 # Audio files
 ./extract-files.sh universal7870-common/audio/sec vendor-tools/proprietary-files_Q_a6lte_audio.txt -n -k $COMMON_Q_A6LTE_PATH

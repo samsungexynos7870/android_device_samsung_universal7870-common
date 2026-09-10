@@ -1,9 +1,0 @@
-###FILE###:proprietary-files_Q_m10lte_camera.txt
-# camera
--vendor/lib/libstainkiller.so
-
-# libuniplugin
--vendor/lib/libuniplugin.so
-# camera hal
--vendor/lib/hw/camera.exynos7870.so:vendor/lib/hw/camera.vendor.exynos7870.so
-

@@ -6,7 +6,3 @@ vendor/lib/libExynosHWCService.so
 vendor/lib/libexynosdisplay.so
 vendor/lib/libmpp.so
 vendor/lib/libhdmi.so
-
-# camera - libhwjpeg with legacy compat
-vendor/lib/libhwjpeg.so
-vendor/lib/libgiantmscl.so

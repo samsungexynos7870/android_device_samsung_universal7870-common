@@ -55,13 +55,6 @@ function blob_fixup() {
         
         ;;
         
-        vendor/lib/hw/camera.vendor.exynos7870.so)
-            # Fix camera.vendor.exynos7870.so
-            "${PATCHELF}" --replace-needed "libcamera_client.so" "libcamera_metadata_helper.so" "${2}"
-            "${PATCHELF}" --replace-needed "libgui.so" "libgui_vendor.so" "${2}"
-            "${PATCHELF}" --add-needed "libexynoscamera_shim.so" "${2}"
-        ;;
-
         vendor/lib*/hw/memtrack.exynos7870.so)
             # Fix memtrack for both lib and lib64
             sed -i 's|memtrack.universal7880.so|memtrack.universal7870.so|g' "${2}"
