@@ -189,9 +189,6 @@ PRODUCT_PACKAGES += \\
 endif
 
 ifeq (\$(TARGET_DEVICE_HAS_TFA_AMP),true)
-PRODUCT_PACKAGES += \\
-    libtfa98xx
-    
 PRODUCT_COPY_FILES += \\
     vendor/samsung/universal7870-common/audio/sec_tfa/proprietary/vendor/etc/Tfa\$(TARGET_DEVICE_TFA_MODEL).cnt:\$(TARGET_COPY_OUT_VENDOR)/etc/Tfa\$(TARGET_DEVICE_TFA_MODEL).cnt
 endif"

@@ -107,9 +107,7 @@ PRODUCT_PACKAGES += \
     audio.primary.exynos7870
 ifeq ($(TARGET_DEVICE_HAS_TFA_AMP),true)
 PRODUCT_PACKAGES += \
-    audio_amplifier.exynos7870 \
-    libtfa98xx \
-    libtfa98xx_oss
+    audio_amplifier.exynos7870
 endif
 endif
 endif
