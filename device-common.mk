@@ -246,6 +246,24 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.4-service.clearkey \
     android.hardware.drm@1.4.vendor
 
+# The Widevine HAL itself is a prebuilt blob (see
+# vendor-tools/proprietary-files_Q_j7duolte_drm.txt) and is linked against
+# the vendor variants of drm@1.0/1.1/1.2, so those have to be installed even
+# though the build does not see the dependency of a copied file.
+# android.hidl.base@1.0, libhidlbase, libhidlmemory and
+# android.hidl.memory@1.0 come from the VNDK / the HIDL section below,
+# libhidltransport is provided as libhidltransport.vendor.
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0.vendor \
+    android.hardware.drm@1.1.vendor \
+    android.hardware.drm@1.2.vendor
+
+# Init scripts for the prebuilt Widevine 1.2 service and for the Samsung
+# key provisioning HAL (vendor.wvkprov_server_hal).
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.2-service.widevine.rc \
+    vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service.rc
+
 # WideVine DRM setup
 PRODUCT_PROPERTY_OVERRIDES += \
      drm.service.enabled = true
