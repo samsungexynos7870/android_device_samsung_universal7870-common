@@ -1,0 +1,11 @@
+# Samsung Widevine key provisioning (stock vendor.wvkprov_server_hal).
+# The 64 bit HAL binary only registers ISehWidevineKeyProvisioning/default and
+# execs /vendor/bin/wvkprov for the actual Talkback to the TEE, which is why
+# both blobs have to be installed.  Kept on class core like the stock
+# vendor/etc/init file so that a provisioning request can be served right
+# after boot.
+
+service vendor.wvkprov_server_hal /vendor/bin/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service
+    class core
+    user system
+    group system

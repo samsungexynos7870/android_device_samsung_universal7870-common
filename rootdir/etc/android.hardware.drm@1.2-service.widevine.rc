@@ -1,0 +1,23 @@
+# Widevine DRM HAL 1.2, prebuilt blob from the j7duolte (Android 10) vendor
+# image.  Based on stock vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc
+# with the two /system/bin/move_widevine_data.sh / delete_prov_files.sh
+# services dropped: those scripts were removed from AOSP after Android 10, so
+# the only piece worth keeping is the /data/vendor/mediadrm setup.
+# The cgroup pinning (writepid /dev/cpuset/foreground/tasks) is left out as
+# well, init on Android 13 wants task profiles instead.
+
+on property:init.svc.mediadrm=running
+    mkdir /data/vendor/mediadrm 0770 media mediadrm
+
+service vendor.drm-widevine-hal-1-2 /vendor/bin/hw/android.hardware.drm@1.2-service.widevine
+    interface android.hardware.drm@1.0::ICryptoFactory widevine
+    interface android.hardware.drm@1.0::IDrmFactory widevine
+    interface android.hardware.drm@1.1::ICryptoFactory widevine
+    interface android.hardware.drm@1.1::IDrmFactory widevine
+    interface android.hardware.drm@1.2::ICryptoFactory widevine
+    interface android.hardware.drm@1.2::IDrmFactory widevine
+    interface android.hidl.base@1.0::IBase widevine
+    class hal
+    user media
+    group media mediadrm drmrpc system inet readproc radio
+    ioprio rt 4
