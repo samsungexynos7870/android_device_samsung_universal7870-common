@@ -4,3 +4,16 @@ allow hal_drm_widevine vendor_mediadrm_data_file:dir create_dir_perms;
 allow hal_drm_widevine secmem_device:chr_file rw_file_perms;
 allow hal_drm_widevine efs_file:dir search;
 r_dir_file(hal_drm_widevine, sec_efs_file)
+
+# Widevine 1.2 (j7duolte blob): libwvdrmengine -> liboemcrypto -> libMcClient
+# (a6lte blob), so the service talks to MobiCore directly.
+allow hal_drm_widevine tee_device:chr_file rw_file_perms;
+r_dir_file(hal_drm_widevine, mobicore_vendor_file)
+
+# /efs/wv.keys is read by OEMCrypto when the device key is looked up
+allow hal_drm_widevine cpk_efs_file:dir r_dir_perms;
+allow hal_drm_widevine cpk_efs_file:file r_file_perms;
+
+# Provisioning requests are forwarded to the Samsung key provisioning HAL
+allow hal_drm_widevine hal_wvkprov_hwservice:hwservice_manager find;
+binder_call(hal_drm_widevine, hal_wvkprov_default)

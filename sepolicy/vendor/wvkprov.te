@@ -1,0 +1,36 @@
+# /vendor/bin/wvkprov - the helper the Widevine key provisioning HAL execs to
+# create/verify the device key pair inside TrustZone.  It links libMcClient
+# (a6lte blob, /dev/mobicore-user) and liboemcrypto (/dev/s5p-smem), and keeps
+# the resulting key under /efs.
+
+type wvkprov, domain;
+type wvkprov_exec, exec_type, vendor_file_type, file_type;
+
+# Entered through the type_transition in hal_wvkprov.te; init_daemon_domain()
+# provides the entrypoint rules and additionally allows starting the helper by
+# hand (adb shell) while debugging the provisioning flow.
+init_daemon_domain(wvkprov)
+
+allow wvkprov wvkprov_exec:file rx_file_perms;
+
+# /dev/mobicore-user (libMcClient), /dev/s5p-smem (liboemcrypto), /dev/ion
+allow wvkprov tee_device:chr_file rw_file_perms;
+allow wvkprov secmem_device:chr_file rw_file_perms;
+allow wvkprov ion_device:chr_file rw_file_perms;
+
+# root TA store used by the DRK / Widevine TA
+r_dir_file(wvkprov, mobicore_vendor_file)
+
+# /efs/cpk/wv.keys, /efs/wv.keys, /efs/TEE
+allow wvkprov efs_file:dir create_dir_perms;
+allow wvkprov efs_file:file create_file_perms;
+allow wvkprov cpk_efs_file:dir r_dir_perms;
+allow wvkprov cpk_efs_file:file r_file_perms;
+
+# /sys/.../block/mmcblk0/device/cid is read as part of the device ID
+r_dir_file(wvkprov, sysfs_mmc)
+
+# libMcClient resolves the Trustonic TEE services through hwservicemanager
+hwbinder_use(wvkprov)
+allow wvkprov hal_tee_hwservice:hwservice_manager find;
+allow wvkprov hal_teeregistry_hwservice:hwservice_manager find;

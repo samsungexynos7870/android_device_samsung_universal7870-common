@@ -1,0 +1,26 @@
+# Samsung Widevine key provisioning HAL
+# (vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service,
+#  started as vendor.wvkprov_server_hal).
+#
+# The 64 bit binary only registers ISehWidevineKeyProvisioning/default and
+# execs /vendor/bin/wvkprov (32 bit) for the actual Talkback to the TEE, just
+# like the stock Android 10 policy: wvkprov has no init transition of its own,
+# it is entered from this domain.
+
+type hal_wvkprov_default, domain;
+type hal_wvkprov_default_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(hal_wvkprov_default)
+
+# ISehWidevineKeyProvisioning/default is registered with hwservicemanager
+hwbinder_use(hal_wvkprov_default)
+add_hwservice(hal_wvkprov_default, hal_wvkprov_hwservice)
+
+# dlopen() of the interface library and of the VNDK pieces it needs are
+# covered by the { domain -coredomain } vendor_file rules of the platform.
+
+# execv("/vendor/bin/wvkprov")
+allow hal_wvkprov_default wvkprov_exec:file rx_file_perms;
+type_transition hal_wvkprov_default wvkprov_exec:process wvkprov;
+allow hal_wvkprov_default wvkprov:process { noatsecure rlimitinh siginh sigchld };
+allow wvkprov hal_wvkprov_default:fd use;

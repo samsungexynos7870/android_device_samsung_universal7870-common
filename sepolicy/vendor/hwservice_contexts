@@ -3,3 +3,4 @@ vendor.samsung.hardware.radio::ISehRadio                    u:object_r:hal_sec_r
 vendor.samsung.hardware.radio.bridge::ISehBridge            u:object_r:hal_sec_radio_bridge_hwservice:s0
 vendor.samsung.hardware.radio.channel::ISehChannel          u:object_r:hal_sec_radio_channel_hwservice:s0
 vendor.samsung.hardware.nfc::ISehNfc                        u:object_r:hal_sec_nfc_hwservice:s0
+vendor.samsung.hardware.security.widevine.keyprovisioning::ISehWidevineKeyProvisioning u:object_r:hal_wvkprov_hwservice:s0
