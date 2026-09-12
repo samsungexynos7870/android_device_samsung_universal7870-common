@@ -1,0 +1,32 @@
+###FILE###:proprietary-files_Q_j7duolte_drm.txt
+# Widevine DRM 1.2 + Samsung key provisioning, J720FDDS7CUL1 (j7duolte, QP1A.190711.020)
+#
+# j7duolte ships the widevine stack as 32 bit ARM blobs (the HAL binary,
+# libwvhidl.so, liboemcrypto.so and mediadrm/libwvdrmengine.so are all
+# ELF32/ARM), while the Samsung key provisioning service is ELF64/AArch64 -
+# therefore its interface library is pulled for both vendor/lib and
+# vendor/lib64.
+#
+# liboemcrypto.so from this firmware has a DT_NEEDED on libMcClient.so.
+# libMcClient is deliberately NOT taken from j7duolte: only the a6lte build
+# matches the MobiCore/TbaseOS version shipped with the universal7870 BSP, so
+# the whole client side stays in proprietary-files_Q_a6lte_tee.txt.
+
+# Widevine HAL (HIDL 1.2), registers @1.0/@1.1/@1.2 ICryptoFactory+IDrmFactory "widevine"
+vendor/bin/hw/android.hardware.drm@1.2-service.widevine
+vendor/lib/libwvhidl.so
+vendor/lib/mediadrm/libwvdrmengine.so
+
+# OEMCrypto (TEE side), uses libMcClient from the a6lte tee section
+vendor/lib/liboemcrypto.so
+
+# Samsung widevine key provisioning (ISehWidevineKeyProvisioning)
+vendor/bin/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service
+vendor/bin/wvkprov
+vendor/lib/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0.so
+vendor/lib64/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0.so
+
+# clearkey plugin, taken from the same firmware so it stays in sync with the
+# widevine stack; installed as a prebuilt module (the @1.4 service dlopens it)
+-vendor/lib/mediadrm/libdrmclearkeyplugin.so:vendor/lib/mediadrm/libdrmclearkeyplugin.so
+-vendor/lib64/mediadrm/libdrmclearkeyplugin.so:vendor/lib64/mediadrm/libdrmclearkeyplugin.so

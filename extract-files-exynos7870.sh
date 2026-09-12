@@ -49,7 +49,6 @@ COMMON_P_GRACERLTE_PATH="${TARGET_SOURCES_DIR}/N935KKKU4CVG1"
 COMMON_R_OSS_PATH="${TARGET_SOURCES_DIR}/lineage-18_17-11-2025"
 
 #proprietary-files_P_a6lte_samsung-slsi.txt
-#proprietary-files_P_a7y17lte_drm.txt
 #proprietary-files_P_a7y17lte_mali.txt
 #proprietary-files_P_a7y17lte_samsung-slsi.txt
 #proprietary-files_P_gracerlte_samsung-slsi.txt
@@ -57,6 +56,7 @@ COMMON_R_OSS_PATH="${TARGET_SOURCES_DIR}/lineage-18_17-11-2025"
 #proprietary-files_Q_a6lte_gnss.txt
 #proprietary-files_Q_a6lte_secapp.txt
 #proprietary-files_Q_a6lte_tee.txt
+#proprietary-files_Q_j7duolte_drm.txt
 #proprietary-files_Q_m10lte_audio.txt
 #proprietary-files_Q_m10lte_media.txt
 #proprietary-files_Q_m10lte_radio.txt
@@ -85,8 +85,8 @@ COMMON_R_OSS_PATH="${TARGET_SOURCES_DIR}/lineage-18_17-11-2025"
 # Media files
 ./extract-files.sh universal7870-common/media vendor-tools/proprietary-files_Q_m10lte_media.txt -n -k $COMMON_Q_M10LTE_PATH
 
-# DRM files
-./extract-files.sh universal7870-common/drm vendor-tools/proprietary-files_P_a7y17lte_drm.txt -n -k $COMMON_P_A7Y17LTE_PATH
+# DRM files (Widevine 1.2 + Samsung key provisioning)
+./extract-files.sh universal7870-common/drm vendor-tools/proprietary-files_Q_j7duolte_drm.txt -n -k $COMMON_Q_J7DUOLTE_PATH
 
 # Mali files
 ./extract-files.sh universal7870-common vendor-tools/proprietary-files_P_a7y17lte_mali.txt -n -k $COMMON_P_A7Y17LTE_PATH
