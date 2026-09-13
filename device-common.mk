@@ -297,13 +297,13 @@ PRODUCT_PACKAGES += \
     FlipFlap
 
 # Gatekeeper
-# gatekeeper.exynos7870 is built from the OSS BSP
-# (hardware/samsung_slsi-linaro/exynos7870/libgatekeeper), not from a
-# prebuilt blob.
+# The hardware (TEE) gatekeeper requires a provisioned Root Encryption Key
+# (tlApiDeriveKeyWithREK), which is only established by RootPA against the
+# OEM/Trustonic Service Enabler and is therefore unavailable on custom
+# builds. Since the keymaster is already the software implementation, use
+# the software gatekeeper so lock screen credentials can be enrolled.
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl:32 \
-    android.hardware.gatekeeper@1.0-service.exynos7870 \
-    gatekeeper.exynos7870
+    android.hardware.gatekeeper@1.0-service.software
 
 # Power
 PRODUCT_PACKAGES += \
