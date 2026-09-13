@@ -19,7 +19,7 @@ vendor/bin/hw/android.hardware.drm@1.2-service.widevine
 vendor/lib/libwvhidl.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
-# OEMCrypto (TEE side), uses libMcClient from the a6lte tee section
+# OEMCrypto (TEE side), links the source-built libMcClient.so (see above)
 vendor/lib/liboemcrypto.so
 
 # Samsung widevine key provisioning (ISehWidevineKeyProvisioning)
