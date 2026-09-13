@@ -174,11 +174,12 @@ PRODUCT_PACKAGES += \
     Camera2
 
 # MobiCore setup - libMcClient/libMcRegistry/mcDriverDaemon are built from
-# source by hardware/samsung_slsi-linaro/exynos7870/mobicore (its Android.mk is
-# gated on TARGET_SOC == exynos7870).  They are deliberately not extracted: the
-# a6lte firmware only has 32 bit blobs, while the vendor image of this family is
-# 64 bit, and the modules carry no LOCAL_MULTILIB restriction, so both
-# vendor/lib and vendor/lib64 variants are installed.
+# source by hardware/samsung_slsi-linaro/exynos7870/mobicore, which the parent
+# exynos7870/Android.mk only includes when TARGET_SOC == exynos7870.  They are
+# deliberately not extracted: the a6lte firmware only has 32 bit blobs, while
+# the vendor image of this family is 64 bit, and the modules carry no
+# LOCAL_MULTILIB restriction, so both vendor/lib and vendor/lib64 variants are
+# installed.
 PRODUCT_PACKAGES += \
 	libMcClient \
 	libMcRegistry \
