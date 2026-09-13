@@ -585,17 +585,6 @@ case "${VENDOR}" in
                     echo "Radio already in makefile"
                 fi
                 ;;
-            tee)
-                VENDOR_DEVICE_MAKEFILE_CASE="${ANDROID_ROOT}/vendor/${VENDOR}/${DEVICE_COMMON}/${DEVICE_COMMON}-vendor.mk"
-                if ! grep -q "# Teegris" "${VENDOR_DEVICE_MAKEFILE}" ; then
-                    echo "# Teegris" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "-include vendor/samsung/universal7870-common/tee/tee-vendor.mk" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "" >> "${VENDOR_DEVICE_MAKEFILE}"
-                    echo "Added Teegris to makefile"
-                else
-                    echo "Teegris already in makefile"
-                fi
-                ;;
         esac
         ;;
         

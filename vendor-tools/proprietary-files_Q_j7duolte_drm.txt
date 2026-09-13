@@ -8,9 +8,11 @@
 # vendor/lib64.
 #
 # liboemcrypto.so from this firmware has a DT_NEEDED on libMcClient.so.
-# libMcClient is deliberately NOT taken from j7duolte: only the a6lte build
-# matches the MobiCore/TbaseOS version shipped with the universal7870 BSP, so
-# the whole client side stays in proprietary-files_Q_a6lte_tee.txt.
+# libMcClient.so is not extracted from any firmware: it is built from
+# hardware/samsung_slsi-linaro/exynos7870/mobicore (see the "MobiCore setup"
+# block in device-common.mk), which is also where the 64 bit variant comes
+# from.  The ten mc* symbols liboemcrypto.so asks for are exactly the ones
+# that repo's ClientLib/src/mc_client_api.cpp exports.
 
 # Widevine HAL (HIDL 1.2), registers @1.0/@1.1/@1.2 ICryptoFactory+IDrmFactory "widevine"
 vendor/bin/hw/android.hardware.drm@1.2-service.widevine
