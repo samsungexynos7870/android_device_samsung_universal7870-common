@@ -40,6 +40,9 @@ vendor/app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
 # TUI Secure Driver
 vendor/app/mcRegistry/ffffffffd00000000000000000000014.tlbin
 
+# TUI Secure Driver (TuiService / trusted UI)
+vendor/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
+
 # ICCC - spf check
 vendor/app/mcRegistry/ffffffff000000000000000000000041.tlbin
 
