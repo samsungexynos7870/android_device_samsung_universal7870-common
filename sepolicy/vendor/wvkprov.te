@@ -1,7 +1,7 @@
 # /vendor/bin/wvkprov - the helper the Widevine key provisioning HAL execs to
 # create/verify the device key pair inside TrustZone.  It links libMcClient
-# (a6lte blob, /dev/mobicore-user) and liboemcrypto (/dev/s5p-smem), and keeps
-# the resulting key under /efs.
+# (built from the slsi-linaro sources, /dev/mobicore-user) and liboemcrypto
+# (/dev/s5p-smem), and keeps the resulting key under /efs.
 
 type wvkprov, domain;
 type wvkprov_exec, exec_type, vendor_file_type, file_type;

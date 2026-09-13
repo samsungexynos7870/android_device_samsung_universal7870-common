@@ -6,7 +6,8 @@ allow hal_drm_widevine efs_file:dir search;
 r_dir_file(hal_drm_widevine, sec_efs_file)
 
 # Widevine 1.2 (j7duolte blob): libwvdrmengine -> liboemcrypto -> libMcClient
-# (a6lte blob), so the service talks to MobiCore directly.
+# (built from the slsi-linaro sources), so the service talks to MobiCore
+# directly.
 allow hal_drm_widevine tee_device:chr_file rw_file_perms;
 r_dir_file(hal_drm_widevine, mobicore_vendor_file)
 
