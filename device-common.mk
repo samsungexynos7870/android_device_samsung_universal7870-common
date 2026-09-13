@@ -183,7 +183,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	libMcClient \
 	libMcRegistry \
-	mcDriverDaemon
+	mcDriverDaemon \
+	RootPA
 
 # Camera configurations
 PRODUCT_COPY_FILES += \

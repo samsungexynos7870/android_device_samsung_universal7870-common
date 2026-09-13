@@ -32,3 +32,6 @@ vendor/lib64/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0.so
 # widevine stack; installed as a prebuilt module (the @1.4 service dlopens it)
 -vendor/lib/mediadrm/libdrmclearkeyplugin.so:vendor/lib/mediadrm/libdrmclearkeyplugin.so
 -vendor/lib64/mediadrm/libdrmclearkeyplugin.so:vendor/lib64/mediadrm/libdrmclearkeyplugin.so
+
+# Widevine DRM trustlet (the TEE side of liboemcrypto, loaded by mcDriverDaemon)
+vendor/app/mcRegistry/ffffffffd00000000000000000000045.drbin
