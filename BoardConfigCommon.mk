@@ -187,7 +187,7 @@ BOARD_SECCOMP_POLICY := $(LOCAL_PATH)/seccomp
 # only needed by livedisplay wich is labled inline
 # include device/lineage/sepolicy/exynos/sepolicy.mk
 include device/samsung/universal7870-common/sepolicy_slsi_exynos7870/sepolicy.mk
-BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy/vendor
+BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy/vendor
 
 # BOARD_SEPOLICY_VERS := $(PLATFORM_SDK_VERSION).0
 
