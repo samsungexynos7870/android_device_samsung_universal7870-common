@@ -183,7 +183,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	libMcClient \
 	libMcRegistry \
-	mcDriverDaemon
+	mcDriverDaemon \
+	libTui
 
 # Camera configurations
 PRODUCT_COPY_FILES += \

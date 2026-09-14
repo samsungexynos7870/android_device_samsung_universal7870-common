@@ -2,3 +2,4 @@ libMcClient.so
 libOpenCL.so
 libantradio.so
 libnativehelper_shim.so
+libTui.so
