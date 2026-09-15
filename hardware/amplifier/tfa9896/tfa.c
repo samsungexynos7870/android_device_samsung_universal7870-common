@@ -187,8 +187,9 @@ int tfa_power(tfa_device_t *tfa_dev, bool on) {
         rc = tfa_enable(tfa_dev->tfa_handle, 1);
         if (rc != 0) {
             ALOGE("%s: Failed to enable amplifier", __func__);
-            tfa_clock_off(tfa_dev);
         }
+        /* The real stream keeps the clock from here on */
+        tfa_clock_off(tfa_dev);
     } else {
         rc = tfa_enable(tfa_dev->tfa_handle, 0);
         if (rc != 0) {

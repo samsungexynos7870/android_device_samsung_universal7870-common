@@ -19,7 +19,7 @@ LOCAL_PATH := device/samsung/universal7870-common
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
-BOARD_SUPPORTS_SOUND_TRIGGER := false
+BOARD_SUPPORTS_SOUND_TRIGGER := true
 
 # AUDIO hal
 BOARD_USE_ALP_AUDIO := false
@@ -124,7 +124,7 @@ DEXPREOPT_GENERATE_APEX_IMAGE := true
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
 AUDIOSERVER_MULTILIB := 32
-BOARD_SUPPORTS_SOUND_TRIGGER := false
+BOARD_SUPPORTS_SOUND_TRIGGER := true
 
 # TFA98xx amplifier IC. Selects the source set built by hardware/amplifier
 # (tfa9890/ or tfa9896/), the register map built into libtfa98xx_oss and the
