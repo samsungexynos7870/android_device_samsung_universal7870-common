@@ -92,10 +92,12 @@ static int ril_connect_if_required(struct ril_handle *ril)
 
     rc = Connect_RILD(ril->client);
     if (rc != RIL_CLIENT_ERR_SUCCESS) {
-        ALOGE("FATAL: Failed to connect to RILD: %s", strerror(errno));
+        ALOGE("FATAL: Failed to connect to RILD: rc=%d errno=%s(%d)",
+              rc, strerror(errno), errno);
         return -1;
     }
 
+    ALOGV("Connected to RILD");
     return 0;
 }
 
@@ -112,6 +114,10 @@ int ril_open(struct ril_handle *ril)
         ALOGE("OpenClient_RILD() failed");
         return -1;
     }
+
+    /* The modem CP needs our call state: audio path, clock sync, mic setup
+     * etc. Require the RILD connection so these actually get delivered. */
+    ril->connect_required = true;
 
     property_get(VOLUME_STEPS_PROPERTY, property, VOLUME_STEPS_DEFAULT);
     ril->volume_steps_max = atoi(property);
@@ -190,7 +196,7 @@ int ril_set_call_volume(struct ril_handle *ril,
 
     rc = ril_connect_if_required(ril);
     if (rc != 0) {
-        ALOGE("%s: Failed to connect to RIL (%s)", __func__, strerror(rc));
+        ALOGE("%s: Failed to connect to RIL (rc=%d)", __func__, rc);
         return 0;
     }
 
@@ -210,7 +216,7 @@ int ril_set_call_audio_path(struct ril_handle *ril, enum _AudioPath path)
 
     rc = ril_connect_if_required(ril);
     if (rc != 0) {
-        ALOGE("%s: Failed to connect to RIL (%s)", __func__, strerror(rc));
+        ALOGE("%s: Failed to connect to RIL (rc=%d)", __func__, rc);
         return 0;
     }
 
@@ -229,7 +235,7 @@ int ril_set_call_clock_sync(struct ril_handle *ril,
 
     rc = ril_connect_if_required(ril);
     if (rc != 0) {
-        ALOGE("%s: Failed to connect to RIL (%s)", __func__, strerror(rc));
+        ALOGE("%s: Failed to connect to RIL (rc=%d)", __func__, rc);
         return 0;
     }
 
@@ -247,7 +253,7 @@ int ril_set_mute(struct ril_handle *ril, enum _MuteCondition condition)
 
     rc = ril_connect_if_required(ril);
     if (rc != 0) {
-        ALOGE("%s: Failed to connect to RIL (%s)", __func__, strerror(rc));
+        ALOGE("%s: Failed to connect to RIL (rc=%d)", __func__, rc);
         return 0;
     }
 
@@ -267,7 +273,7 @@ int ril_set_two_mic_control(struct ril_handle *ril,
 
     rc = ril_connect_if_required(ril);
     if (rc != 0) {
-        ALOGE("%s: Failed to connect to RIL (%s)", __func__, strerror(rc));
+        ALOGE("%s: Failed to connect to RIL (rc=%d)", __func__, rc);
         return 0;
     }
 

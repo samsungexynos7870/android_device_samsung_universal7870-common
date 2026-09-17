@@ -68,10 +68,6 @@ void set_voice_session_audio_path(struct voice_session *session)
             break;
     }
 
-    /* Set ril->connect_required as false to make the connection optional
-       its not working properly with current universal7870 vendor*/
-    session->ril.connect_required = false;
-
     ALOGV("%s: ril_set_call_audio_path(%d)", __func__, device_type);
 
     rc = ril_set_call_audio_path(&session->ril, device_type);
@@ -241,6 +237,9 @@ int start_voice_session(struct voice_session *session)
 
     pcm_start(session->pcm_voice_rx);
     pcm_start(session->pcm_voice_tx);
+
+    /* tell the modem CP the voice clock is running */
+    ril_set_call_clock_sync(&session->ril, SOUND_CLOCK_START);
 
 #ifdef AUDIENCE_EARSMART_IC
     ALOGV("%s: Enabling Audience IC", __func__);
