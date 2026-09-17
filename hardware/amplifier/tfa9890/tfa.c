@@ -39,6 +39,7 @@ static void *write_dummy_data(void *param) {
     uint8_t *buffer = NULL;
     size_t buffer_size = 1024 * 8;
     bool first_write = true;
+    int open_attempts = 0;
 
     struct pcm_config config = {
         .channels = 2,
@@ -69,6 +70,25 @@ static void *write_dummy_data(void *param) {
                 } else {
                     ALOGE("%s: pcm_open failed (out of memory)", __func__);
                 }
+                /*
+                 * During a voice call the playback PCM is permanently owned
+                 * by the in-call voice/speaker stream, so EBUSY here is not
+                 * transient. The stream that owns the PCM is already driving
+                 * the I2S clock, which is all the dummy clock emulates - so
+                 * stop spamming retries and borrow its clock instead of
+                 * deadlocking the amplifier enable path.
+                 */
+                if (++open_attempts >= 20) { // ~1 s at 50 ms per retry
+                    ALOGW("%s: giving up the dummy PCM after %d attempts; "
+                          "borrowing the clock of the stream that owns it",
+                          __func__, open_attempts);
+                    pthread_mutex_lock(&t->mutex);
+                    t->clock_borrowed = true;
+                    t->writing = true;
+                    pthread_cond_signal(&t->cond);
+                    pthread_mutex_unlock(&t->mutex);
+                    goto exit_free;
+                }
                 usleep(50000); // 50 ms
                 continue;
             }
@@ -95,6 +115,7 @@ static void *write_dummy_data(void *param) {
     if (pcm) {
         pcm_close(pcm);
     }
+exit_free:
     free(buffer);
 
 exit:
@@ -119,6 +140,7 @@ static int tfa_clock_on(tfa_device_t *tfa_dev)
 
     tfa_dev->initializing = true;
     tfa_dev->writing = false;
+    tfa_dev->clock_borrowed = false;
 
     if (pthread_create(&tfa_dev->write_thread, NULL, write_dummy_data, tfa_dev) != 0) {
         ALOGE("%s: failed to create write thread", __func__);

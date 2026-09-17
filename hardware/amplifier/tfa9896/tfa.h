@@ -66,6 +66,12 @@ typedef struct {
     atomic_bool initializing;
     bool clock_enabled;
     bool writing;
+    /*
+     * Set by the dummy-clock thread when it gives up opening the playback
+     * PCM because another stream (e.g. the in-call voice stream) owns it.
+     * That stream is already driving the I2S clock, so no dummy is needed.
+     */
+    bool clock_borrowed;
     pthread_t write_thread;
     pthread_mutex_t mutex;
     pthread_cond_t cond;

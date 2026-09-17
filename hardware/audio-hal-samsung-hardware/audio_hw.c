@@ -4216,8 +4216,12 @@ static int adev_open(const hw_module_t *module, const char *name,
     }
 
 #ifdef SUPPORT_SPKAMP
-    if (amplifier_open() != -ENOENT) {
-        ALOGE("Amplifier initialization failed");
+    {
+        int amp_rc = amplifier_open();
+        /* -ENOENT just means this platform has no amplifier HAL */
+        if (amp_rc != 0 && amp_rc != -ENOENT) {
+            ALOGE("Amplifier initialization failed");
+        }
     }
 #endif
     *device = &adev->device.common;
