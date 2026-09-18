@@ -40,7 +40,7 @@ LOCAL_SHARED_LIBRARIES := \
 ifeq ($(BOARD_USE_VNDSECRIL), true)
 # newer properitary version with extra oem functions oss impl lacks
 LOCAL_SHARED_LIBRARIES += \
-	libvndsecril-client_oss
+	libvndsecril-client-oss
 else
 LOCAL_SHARED_LIBRARIES += \
 	libsecril-client
