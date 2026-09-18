@@ -249,9 +249,11 @@ typedef enum {
 #define FM_RADIO_PARAM_MUTE             "fm_radio_mute"
 #define FM_RADIO_PARAM_PRE_STOP         "AudioFmPreStop"
 
-/* PCM device id of the FM DAI link, used if the mixer configuration does
- * not provide the <pcmdai fmradio_link="..."/> tag. */
-#define FM_RADIO_DAI_LINK_DEFAULT       4
+/* PCM device of the FM DAI link: the index of the "fm" link in the DAI link
+ * list of the machine driver (universal7870-cod3026), which is also the value
+ * of the <pcmdai fmradio_link="..."/> tag of the mixer configuration. */
+#define FM_RADIO_DAI_LINK               4
+#endif /* FM_RADIO_ENABLED */
 
 struct offload_cmd {
     struct listnode node;

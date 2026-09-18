@@ -891,6 +891,8 @@ static void check_and_route_usecases(struct audio_device *adev,
 }
 
 #ifdef FM_RADIO_ENABLED
+static int select_devices(struct audio_device *adev, audio_usecase_t uc_id);
+
 /*
  * FM radio (Silicon Labs si47xx tuner).
  *
@@ -904,9 +906,9 @@ static void check_and_route_usecases(struct audio_device *adev,
  *    universal7870_aif4_hw_free() switches it off again. The device tree does
  *    not declare the FM interface as slave ("fm-slave-i2s" is absent), so the
  *    AP is the clock master of the link, which is what opening and starting
- *    this PCM does. Its PCM device is the one given by the <pcmdai
- *    fmradio_link="..."/> tag of the mixer configuration (4 on the devices
- *    supported so far).
+ *    this PCM does. Its PCM device is FM_RADIO_DAI_LINK, the index of the "fm"
+ *    link in the DAI link list of the machine driver, which is what the
+ *    <pcmdai fmradio_link="..."/> tag of the mixer configuration carries.
  *  - The Audio Mixer has to be configured so that the tuner audio reaches the
  *    AP capture path or the codec. This is done with the stock mixer paths:
  *      - "fm_radio-fm-recording" (the snd device of tuner captures) routes the
@@ -949,10 +951,10 @@ static struct mixer_ctl *fm_radio_mixer_ctl(struct audio_device *adev,
 {
     struct mixer_card *mixer_card = adev_get_mixer_for_card(adev, SOUND_CARD);
 
-    if (mixer_card == NULL)
+    if (mixer_card == NULL || mixer_card->mixer == NULL)
         return NULL;
 
-    return audio_route_get_mixer_ctl(mixer_card->audio_route, name);
+    return mixer_get_ctl_by_name(mixer_card->mixer, name);
 }
 
 static void fm_radio_set_mixer_ctl(struct audio_device *adev, const char *name,
@@ -968,24 +970,6 @@ static void fm_radio_set_mixer_ctl(struct audio_device *adev, const char *name,
     mixer_ctl_set_value(ctl, 0, value);
 }
 
-/* PCM device of the FM DAI link, see <pcmdai fmradio_link="..."/>. */
-static int fm_radio_dai_link(struct audio_device *adev)
-{
-    struct mixer_card *mixer_card = adev_get_mixer_for_card(adev, SOUND_CARD);
-    int dai_link = -1;
-
-    if (mixer_card != NULL)
-        dai_link = get_dai_link(mixer_card->audio_route, FMRADIO_LINK);
-
-    if (dai_link < 0) {
-        ALOGW("%s: no <pcmdai fmradio_link> in the mixer configuration, using %d",
-              __func__, FM_RADIO_DAI_LINK_DEFAULT);
-        dai_link = FM_RADIO_DAI_LINK_DEFAULT;
-    }
-
-    return dai_link;
-}
-
 /* Keep the tuner running: the FM DAI link PCM clocks its interface and
  * enables its digital output. */
 static void fm_radio_start_tuner(struct audio_device *adev)
@@ -995,7 +979,7 @@ static void fm_radio_start_tuner(struct audio_device *adev)
     if (fm->pcm != NULL)
         return;
 
-    fm->pcm = pcm_open(SOUND_CARD, fm_radio_dai_link(adev),
+    fm->pcm = pcm_open(SOUND_CARD, FM_RADIO_DAI_LINK,
                        PCM_OUT | PCM_MONOTONIC, &fm_radio_pcm_config);
     if (fm->pcm != NULL && !pcm_is_ready(fm->pcm)) {
         ALOGE("%s: cannot open pcm_fm_out stream: %s", __func__,
@@ -1007,7 +991,7 @@ static void fm_radio_start_tuner(struct audio_device *adev)
 
     if (fm->pcm != NULL) {
         pcm_start(fm->pcm);
-        ALOGD("%s: pcm_fm_out(%d) %p", __func__, fm_radio_dai_link(adev), fm->pcm);
+        ALOGD("%s: pcm_fm_out(%d) %p", __func__, FM_RADIO_DAI_LINK, fm->pcm);
     }
 }
 
