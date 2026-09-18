@@ -63,6 +63,11 @@ ifeq ($(BOARD_USE_SPKAMP), true)
 LOCAL_CFLAGS += -DSUPPORT_SPKAMP
 endif
 
+# FM radio: only some of the devices have a Silicon Labs si47xx tuner
+ifeq ($(TARGET_BOARD_HAS_SILAB_FM), true)
+LOCAL_CFLAGS += -DFM_RADIO_ENABLED
+endif
+
 LOCAL_MODULE := audio.primary.$(TARGET_BOOTLOADER_BOARD_NAME)
 LOCAL_MULTILIB := 32
 LOCAL_VENDOR_MODULE := true

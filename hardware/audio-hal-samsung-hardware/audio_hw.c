@@ -638,6 +638,13 @@ static snd_device_t get_input_snd_device(struct audio_device *adev, audio_device
             }
             /* TODO: set echo reference */
         }
+#ifdef FM_RADIO_ENABLED
+    } else if (source == AUDIO_SOURCE_FM_TUNER ||
+               (in_device & (AUDIO_DEVICE_IN_FM_TUNER & ~AUDIO_DEVICE_BIT_IN))) {
+        /* Tuner audio: route it into the record mix of the Audio Mixer so
+         * that it can be captured from the AP. */
+        snd_device = SND_DEVICE_IN_FM;
+#endif
     } else if (source == AUDIO_SOURCE_DEFAULT) {
         goto exit;
     }
@@ -882,6 +889,276 @@ static void check_and_route_usecases(struct audio_device *adev,
         }
     }
 }
+
+#ifdef FM_RADIO_ENABLED
+/*
+ * FM radio (Silicon Labs si47xx tuner).
+ *
+ * The tuner is driven from userspace through /dev/radio0 and hands its
+ * demodulated audio over to the FM interface of the s1402x Audio Mixer. Two
+ * things are needed for the audio path to work:
+ *
+ *  - The tuner only drives that interface while a PCM is prepared on the "fm"
+ *    DAI link of the sound card: universal7870_aif4_prepare() switches the
+ *    digital output of the tuner on (DT property si47xx,mode = <1>) and
+ *    universal7870_aif4_hw_free() switches it off again. The device tree does
+ *    not declare the FM interface as slave ("fm-slave-i2s" is absent), so the
+ *    AP is the clock master of the link, which is what opening and starting
+ *    this PCM does. Its PCM device is the one given by the <pcmdai
+ *    fmradio_link="..."/> tag of the mixer configuration (4 on the devices
+ *    supported so far).
+ *  - The Audio Mixer has to be configured so that the tuner audio reaches the
+ *    AP capture path or the codec. This is done with the stock mixer paths:
+ *      - "fm_radio-fm-recording" (the snd device of tuner captures) routes the
+ *        tuner audio into the record mix, so that radio applications which
+ *        render the tuner audio themselves - like LineageOS' FMRadio - can
+ *        read it from a regular capture stream,
+ *      - "fm_radio-speaker"/"fm_radio-headset" route it to the codec for
+ *        applications which let the codec play the broadcast (the built-in
+ *        receiver mode, selected with the "fm_radio_volume" parameter).
+ *
+ * While a radio application captures the tuner, the playback routing of the
+ * running use cases is applied again, so that its rendered audio and not the
+ * tuner path goes to the codec (the FM path enables the tuner channel).
+ */
+
+static struct pcm_config fm_radio_pcm_config = {
+    .channels = PLAYBACK_DEFAULT_CHANNEL_COUNT,
+    .rate = PLAYBACK_DEFAULT_SAMPLING_RATE,
+    .period_size = PLAYBACK_PERIOD_SIZE,
+    .period_count = PLAYBACK_PERIOD_COUNT,
+    .format = PCM_FORMAT_S16_LE,
+    .start_threshold = PLAYBACK_START_THRESHOLD(PLAYBACK_PERIOD_SIZE, PLAYBACK_PERIOD_COUNT),
+    .stop_threshold = PLAYBACK_STOP_THRESHOLD(PLAYBACK_PERIOD_SIZE, PLAYBACK_PERIOD_COUNT),
+    .silence_threshold = 0,
+    .silence_size = UINT_MAX,
+    .avail_min = PLAYBACK_AVAILABLE_MIN,
+};
+
+/* True if the stream captures the FM tuner. */
+static bool fm_radio_is_tuner_input(struct stream_in *in)
+{
+    return (in->source == AUDIO_SOURCE_FM_TUNER) ||
+           (in->devices & (audio_devices_t)(AUDIO_DEVICE_IN_FM_TUNER &
+                                            ~AUDIO_DEVICE_BIT_IN));
+}
+
+/* Look up a mixer control of the sound card. */
+static struct mixer_ctl *fm_radio_mixer_ctl(struct audio_device *adev,
+                                            const char *name)
+{
+    struct mixer_card *mixer_card = adev_get_mixer_for_card(adev, SOUND_CARD);
+
+    if (mixer_card == NULL)
+        return NULL;
+
+    return audio_route_get_mixer_ctl(mixer_card->audio_route, name);
+}
+
+static void fm_radio_set_mixer_ctl(struct audio_device *adev, const char *name,
+                                   int value)
+{
+    struct mixer_ctl *ctl = fm_radio_mixer_ctl(adev, name);
+
+    if (ctl == NULL) {
+        ALOGW("%s: no \"%s\" mixer control", __func__, name);
+        return;
+    }
+
+    mixer_ctl_set_value(ctl, 0, value);
+}
+
+/* PCM device of the FM DAI link, see <pcmdai fmradio_link="..."/>. */
+static int fm_radio_dai_link(struct audio_device *adev)
+{
+    struct mixer_card *mixer_card = adev_get_mixer_for_card(adev, SOUND_CARD);
+    int dai_link = -1;
+
+    if (mixer_card != NULL)
+        dai_link = get_dai_link(mixer_card->audio_route, FMRADIO_LINK);
+
+    if (dai_link < 0) {
+        ALOGW("%s: no <pcmdai fmradio_link> in the mixer configuration, using %d",
+              __func__, FM_RADIO_DAI_LINK_DEFAULT);
+        dai_link = FM_RADIO_DAI_LINK_DEFAULT;
+    }
+
+    return dai_link;
+}
+
+/* Keep the tuner running: the FM DAI link PCM clocks its interface and
+ * enables its digital output. */
+static void fm_radio_start_tuner(struct audio_device *adev)
+{
+    struct fm_radio_audio *fm = &adev->fm_radio;
+
+    if (fm->pcm != NULL)
+        return;
+
+    fm->pcm = pcm_open(SOUND_CARD, fm_radio_dai_link(adev),
+                       PCM_OUT | PCM_MONOTONIC, &fm_radio_pcm_config);
+    if (fm->pcm != NULL && !pcm_is_ready(fm->pcm)) {
+        ALOGE("%s: cannot open pcm_fm_out stream: %s", __func__,
+              pcm_get_error(fm->pcm));
+        pcm_close(fm->pcm);
+        fm->pcm = NULL;
+        return;
+    }
+
+    if (fm->pcm != NULL) {
+        pcm_start(fm->pcm);
+        ALOGD("%s: pcm_fm_out(%d) %p", __func__, fm_radio_dai_link(adev), fm->pcm);
+    }
+}
+
+static void fm_radio_stop_tuner(struct audio_device *adev)
+{
+    struct fm_radio_audio *fm = &adev->fm_radio;
+
+    if (fm->pcm == NULL)
+        return;
+
+    pcm_stop(fm->pcm);
+    pcm_close(fm->pcm);
+    fm->pcm = NULL;
+    ALOGD("%s: pcm_fm_out closed", __func__);
+}
+
+/* The tuner has to run while it is played by the codec and/or captured. */
+static void fm_radio_update_tuner(struct audio_device *adev)
+{
+    if (adev->fm_radio.enabled || adev->fm_radio.capture)
+        fm_radio_start_tuner(adev);
+    else
+        fm_radio_stop_tuner(adev);
+}
+
+/* Apply (or reset) the routing of the running playback use cases again. */
+static void fm_radio_update_usecases(struct audio_device *adev)
+{
+    struct listnode *node;
+    struct audio_usecase *usecase;
+
+    list_for_each(node, &adev->usecase_list) {
+        usecase = node_to_item(node, struct audio_usecase, adev_list_node);
+        if (usecase->type == PCM_PLAYBACK)
+            select_devices(adev, usecase->id);
+    }
+}
+
+/* The radio application forces the loudspeaker on and off through
+ * AudioSystem.setForceUse(), which shows up in the devices of the primary
+ * output. */
+static bool fm_radio_wants_speaker(struct audio_device *adev)
+{
+    audio_devices_t devices = AUDIO_DEVICE_NONE;
+
+    if (adev->primary_output != NULL)
+        devices = adev->primary_output->devices;
+
+    return (devices & (AUDIO_DEVICE_OUT_WIRED_HEADSET |
+                       AUDIO_DEVICE_OUT_WIRED_HEADPHONE)) == 0;
+}
+
+/* Muting of the received audio. */
+static void fm_radio_set_mute(struct audio_device *adev, bool mute)
+{
+    struct mixer_ctl *ctl = fm_radio_mixer_ctl(adev, FM_RADIO_MIXER_CTL_MUTE);
+
+    if (ctl != NULL) {
+        mixer_ctl_set_value(ctl, 0, mute ? 1 : 0);
+    } else {
+        /* The codec's rx mute uses an inverted value: 0 mutes the output
+         * (see dac_soft_mute_put() in cod3026x.c). */
+        fm_radio_set_mixer_ctl(adev, FM_RADIO_MIXER_CTL_DAC_MUTE, mute ? 0 : 1);
+    }
+
+    adev->fm_radio.muted = mute;
+    ALOGD("%s: FM mute: %s", __func__, mute ? "on" : "off");
+}
+
+/* Apply the mixer path of the wanted output, reset the other one. The other
+ * path is reset first, both share the controls of the Audio Mixer routing. */
+static void fm_radio_apply_rx_path(struct audio_device *adev, bool speaker)
+{
+    struct mixer_card *mixer_card = adev_get_mixer_for_card(adev, SOUND_CARD);
+
+    if (mixer_card == NULL)
+        return;
+
+    audio_route_force_reset_and_update_path(mixer_card->audio_route,
+        speaker ? FM_RADIO_MIXER_PATH_HEADSET : FM_RADIO_MIXER_PATH_SPEAKER);
+    audio_route_apply_and_update_path(mixer_card->audio_route,
+        speaker ? FM_RADIO_MIXER_PATH_SPEAKER : FM_RADIO_MIXER_PATH_HEADSET);
+    adev->fm_radio.speaker = speaker;
+
+    ALOGD("%s: FM radio is running, routed to %s", __func__,
+          speaker ? "the loudspeaker" : "the headset");
+}
+
+/* Built-in receiver mode: the codec plays the tuner audio. */
+static void fm_radio_enable(struct audio_device *adev, bool speaker)
+{
+    struct fm_radio_audio *fm = &adev->fm_radio;
+
+    if (fm->enabled && fm->speaker == speaker)
+        return;
+
+    fm->enabled = true;
+    fm_radio_update_tuner(adev);
+    fm_radio_apply_rx_path(adev, speaker);
+
+    if (fm->muted)
+        fm_radio_set_mute(adev, true);
+}
+
+static void fm_radio_disable(struct audio_device *adev)
+{
+    struct fm_radio_audio *fm = &adev->fm_radio;
+    struct mixer_card *mixer_card;
+
+    if (!fm->enabled)
+        return;
+
+    fm->enabled = false;
+
+    mixer_card = adev_get_mixer_for_card(adev, SOUND_CARD);
+    if (mixer_card != NULL) {
+        audio_route_force_reset_and_update_path(mixer_card->audio_route,
+                                                FM_RADIO_MIXER_PATH_SPEAKER);
+        audio_route_force_reset_and_update_path(mixer_card->audio_route,
+                                                FM_RADIO_MIXER_PATH_HEADSET);
+    }
+
+    if (fm->muted)
+        fm_radio_set_mute(adev, false);
+
+    fm_radio_update_tuner(adev);
+    fm_radio_update_usecases(adev);
+
+    ALOGD("%s: FM radio stopped", __func__);
+}
+
+/* A radio application started or stopped capturing the tuner. */
+static void fm_radio_capture(struct audio_device *adev, struct stream_in *in)
+{
+    struct fm_radio_audio *fm = &adev->fm_radio;
+
+    if (fm->capture == (in != NULL))
+        return;
+
+    fm->capture = (in != NULL);
+
+    fm_radio_update_tuner(adev);
+
+    /* The application renders the tuner audio itself: re-apply the playback
+     * routing of the running use cases, so that they - and not the tuner
+     * path - are what is audible. */
+    fm_radio_update_usecases(adev);
+
+    ALOGD("%s: FM capture %s", __func__, fm->capture ? "started" : "stopped");
+}
+#endif /* FM_RADIO_ENABLED */
 
 static int select_devices(struct audio_device *adev,
                           audio_usecase_t uc_id)
@@ -1874,6 +2151,11 @@ static int stop_input_stream(struct stream_in *in)
         return -EINVAL;
     }
 
+#ifdef FM_RADIO_ENABLED
+    if (fm_radio_is_tuner_input(in))
+        fm_radio_capture(adev, NULL);
+#endif
+
     /* Disable the tx device */
     disable_snd_device(adev, uc_info, uc_info->in_snd_device);
 
@@ -1943,6 +2225,10 @@ static int start_input_stream(struct stream_in *in)
     list_add_tail(&adev->usecase_list, &uc_info->adev_list_node);
 
     select_devices(adev, in->usecase);
+#ifdef FM_RADIO_ENABLED
+    if (fm_radio_is_tuner_input(in))
+        fm_radio_capture(adev, in);
+#endif
 
     /* Config should be updated as profile can be changed between different calls
      * to this function:
@@ -3790,6 +4076,46 @@ static int adev_set_parameters(struct audio_hw_device *dev, const char *kvpairs)
         pthread_mutex_unlock(&adev->lock);
     }
 #endif /* SWAP_SPEAKER_ON_SCREEN_ROTATION */
+
+#ifdef FM_RADIO_ENABLED
+    /******************************************************
+     *** FM radio
+     ******************************************************/
+    ret = str_parms_get_str(parms, FM_RADIO_PARAM_MODE, value, sizeof(value));
+    if (ret >= 0) {
+        pthread_mutex_lock(&adev->lock);
+        if (strcmp(value, "off") != 0)
+            fm_radio_enable(adev, fm_radio_wants_speaker(adev));
+        else
+            fm_radio_disable(adev);
+        pthread_mutex_unlock(&adev->lock);
+    }
+
+    ret = str_parms_get_str(parms, FM_RADIO_PARAM_VOLUME, value, sizeof(value));
+    if (ret >= 0) {
+        pthread_mutex_lock(&adev->lock);
+        if (strcmp(value, "0") != 0)
+            fm_radio_enable(adev, fm_radio_wants_speaker(adev));
+        else
+            fm_radio_disable(adev);
+        pthread_mutex_unlock(&adev->lock);
+    }
+
+    ret = str_parms_get_str(parms, FM_RADIO_PARAM_MUTE, value, sizeof(value));
+    if (ret >= 0) {
+        pthread_mutex_lock(&adev->lock);
+        fm_radio_set_mute(adev, strcmp(value, "off") != 0);
+        pthread_mutex_unlock(&adev->lock);
+    }
+
+    /* The radio application asks us to tear the FM audio path down. */
+    ret = str_parms_get_str(parms, FM_RADIO_PARAM_PRE_STOP, value, sizeof(value));
+    if (ret >= 0) {
+        pthread_mutex_lock(&adev->lock);
+        fm_radio_disable(adev);
+        pthread_mutex_unlock(&adev->lock);
+    }
+#endif /* FM_RADIO_ENABLED */
 
     str_parms_destroy(parms);
 

@@ -95,7 +95,13 @@ struct pcm_device_profile pcm_device_capture = {
     .card = SOUND_CARD,
     .id = SOUND_CAPTURE_DEVICE,
     .type = PCM_CAPTURE,
+#ifdef FM_RADIO_ENABLED
+    /* The tuner audio is captured through the regular capture path: the
+     * fm_radio-fm-recording mixer path routes it into the record mix. */
+    .devices = AUDIO_DEVICE_IN_BUILTIN_MIC|AUDIO_DEVICE_IN_WIRED_HEADSET|AUDIO_DEVICE_IN_BACK_MIC|AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET|AUDIO_DEVICE_IN_FM_TUNER,
+#else
     .devices = AUDIO_DEVICE_IN_BUILTIN_MIC|AUDIO_DEVICE_IN_WIRED_HEADSET|AUDIO_DEVICE_IN_BACK_MIC|AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET,
+#endif
 };
 
 struct pcm_device_profile pcm_device_capture_low_latency = {
@@ -173,6 +179,9 @@ const char * const device_table[SND_DEVICE_MAX] = {
     [SND_DEVICE_IN_CAMCORDER_MIC] = "camcorder-mic",
     [SND_DEVICE_IN_VOICE_REC_HEADSET_MIC] = "voice-rec-headset-mic",
     [SND_DEVICE_IN_VOICE_REC_MIC] = "voice-rec-mic",
+#ifdef FM_RADIO_ENABLED
+    [SND_DEVICE_IN_FM] = "fm_radio-fm-recording",
+#endif
 };
 
 

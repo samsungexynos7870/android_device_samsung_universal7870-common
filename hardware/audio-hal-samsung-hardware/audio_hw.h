@@ -105,6 +105,9 @@ enum {
     SND_DEVICE_IN_CAMCORDER_MIC,
     SND_DEVICE_IN_VOICE_REC_HEADSET_MIC,
     SND_DEVICE_IN_VOICE_REC_MIC,
+#ifdef FM_RADIO_ENABLED
+    SND_DEVICE_IN_FM,
+#endif
     SND_DEVICE_IN_END,
 
     SND_DEVICE_MAX = SND_DEVICE_IN_END,
@@ -223,6 +226,32 @@ typedef enum {
     VOICE_CALL = 0x4,
     PCM_CAPTURE_LOW_LATENCY = 0x10,
 } usecase_type_t;
+
+#ifdef FM_RADIO_ENABLED
+/*
+ * FM radio (Silicon Labs si47xx tuner).
+ *
+ * The tuner is driven over /dev/radio0 by the libfmsilab JNI library and its
+ * demodulated audio is handed over to the FM interface of the s1402x Audio
+ * Mixer, which the HAL routes with the stock mixer paths (see audio_hw.c).
+ */
+#define FM_RADIO_MIXER_PATH_SPEAKER     "fm_radio-speaker"
+#define FM_RADIO_MIXER_PATH_HEADSET     "fm_radio-headset"
+#define FM_RADIO_MIXER_PATH_RECORDING   "fm_radio-fm-recording"
+
+/* Mixer controls used to mute the FM audio. */
+#define FM_RADIO_MIXER_CTL_MUTE         "fm_mute"
+#define FM_RADIO_MIXER_CTL_DAC_MUTE     "DAC Soft Mute"
+
+/* Parameters of the FM radio application. */
+#define FM_RADIO_PARAM_MODE             "fm_mode"
+#define FM_RADIO_PARAM_VOLUME           "fm_radio_volume"
+#define FM_RADIO_PARAM_MUTE             "fm_radio_mute"
+#define FM_RADIO_PARAM_PRE_STOP         "AudioFmPreStop"
+
+/* PCM device id of the FM DAI link, used if the mixer configuration does
+ * not provide the <pcmdai fmradio_link="..."/> tag. */
+#define FM_RADIO_DAI_LINK_DEFAULT       4
 
 struct offload_cmd {
     struct listnode node;
@@ -374,6 +403,25 @@ struct voice_data {
     struct voice_session *session;
 };
 
+#ifdef FM_RADIO_ENABLED
+/* State of the FM audio path (see audio_hw.c for details). */
+struct fm_radio_audio {
+    /* FM audio is played by the codec, the tuner is enabled through one of
+     * the FM parameters ("fm_mode"/"fm_radio_volume") of the radio
+     * application. */
+    bool            enabled;
+    /* FM audio is muted ("fm_radio_mute"). */
+    bool            muted;
+    /* FM audio is routed to the loudspeaker instead of the headset. */
+    bool            speaker;
+    /* A radio application is capturing the tuner. */
+    bool            capture;
+    /* PCM of the FM DAI link, it keeps the tuner interface running (the AP
+     * is the clock master) and the digital output of the tuner enabled. */
+    struct pcm      *pcm;
+};
+#endif
+
 struct audio_device {
     struct audio_hw_device  device;
     pthread_mutex_t         lock; /* see note below on mutex acquisition order */
@@ -395,6 +443,10 @@ struct audio_device {
     bool                    speaker_lr_swap;
     unsigned int            cur_hdmi_channels;
     bool                    ns_in_voice_rec;
+
+#ifdef FM_RADIO_ENABLED
+    struct fm_radio_audio   fm_radio;
+#endif
 
     void*                   offload_fx_lib;
     int                     (*offload_fx_start_output)(audio_io_handle_t);
