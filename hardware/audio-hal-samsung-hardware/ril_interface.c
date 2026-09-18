@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "audio_hw_ril"
+#define LOG_TAG "audio_hw_ril_oss"
 /*#define LOG_NDEBUG 0*/
 
 #include <errno.h>

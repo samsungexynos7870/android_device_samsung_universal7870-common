@@ -28,7 +28,7 @@ ifeq ($(TARGET_USES_VND_SECRIL), true)
 LOCAL_CFLAGS += -DUSES_VND_SECRIL
 endif
 
-LOCAL_MODULE:= libvndsecril-client
+LOCAL_MODULE:= libvndsecril-client_oss
 LOCAL_PRELINK_MODULE := false
 LOCAL_PROPRIETARY_MODULE := true
 

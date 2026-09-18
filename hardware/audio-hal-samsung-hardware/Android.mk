@@ -40,7 +40,7 @@ LOCAL_SHARED_LIBRARIES := \
 ifeq ($(BOARD_USE_VNDSECRIL), true)
 # newer properitary version with extra oem functions oss impl lacks
 LOCAL_SHARED_LIBRARIES += \
-	libvndsecril-client
+	libvndsecril-client_oss
 else
 LOCAL_SHARED_LIBRARIES += \
 	libsecril-client
@@ -51,7 +51,7 @@ LOCAL_C_INCLUDES += \
 	external/tinyalsa/include \
 	external/tinycompress/include \
 	hardware/libhardware/include \
-	hardware/samsung/ril/libsecril-client \
+	device/samsung/universal7870-common/libvndsecril-client \
 	$(call include-path-for, audio-utils) \
 	$(call include-path-for, audio-route) \
 	$(call include-path-for, audio-effects)
