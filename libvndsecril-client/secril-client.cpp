@@ -22,7 +22,6 @@
 #include <fcntl.h>
 #include <utils/Log.h>
 #include <android/log.h>
-#include <cutils/properties.h>
 #include <pthread.h>
 #include "secril-client.h"
 #include <hardware_legacy/power.h> // For wakelock
@@ -44,7 +43,6 @@ namespace android {
 #define MULTI_CLIENT_SOCKET_NAME_2 "Multiclient2"
 #endif
 #define MULTI_CLIENT_Q_SOCKET_NAME "QMulticlient"
-#define MULTI_CLIENT_Q_SOCKET_NAME_2 "QMulticlient2"
 
 #define MAX_COMMAND_BYTES       (8 * 1024)
 #define REQ_POOL_SIZE           32
@@ -71,12 +69,6 @@ namespace android {
 #define REQ_SET_AUDIO_MODE      112
 #define REQ_SET_CLOCK_MODE      113
 #define REQ_SET_PDN             114
-#define REQ_SEND_OEM_IPC        115
-
-// Unsolicited response ID reported to registered handlers when the
-// RILD socket dies unexpectedly (parity with the prebuilt client).
-#define RESP_RIL_RESET          11020
-#define RIL_RESET_STR           "RIL_RESET"
 
 // OEM request function ID
 #define OEM_FUNC_SOUND          0x08
@@ -196,6 +188,7 @@ static bool isValidMuteCondition(MuteCondition condition);
 static bool isValidTwoMicCtrl(TwoMicSolDevice device, TwoMicSolReport report);
 static char ConvertSoundType(SoundType type);
 static char ConvertAudioPath(AudioPath path);
+static int SendOemIpcCommand(int32_t, int32_t, int32_t, int32_t); // missing
 
 
 //---------------------------------------------------------------------------
@@ -386,7 +379,6 @@ HRilClient OpenClient_RILD(void) {
     ((RilClientPrv *)(client->prv))->parent = client;
     ((RilClientPrv *)(client->prv))->sock = -1;
 
-    pthread_mutexattr_init(&attr);
     pthread_mutexattr_settype(&attr, 1);
     pthread_mutex_init(&(((RilClientPrv *)(client->prv))->mutex_token), &attr);
     pthread_mutex_init(&(((RilClientPrv *)(client->prv))->mutex_modem), &attr);
@@ -412,10 +404,6 @@ int Connect_RILD(HRilClient client) {
     }
 
     client_prv = (RilClientPrv *)(client->prv);
-
-    // Already connected.
-    if (client_prv->b_connect == 1)
-        return RIL_CLIENT_ERR_SUCCESS;
 
     // Open client socket and connect to server.
     //client_prv->sock = socket_loopback_client(RILD_PORT, SOCK_STREAM);
@@ -460,7 +448,6 @@ int Connect_RILD(HRilClient client) {
         return RIL_CLIENT_ERR_CONNECT;
     }
 
-    RLOGD("%s: Success to connect", __FUNCTION__);
     return RIL_CLIENT_ERR_SUCCESS;
 }
 
@@ -481,10 +468,6 @@ int Connect_QRILD(HRilClient client) {
     }
 
     client_prv = (RilClientPrv *)(client->prv);
-
-    // Already connected.
-    if (client_prv->b_connect == 1)
-        return RIL_CLIENT_ERR_SUCCESS;
 
     // Open client socket and connect to server.
     //client_prv->sock = socket_loopback_client(RILD_PORT, SOCK_STREAM);
@@ -529,75 +512,6 @@ int Connect_QRILD(HRilClient client) {
         return RIL_CLIENT_ERR_CONNECT;
     }
 
-    RLOGD("%s: Success to connect", __FUNCTION__);
-    return RIL_CLIENT_ERR_SUCCESS;
-}
-
-/**
- * @fn    int Connect_QRILD_Second(void)
- *
- * @params    client: Client handle.
- *
- * @return    0, or error code.
- */
-extern "C"
-int Connect_QRILD_Second(HRilClient client)    {
-    RilClientPrv *client_prv;
-
-    if (client == NULL || client->prv == NULL) {
-        RLOGE("%s: Invalid client %p", __FUNCTION__, client);
-        return RIL_CLIENT_ERR_INVAL;
-    }
-
-    client_prv = (RilClientPrv *)(client->prv);
-
-    // Already connected.
-    if (client_prv->b_connect == 1)
-        return RIL_CLIENT_ERR_SUCCESS;
-
-    // Open client socket and connect to server.
-    client_prv->sock = socket_local_client(MULTI_CLIENT_Q_SOCKET_NAME_2, ANDROID_SOCKET_NAMESPACE_ABSTRACT, SOCK_STREAM);
-
-    if (client_prv->sock < 0) {
-        RLOGE("%s: Connecting failed. %s(%d)", __FUNCTION__, strerror(errno), errno);
-        return RIL_CLIENT_ERR_CONNECT;
-    }
-
-    client_prv->b_connect = 1;
-
-    if (fcntl(client_prv->sock, F_SETFL, O_NONBLOCK) < 0) {
-        close(client_prv->sock);
-        return RIL_CLIENT_ERR_IO;
-    }
-
-    client_prv->p_rs = record_stream_new(client_prv->sock, MAX_COMMAND_BYTES);
-
-    if (pipe(client_prv->pipefd) < 0) {
-        close(client_prv->sock);
-        RLOGE("%s: Creating command pipe failed. %s(%d)", __FUNCTION__, strerror(errno), errno);
-        return RIL_CLIENT_ERR_IO;
-    }
-
-    if (fcntl(client_prv->pipefd[0], F_SETFL, O_NONBLOCK) < 0) {
-        close(client_prv->sock);
-        close(client_prv->pipefd[0]);
-        close(client_prv->pipefd[1]);
-        return RIL_CLIENT_ERR_IO;
-    }
-
-    // Start socket read thread.
-    if (pthread_create(&(client_prv->tid_reader), NULL, RxReaderFunc, (void *)client_prv) != 0) {
-        close(client_prv->sock);
-        close(client_prv->pipefd[0]);
-        close(client_prv->pipefd[1]);
-
-        memset(client_prv, 0, sizeof(RilClientPrv));
-        client_prv->sock = -1;
-        RLOGE("%s: Can't create Reader thread. %s(%d)", __FUNCTION__, strerror(errno), errno);
-        return RIL_CLIENT_ERR_CONNECT;
-    }
-
-    RLOGD("%s: Success to connect", __FUNCTION__);
     return RIL_CLIENT_ERR_SUCCESS;
 }
 
@@ -618,10 +532,6 @@ int Connect_RILD_Second(HRilClient client)    {
     }
 
     client_prv = (RilClientPrv *)(client->prv);
-
-    // Already connected.
-    if (client_prv->b_connect == 1)
-        return RIL_CLIENT_ERR_SUCCESS;
 
     // Open client socket and connect to server.
     //client_prv->sock = socket_loopback_client(RILD_PORT, SOCK_STREAM);
@@ -666,7 +576,6 @@ int Connect_RILD_Second(HRilClient client)    {
         return RIL_CLIENT_ERR_CONNECT;
     }
 
-    RLOGD("%s: Success to connect", __FUNCTION__);
     return RIL_CLIENT_ERR_SUCCESS;
 }
 
@@ -713,7 +622,7 @@ int Disconnect_RILD(HRilClient client) {
     if (client_prv->sock == -1)
         return RIL_CLIENT_ERR_SUCCESS;
 
-    RLOGD("[*] %s(): sock=%d", __FUNCTION__, client_prv->sock);
+    printf("[*] %s(): sock=%d\n", __FUNCTION__, client_prv->sock);
 
     if (client_prv->sock > 0) {
         do {
@@ -801,7 +710,11 @@ int SetCallVolume(HRilClient client, SoundType type, int vol_level) {
  * Set external sound device path for noise reduction.
  */
 extern "C"
+#ifdef RIL_CALL_AUDIO_PATH_EXTRAVOLUME
 int SetCallAudioPath(HRilClient client, AudioPath path, ExtraVolume mode)
+#else
+int SetCallAudioPath(HRilClient client, AudioPath path)
+#endif
 {
     RilClientPrv *client_prv;
     int ret;
@@ -830,7 +743,9 @@ int SetCallAudioPath(HRilClient client, AudioPath path, ExtraVolume mode)
     data[2] = 0x00;     // data length
     data[3] = 0x06;     // data length
     data[4] = ConvertAudioPath(path); // audio path
+#ifdef RIL_CALL_AUDIO_PATH_EXTRAVOLUME
     data[5] = mode; // ExtraVolume
+#endif
 
     RegisterRequestCompleteHandler(client, REQ_SET_AUDIO_PATH, NULL);
 
@@ -1266,208 +1181,18 @@ int SetSoundClockMode(HRilClient client, uint32_t mode) {
 }
 
 /**
- * Send an OEM IPC command (mainCmd 0x09 / subCmd 0x0F) with SIT framing.
- *
- * Frame layout:
- *   [0..1]  0x08 0x12
- *   [2..3]  big-endian total length (ipcDataLen + 0x0B)
- *   [4..5]  little-endian payload length (ipcDataLen + 0x07)
- *   [6..7]  0
- *   [8]     mainCmd (0x09)
- *   [9]     subCmd (0x0F)
- *   [10]    cmdType
- *   [11..]  payload
- */
-extern "C"
-int SendOemIpcCommand(HRilClient client, uint8_t mainCmd, uint8_t subCmd, uint16_t cmdType, char *data, uint16_t ipcDataLen) {
-    RilClientPrv *client_prv;
-    int ret;
-    char frame[0x400] = {0,};
-
-    if (client == NULL || client->prv == NULL) {
-        RLOGE("%s: Invalid client %p", __FUNCTION__, client);
-        return RIL_CLIENT_ERR_INVAL;
-    }
-
-    client_prv = (RilClientPrv *)(client->prv);
-
-    if (client_prv->sock < 0) {
-        RLOGE("%s: Not connected.", __FUNCTION__);
-        return RIL_CLIENT_ERR_CONNECT;
-    }
-
-    if (mainCmd != 0x09 || subCmd != 0x0F) {
-        RLOGE("%s: Not supported command (mainCmd %d, subCmd %d)", __FUNCTION__, mainCmd, subCmd);
-        return 8;
-    }
-
-    if (ipcDataLen >= 0x3F6) {
-        RLOGE("%s: Invalid ipcDataLen %d", __FUNCTION__, ipcDataLen);
-        return 10;
-    }
-
-    RLOGD("%s: Send OEM IPC command : mainCmd(%d), subCmd(%d), cmdType(%d), ipcDataLen(%d)",
-          __FUNCTION__, mainCmd, subCmd, cmdType, ipcDataLen);
-
-    frame[0] = 0x08;
-    frame[1] = 0x12;
-    frame[2] = (char)((ipcDataLen + 0x0B) >> 8);
-    frame[3] = (char)((ipcDataLen + 0x0B) & 0xFF);
-    frame[4] = (char)((ipcDataLen + 0x07) & 0xFF);
-    frame[5] = (char)((ipcDataLen + 0x07) >> 8);
-    frame[8] = (char)mainCmd;
-    frame[9] = (char)subCmd;
-    frame[10] = (char)(cmdType & 0xFF);
-    if (ipcDataLen > 0 && data != NULL)
-        memcpy(frame + 0x0B, data, ipcDataLen);
-
-    RegisterRequestCompleteHandler(client, REQ_SEND_OEM_IPC, NULL);
-
-    ret = SendOemRequestHookRaw(client, REQ_SEND_OEM_IPC, frame, ipcDataLen + 0x0B);
-    if (ret != RIL_CLIENT_ERR_SUCCESS) {
-        RLOGE("%s: failed. (%d)", __FUNCTION__, ret);
-        RegisterRequestCompleteHandler(client, REQ_SEND_OEM_IPC, NULL);
-    }
-
-    return ret;
-}
-
-/**
- * Convert a modem API response into a return value, mirroring the
- * prebuilt client's mapping table.
- *
- * respLen: response code captured by callBackSecureSimLock
- * resReq:  result code of the request itself
- * mode:    modem API mode (1..5)
- * result:  filled with 1 when the response carries a payload
+ * Send to modem
  */
 extern "C"
 int ConvertReturnValue(uint32_t respLen, int resReq, int mode, int *result) {
-    // Result of the request itself.
-    if (resReq > 0x0A)
-        return -7;
-    if (resReq != 0) {
-        static const int requestRc[] = {-1, -1, -1, -1, -1, -1, -7, -2, -3, -4};
-        return requestRc[resReq - 1];
-    }
-
-    // resReq == 0: converted from the response.
-    switch (mode) {
-        case 1:
-            if (respLen == 1000)
-                return -5;
-            *result = 1;
-            return 0x101;
-        case 2:
-        case 4: {
-            static const int respRc[] = {-5, -3, -6, 0};
-            if ((uint32_t)(respLen - 1000) >= 4)
-                return 1;
-            return respRc[respLen - 1000];
-        }
-        case 3:
-            if (respLen == 1000)
-                return -5;
-            *result = 1;
-            return 4;
-        case 5:
-            if (respLen == 1000)
-                return -5;
-            *result = 1;
-            return (int)respLen;
-        default:
-            return -2;
-    }
+    RLOGW("%s: Not implanted.", __FUNCTION__);
+    return 0;
 }
 
-/**
- * Synchronous modem API helper (network unlock codes for some US models).
- *
- * Sends { 0x11, 0x63, BE16(dataLen + 5), mode, payload... } as request
- * REQ_SEND_MODEM and busy-waits for callBackSecureSimLock to capture the
- * response, then converts it with ConvertReturnValue().
- */
 extern "C"
-int ModemAPI_Send_request(HRilClient client, char *data, char *dataH __attribute__((unused)), size_t dataLen, uint32_t mode) {
-    RilClientPrv *client_prv;
-    char csc[PROPERTY_VALUE_MAX + 1];
-    char model[PROPERTY_VALUE_MAX + 1];
-    char req_data[0x1D6];
-    int ret;
-    int result = 0;
-
-    if (client == NULL || client->prv == NULL) {
-        RLOGE("%s: Invalid client %p", __FUNCTION__, client);
-        return -1;
-    }
-
-    client_prv = (RilClientPrv *)(client->prv);
-
-    if (client_prv->sock < 0) {
-        RLOGE("%s: Not connected.", __FUNCTION__);
-        return -1;
-    }
-
-    if (mode < 1 || mode > 5) {
-        RLOGE("%s: Not supported mode %d", __FUNCTION__, mode);
-        return -2;
-    }
-
-    property_get("ro.csc.sales_code", csc, "");
-    RLOGD("%s: Salescode : %s", __FUNCTION__, csc);
-    if (strncmp(csc, "ATT", 3) == 0 || strncmp(csc, "AIO", 3) == 0) {
-        property_get("ro.product.model", model, "");
-        if (strncmp(model, "SM-A015AZ", 10) != 0 &&
-            strncmp(model, "SM-A015A", 9) != 0 &&
-            strncmp(model, "SM-A102U", 9) != 0) {
-            RLOGE("%s: %s Not Supported.", __FUNCTION__, model);
-            return -2;
-        }
-        RLOGD("%s: ATT/AIO unlock", __FUNCTION__);
-    } else if (strncmp(csc, "TMB", 3) != 0 && strncmp(csc, "TMK", 3) != 0) {
-        RLOGE("%s: %s Not Supported.", __FUNCTION__, csc);
-        return -2;
-    }
-
-    if (dataLen >= 0x1D2) {
-        RLOGE("%s: Invalid payload_length.", __FUNCTION__);
-        return -1;
-    }
-
-    // Make raw data.
-    memset(req_data, 0, sizeof(req_data));
-    req_data[0] = OEM_FUNC_MODEM;
-    req_data[1] = OEM_MODEM_CTRL;
-    req_data[2] = (char)((dataLen + 5) >> 8);
-    req_data[3] = (char)((dataLen + 5) & 0xFF);
-    req_data[4] = (char)mode;
-    if (dataLen > 0 && data != NULL)
-        memcpy(req_data + 5, data, dataLen);
-
-    condition = 1;
-    RegisterRequestCompleteHandler(client, REQ_SEND_MODEM, callBackSecureSimLock);
-
-    ret = SendOemRequestHookRaw(client, REQ_SEND_MODEM, req_data, dataLen + 5);
-    if (ret != RIL_CLIENT_ERR_SUCCESS) {
-        RegisterRequestCompleteHandler(client, REQ_SEND_MODEM, NULL);
-        return ConvertReturnValue(0 /* unused */, ret, (int)mode, &result);
-    }
-
-    // Wait for the response captured by callBackSecureSimLock.
-    while (condition != 0) {
-        usleep(500000);
-    }
-    condition = 1;
-
-    // Response with payload: hand it back to the caller buffer.
-    if (mode == 1 || mode == 3 || mode == 5) {
-        ret = ConvertReturnValue(RespLen, 0, (int)mode, &result);
-        if (result != 0)
-            memcpy(data, &BufferTemp, ret);
-        return ret;
-    }
-
-    return ConvertReturnValue(RespLen, 0, (int)mode, &result);
+int ModemAPI_Send_request(HRilClient client, char *data, char *dataH, size_t dataLen, uint32_t mode) {
+    RLOGW("%s: Not implanted.", __FUNCTION__);
+    return 0;
 }
 
 extern "C"
@@ -1488,8 +1213,6 @@ int SetupPublicSafetyPdn(HRilClient client, char value, RilOnComplete handler) {
         return RIL_CLIENT_ERR_CONNECT;
     }
 
-    client_prv->b_del_handler = 1;
-
     // Make raw data
     data[0] = OEM_FUNC_PDN;
     data[1] = 0x02;
@@ -1497,7 +1220,7 @@ int SetupPublicSafetyPdn(HRilClient client, char value, RilOnComplete handler) {
     data[3] = 0x05;     // data length
     data[4] = value;
 
-    RegisterRequestCompleteHandler(client, REQ_SET_PDN, handler);
+    RegisterRequestCompleteHandler(client, REQ_SET_PDN, NULL);
 
     ret = SendOemRequestHookRaw(client, REQ_SET_PDN, data, sizeof(data));
     if (ret != RIL_CLIENT_ERR_SUCCESS) {
@@ -1580,7 +1303,6 @@ static int SendOemRequestHookRaw(HRilClient client, int req_id, char *data, size
     int maxfd = -1;
 
     unsigned int check_req_id = req_id;
-    bool sock_error = false;
 
     client_prv = (RilClientPrv *)(client->prv);
 
@@ -1621,8 +1343,6 @@ static int SendOemRequestHookRaw(HRilClient client, int req_id, char *data, size
 
     ret = blockingWrite(client_prv->sock, (void *)&header, sizeof(header));
     if (ret < 0) {
-        sock_error = true;
-        RLOGE("RIL Response: unexpected error on write errno:%d", errno);
         RLOGE("%s: send request header failed. (%d)", __FUNCTION__, ret);
         goto error;
     }
@@ -1630,8 +1350,6 @@ static int SendOemRequestHookRaw(HRilClient client, int req_id, char *data, size
     // Do TX: response data.
     ret = blockingWrite(client_prv->sock, p.data(), p.dataSize());
     if (ret < 0) {
-        sock_error = true;
-        RLOGE("RIL Response: unexpected error on write errno:%d", errno);
         RLOGE("%s: send request data failed. (%d)", __FUNCTION__, ret);
         goto error;
     }
@@ -1655,12 +1373,13 @@ error:
     pthread_mutex_unlock(&(client_prv->mutex_token));
     ClearReqHistory(client_prv, token);
 
-    pthread_mutex_unlock(&(client_prv->mutex_modem));
+    if (ret == -EPIPE || ret == -EBADFD) {
+        close(client_prv->sock);
+        client_prv->sock = -1;
+        client_prv->b_connect = 0;
+    }
 
-    // Same recovery as the prebuilt client: a write failure tears down
-    // the session so the next request reconnects from scratch.
-    if (sock_error)
-        Disconnect_RILD(client);
+    pthread_mutex_unlock(&(client_prv->mutex_modem));
 
     return RIL_CLIENT_ERR_UNKNOWN;
 }
@@ -1784,38 +1503,6 @@ static char ConvertAudioPath(AudioPath path) {
 }
 
 
-// Tear down the session after an unexpected socket error or end-of-stream.
-// Mirrors the prebuilt client's reader behaviour: close socket and pipes,
-// drop the record stream, run the error callback and signal RIL_RESET to a
-// handler registered for RESP_RIL_RESET (only when a live socket died).
-static void processUnexpectedSocketClose(RilClientPrv *client_prv) {
-    int had_socket = (client_prv->sock > 0);
-
-    if (client_prv->sock > 0) {
-        close(client_prv->sock);
-        client_prv->sock = -1;
-    }
-    if (client_prv->pipefd[0] > 0)
-        close(client_prv->pipefd[0]);
-    if (client_prv->pipefd[1] > 0)
-        close(client_prv->pipefd[1]);
-    client_prv->b_connect = 0;
-
-    if (client_prv->p_rs) {
-        record_stream_free(client_prv->p_rs);
-        client_prv->p_rs = NULL;
-    }
-
-    if (client_prv->err_cb)
-        client_prv->err_cb(client_prv->err_cb_data, RIL_CLIENT_ERR_CONNECT);
-
-    if (had_socket) {
-        RilOnUnsolicited handler = FindUnsolHandler(client_prv, RESP_RIL_RESET);
-        if (handler)
-            handler(client_prv->parent, RIL_RESET_STR, (size_t)strlen(RIL_RESET_STR));
-    }
-}
-
 static void * RxReaderFunc(void *param) {
     RilClientPrv *client_prv = (RilClientPrv *)param;
     int maxfd = 0;
@@ -1830,7 +1517,7 @@ static void * RxReaderFunc(void *param) {
 
     maxfd = max(client_prv->sock, client_prv->pipefd[0]) + 1;
 
-    RLOGD("[*] %s() b_connect=%d, maxfd=%d", __FUNCTION__, client_prv->b_connect, maxfd);
+    printf("[*] %s() b_connect=%d, maxfd=%d\n", __FUNCTION__, client_prv->b_connect, maxfd);
     while (client_prv->b_connect) {
         FD_ZERO(&(client_prv->sock_rfds));
 
@@ -1857,14 +1544,28 @@ static void * RxReaderFunc(void *param) {
                         }
                     }
                     else {
-                        RLOGD("[*] %s()", __FUNCTION__);
+                        printf("[*] %s()\n", __FUNCTION__);
                     }
                 }
 
                 if (ret == 0 || !(errno == EAGAIN || errno == EINTR)) {
                     // fatal error or end-of-stream
-                    processUnexpectedSocketClose(client_prv);
-                    return NULL;
+                    if (client_prv->sock > 0) {
+                        close(client_prv->sock);
+                        client_prv->sock = -1;
+                        client_prv->b_connect = 0;
+                    }
+
+                    if (client_prv->p_rs)
+                        record_stream_free(client_prv->p_rs);
+
+                    // EOS
+                    if (client_prv->err_cb) {
+                        client_prv->err_cb(client_prv->err_cb_data, RIL_CLIENT_ERR_CONNECT);
+                        return NULL;
+                    }
+
+                    break;
                 }
             }
             if (FD_ISSET(client_prv->pipefd[0], &(client_prv->sock_rfds))) {
@@ -1884,8 +1585,20 @@ static void * RxReaderFunc(void *param) {
         } else {
             RLOGE("%s: select() returned %d\n", __FUNCTION__, -errno);
 
-            processUnexpectedSocketClose(client_prv);
-            return NULL;
+            if (client_prv->sock > 0) {
+                close(client_prv->sock);
+                client_prv->sock = -1;
+                client_prv->b_connect = 0;
+            }
+
+            if (client_prv->p_rs)
+                record_stream_free(client_prv->p_rs);
+
+            // EOS
+            if (client_prv->err_cb) {
+                client_prv->err_cb(client_prv->err_cb_data, RIL_CLIENT_ERR_CONNECT);
+                return NULL;
+            }
         }
     }
 

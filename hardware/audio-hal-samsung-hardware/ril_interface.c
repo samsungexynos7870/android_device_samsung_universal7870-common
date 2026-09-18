@@ -97,30 +97,7 @@ static int ril_connect_if_required(struct ril_handle *ril)
         return -1;
     }
 
-    ALOGI("Connected to RILD");
-    return 0;
-}
-
-/* Reconnect after a send failed and the socket was torn down.
- * Returns 0 on success. */
-static int ril_reconnect(struct ril_handle *ril)
-{
-    int rc;
-
-    if (ril->client == NULL) {
-        return -1;
-    }
-
-    ALOGI("%s: reconnecting to RILD", __func__);
-    Disconnect_RILD(ril->client);
-
-    rc = Connect_RILD(ril->client);
-    if (rc != RIL_CLIENT_ERR_SUCCESS) {
-        ALOGE("%s: reconnect failed: rc=%d", __func__, rc);
-        return -1;
-    }
-
-    ALOGI("Reconnected to RILD");
+    ALOGV("Connected to RILD");
     return 0;
 }
 
@@ -227,14 +204,7 @@ int ril_set_call_volume(struct ril_handle *ril,
                        sound_type,
                        (int)(volume * ril->volume_steps_max));
     if (rc != 0) {
-        ALOGE("%s: SetCallVolume() failed, rc=%d; reconnecting", __func__, rc);
-        if (ril_reconnect(ril) == 0) {
-            rc = SetCallVolume(ril->client,
-                               sound_type,
-                               (int)(volume * ril->volume_steps_max));
-            ALOGE_IF(rc != 0, "%s: SetCallVolume() retry failed, rc=%d",
-                     __func__, rc);
-        }
+        ALOGE("%s: SetCallVolume() failed, rc=%d", __func__, rc);
     }
 
     return rc;
@@ -250,14 +220,9 @@ int ril_set_call_audio_path(struct ril_handle *ril, enum _AudioPath path)
         return 0;
     }
 
-    rc = SetCallAudioPath(ril->client, path, ORIGINAL_PATH);
+    rc = SetCallAudioPath(ril->client, path);
     if (rc != 0) {
-        ALOGE("%s: SetCallAudioPath() failed, rc=%d; reconnecting", __func__, rc);
-        if (ril_reconnect(ril) == 0) {
-            rc = SetCallAudioPath(ril->client, path, ORIGINAL_PATH);
-            ALOGE_IF(rc != 0, "%s: SetCallAudioPath() retry failed, rc=%d",
-                     __func__, rc);
-        }
+        ALOGE("%s: SetCallAudioPath() failed, rc=%d", __func__, rc);
     }
 
     return rc;
@@ -276,12 +241,7 @@ int ril_set_call_clock_sync(struct ril_handle *ril,
 
     rc = SetCallClockSync(ril->client, condition);
     if (rc != 0) {
-        ALOGE("%s: SetCallClockSync() failed, rc=%d; reconnecting", __func__, rc);
-        if (ril_reconnect(ril) == 0) {
-            rc = SetCallClockSync(ril->client, condition);
-            ALOGE_IF(rc != 0, "%s: SetCallClockSync() retry failed, rc=%d",
-                     __func__, rc);
-        }
+        ALOGE("%s: SetCallClockSync() failed, rc=%d", __func__, rc);
     }
 
     return rc;
@@ -299,12 +259,7 @@ int ril_set_mute(struct ril_handle *ril, enum _MuteCondition condition)
 
     rc = SetMute(ril->client, condition);
     if (rc != 0) {
-        ALOGE("%s: SetMute() failed, rc=%d; reconnecting", __func__, rc);
-        if (ril_reconnect(ril) == 0) {
-            rc = SetMute(ril->client, condition);
-            ALOGE_IF(rc != 0, "%s: SetMute() retry failed, rc=%d",
-                     __func__, rc);
-        }
+        ALOGE("%s: SetMute() failed, rc=%d", __func__, rc);
     }
 
     return rc;
@@ -324,12 +279,7 @@ int ril_set_two_mic_control(struct ril_handle *ril,
 
     rc = SetTwoMicControl(ril->client, device, report);
     if (rc != 0) {
-        ALOGE("%s: SetTwoMicControl() failed, rc=%d; reconnecting", __func__, rc);
-        if (ril_reconnect(ril) == 0) {
-            rc = SetTwoMicControl(ril->client, device, report);
-            ALOGE_IF(rc != 0, "%s: SetTwoMicControl() retry failed, rc=%d",
-                     __func__, rc);
-        }
+        ALOGE("%s: SetTwoMicControl() failed, rc=%d", __func__, rc);
     }
 
     return rc;

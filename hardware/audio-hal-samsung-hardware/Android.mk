@@ -38,9 +38,7 @@ LOCAL_SHARED_LIBRARIES := \
 	libdl
 		
 ifeq ($(BOARD_USE_VNDSECRIL), true)
-# newer proprietary version contract with extra oem functions;
-# linked against our open-source implementation of libvndsecril-client,
-# which fully replaces the vendor prebuilt
+# newer properitary version with extra oem functions oss impl lacks
 LOCAL_SHARED_LIBRARIES += \
 	libvndsecril-client
 else
@@ -49,7 +47,6 @@ LOCAL_SHARED_LIBRARIES += \
 endif
 
 LOCAL_C_INCLUDES += \
-	device/samsung/universal7870-common/libvndsecril-client \
 	$(LOCAL_PATH)/include \
 	external/tinyalsa/include \
 	external/tinycompress/include \
