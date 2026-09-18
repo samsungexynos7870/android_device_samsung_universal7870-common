@@ -81,6 +81,12 @@ int Connect_RILD(HRilClient client);
 int Connect_QRILD(HRilClient client);
 
 /**
+ * Connect to QRIL deamon (second instance). One client task starts.
+ * Return is 0 or error code.
+ */
+int Connect_QRILD_Second(HRilClient client);
+
+/**
  * Connect to RIL deamon. One client task starts.
  * Return is 0 or error code.
  */
@@ -182,12 +188,10 @@ typedef enum _AudioPath {
 /**
  * ExtraVolume
  */
-#ifdef RIL_CALL_AUDIO_PATH_EXTRAVOLUME
 typedef enum _ExtraVolume {
     ORIGINAL_PATH,
     EXTRA_VOLUME_PATH
 } ExtraVolume;
-#endif
 
 /**
  * Clock adjustment parameters.
@@ -274,11 +278,7 @@ int SetCallVolume(HRilClient client, SoundType type, int vol_level);
 /**
  * Set external sound device path for noise reduction.
  */
-#ifdef RIL_CALL_AUDIO_PATH_EXTRAVOLUME
 int SetCallAudioPath(HRilClient client, AudioPath path, ExtraVolume mode);
-#else
-int SetCallAudioPath(HRilClient client, AudioPath path);
-#endif
 
 /**
  * Set modem clock to master or slave.
@@ -344,9 +344,11 @@ int GetClientData(HRilClient client);
 int SetClientData(HRilClient client, uint32_t enable);
 
 /**
- * oem ipc
+ * Send OEM IPC command (mainCmd 0x09 / subCmd 0x0F) with SIT framing to the
+ * RIL daemon. data holds ipcDataLen bytes of payload for cmdType.
+ * Return is 0 or error code.
  */
-int SendOemIpcCommand(int32_t, int32_t, int32_t, int32_t); // missing
+int SendOemIpcCommand(HRilClient client, uint8_t mainCmd, uint8_t subCmd, uint16_t cmdType, char *data, uint16_t ipcDataLen);
 
 #ifdef __cplusplus
 };
