@@ -20,6 +20,7 @@
 #include <sys/types.h>
 #include <string.h>
 #include <fcntl.h>
+#include <stdlib.h>
 #include <utils/Log.h>
 #include <android/log.h>
 #include <pthread.h>
@@ -353,6 +354,128 @@ int RegisterErrorCallback(HRilClient client, RilOnError cb, void *data) {
 
 void savelog(int value) {}
 
+#ifdef USES_VND_SECRIL
+/*
+ * The vendor RIL (libsec-ril.so) only accepts OEM client connections from a
+ * hard-coded set of processes. OemClientReceiver::Accept() reads the peer's
+ * /proc/<pid>/cmdline and compares the first token (plus the uid, after
+ * multiuser_get_app_id()) against that table, for example:
+ *
+ *   /vendor/bin/hw/android.hardware.audio@   (uid 1041, audioserver)
+ *   /vendor/bin/hw/gpsd                      (uid 1021)
+ *
+ * Any other process is rejected with "%s() Failed: processName: %s, uid: %d,
+ * ..." and the socket is closed right after accept(), so every request that is
+ * already in flight fails with EPIPE. The client reports that as
+ * RIL_CLIENT_ERR_UNKNOWN (rc=7), which leaves the modem CP without call
+ * volume, clock sync and mic control updates.
+ *
+ * The audio HAL of this port runs as /vendor/bin/hw/android.hardware.audio.service,
+ * which is not in that table, even though its uid matches. /proc/<pid>/cmdline
+ * is generated from the argv[] strings, which live in writable stack memory, so
+ * advertise the name RILD expects before connecting to it.
+ */
+#define RILD_ALLOWED_PROCESS_NAME "/vendor/bin/hw/android.hardware.audio@"
+
+static void SetRildAllowedProcessName(void) {
+    static bool name_set = false;
+
+    char cmdline[128];
+    char stat_buf[512];
+    unsigned long long arg_start = 0, arg_end = 0;
+    const size_t name_len = strlen(RILD_ALLOWED_PROCESS_NAME);
+    char *p, *end;
+    int fd, field;
+    ssize_t len;
+
+    if (name_set)
+        return;
+
+    /* Nothing to do if we already advertise a name RILD accepts. */
+    memset(cmdline, 0, sizeof(cmdline));
+    fd = open("/proc/self/cmdline", O_RDONLY);
+    if (fd < 0)
+        return;
+
+    len = read(fd, cmdline, sizeof(cmdline) - 1);
+    close(fd);
+
+    if (len > 0 && !strncmp(cmdline, RILD_ALLOWED_PROCESS_NAME, name_len)) {
+        name_set = true;
+        return;
+    }
+
+    /* arg_start and arg_end are the 48th and 49th field of /proc/self/stat. */
+    memset(stat_buf, 0, sizeof(stat_buf));
+    fd = open("/proc/self/stat", O_RDONLY);
+    if (fd < 0)
+        return;
+
+    len = read(fd, stat_buf, sizeof(stat_buf) - 1);
+    close(fd);
+
+    if (len <= 0)
+        return;
+
+    /* comm may contain spaces and parentheses, so start after the last ')'. */
+    p = strrchr(stat_buf, ')');
+    if (p == NULL)
+        return;
+
+    p++;
+
+    for (field = 3; field <= 49; field++) {
+        unsigned long long value;
+
+        while (*p == ' ')
+            p++;
+
+        end = NULL;
+        value = strtoull(p, &end, 10);
+
+        if (end != p) {
+            if (field == 48)
+                arg_start = value;
+            else if (field == 49)
+                arg_end = value;
+
+            p = end;
+        } else {
+            /* Non numeric field, e.g. the state character. */
+            while (*p != ' ' && *p != '\0')
+                p++;
+        }
+    }
+
+    if (arg_start == 0 || arg_end <= arg_start ||
+            (size_t)(arg_end - arg_start) < name_len + 1) {
+        RLOGE("%s: argv[] is too short to advertise \"%s\" to RILD",
+              __FUNCTION__, RILD_ALLOWED_PROCESS_NAME);
+        return;
+    }
+
+    memcpy((void *)(size_t)arg_start, RILD_ALLOWED_PROCESS_NAME, name_len + 1);
+
+    /* Re-read it to make sure the kernel picked the new name up. */
+    memset(cmdline, 0, sizeof(cmdline));
+    fd = open("/proc/self/cmdline", O_RDONLY);
+    if (fd < 0)
+        return;
+
+    len = read(fd, cmdline, sizeof(cmdline) - 1);
+    close(fd);
+
+    if (len > 0 && !strncmp(cmdline, RILD_ALLOWED_PROCESS_NAME, name_len)) {
+        name_set = true;
+        RLOGI("%s: connecting to RILD as \"%s\"", __FUNCTION__,
+              RILD_ALLOWED_PROCESS_NAME);
+    } else {
+        RLOGE("%s: failed to advertise \"%s\" to RILD", __FUNCTION__,
+              RILD_ALLOWED_PROCESS_NAME);
+    }
+}
+#endif /* USES_VND_SECRIL */
+
 /**
  * @fn  HRilClient OpenClient_RILD(void)
  *
@@ -407,6 +530,10 @@ int Connect_RILD(HRilClient client) {
 
     // Open client socket and connect to server.
     //client_prv->sock = socket_loopback_client(RILD_PORT, SOCK_STREAM);
+#ifdef USES_VND_SECRIL
+    /* RILD drops connections from processes it does not know. */
+    SetRildAllowedProcessName();
+#endif
     client_prv->sock = socket_local_client(MULTI_CLIENT_SOCKET_NAME, ANDROID_SOCKET_NAMESPACE_ABSTRACT, SOCK_STREAM );
 
     if (client_prv->sock < 0) {
@@ -471,6 +598,10 @@ int Connect_QRILD(HRilClient client) {
 
     // Open client socket and connect to server.
     //client_prv->sock = socket_loopback_client(RILD_PORT, SOCK_STREAM);
+#ifdef USES_VND_SECRIL
+    /* RILD drops connections from processes it does not know. */
+    SetRildAllowedProcessName();
+#endif
     client_prv->sock = socket_local_client(MULTI_CLIENT_Q_SOCKET_NAME, ANDROID_SOCKET_NAMESPACE_ABSTRACT, SOCK_STREAM);
 
     if (client_prv->sock < 0) {
@@ -535,6 +666,10 @@ int Connect_RILD_Second(HRilClient client)    {
 
     // Open client socket and connect to server.
     //client_prv->sock = socket_loopback_client(RILD_PORT, SOCK_STREAM);
+#ifdef USES_VND_SECRIL
+    /* RILD drops connections from processes it does not know. */
+    SetRildAllowedProcessName();
+#endif
     client_prv->sock = socket_local_client(MULTI_CLIENT_SOCKET_NAME_2, ANDROID_SOCKET_NAMESPACE_ABSTRACT, SOCK_STREAM );
 
     if (client_prv->sock < 0) {
