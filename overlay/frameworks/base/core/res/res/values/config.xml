@@ -18,8 +18,6 @@
 -->
 
 <resources>
-    <!-- Boolean indicating whether we want button brightness support -->
-    <bool name="config_button_brightness_support">false</bool>
 
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
@@ -342,7 +340,7 @@
     alpha compositing functionality in hardware.  If set, the window
     manager will disable alpha trasformation in animations where not
     strictly needed. -->
-    <!-- bool name="config_sf_limitedAlpha">true</bool -->
+    <bool name="config_sf_limitedAlpha">false</bool>
 
     <!-- Determines whether the shell features all run on another thread. -->
     <bool name="config_enableShellMainThread">true</bool>
