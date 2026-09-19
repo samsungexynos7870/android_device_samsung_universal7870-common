@@ -39,7 +39,6 @@ static void *write_dummy_data(void *param) {
     uint8_t *buffer = NULL;
     size_t buffer_size = 1024 * 8;
     bool first_write = true;
-    int open_attempts = 0;
 
     struct pcm_config config = {
         .channels = 2,
@@ -71,26 +70,30 @@ static void *write_dummy_data(void *param) {
                     ALOGE("%s: pcm_open failed (out of memory)", __func__);
                 }
                 /*
-                 * During a voice call the playback PCM is permanently owned
-                 * by the in-call voice/speaker stream, so EBUSY here is not
-                 * transient. The stream that owns the PCM is already driving
-                 * the I2S clock, which is all the dummy clock emulates - so
-                 * stop spamming retries and borrow its clock instead of
-                 * deadlocking the amplifier enable path.
+                 * The playback PCM is owned by a stream that is playing -
+                 * the in-call voice/speaker stream during a call, the stream
+                 * that renders the tuner audio while the FM radio plays. Its
+                 * clock is already running, which is the only thing this
+                 * dummy clock provides, and it cannot go away under our feet:
+                 * the audio HAL opens and closes its PCMs under the device
+                 * lock that is held for the amplifier enable as well, so the
+                 * owner is never a stream that is merely being torn down.
+                 *
+                 * Waiting for the PCM to become free - which is what this
+                 * code did for 20 x 50 ms - delays the amplifier enable, and
+                 * with it all audio queued behind it, by about a second.
+                 * That is audible as a stutter when a stream starts while
+                 * another one is already playing. Borrow the clock of the
+                 * stream that owns the PCM right away instead.
                  */
-                if (++open_attempts >= 20) { // ~1 s at 50 ms per retry
-                    ALOGW("%s: giving up the dummy PCM after %d attempts; "
-                          "borrowing the clock of the stream that owns it",
-                          __func__, open_attempts);
-                    pthread_mutex_lock(&t->mutex);
-                    t->clock_borrowed = true;
-                    t->writing = true;
-                    pthread_cond_signal(&t->cond);
-                    pthread_mutex_unlock(&t->mutex);
-                    goto exit_free;
-                }
-                usleep(50000); // 50 ms
-                continue;
+                ALOGW("%s: borrowing the clock of the stream that owns the PCM",
+                      __func__);
+                pthread_mutex_lock(&t->mutex);
+                t->clock_borrowed = true;
+                t->writing = true;
+                pthread_cond_signal(&t->cond);
+                pthread_mutex_unlock(&t->mutex);
+                goto exit_free;
             }
             ALOGI("%s: PCM opened for dummy clock", __func__);
         }

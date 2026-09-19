@@ -68,7 +68,8 @@ typedef struct {
     bool writing;
     /*
      * Set by the dummy-clock thread when it gives up opening the playback
-     * PCM because another stream (e.g. the in-call voice stream) owns it.
+     * PCM because another stream owns it (e.g. the in-call voice stream or,
+     * with software rendering, the stream that plays the FM radio audio).
      * That stream is already driving the I2S clock, so no dummy is needed.
      */
     bool clock_borrowed;
