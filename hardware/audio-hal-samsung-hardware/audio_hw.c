@@ -1017,16 +1017,49 @@ static void fm_radio_update_tuner(struct audio_device *adev)
         fm_radio_stop_tuner(adev);
 }
 
-/* Apply (or reset) the routing of the running playback use cases again. */
+/* Apply the mixer path of the running playback use cases again.
+ *
+ * The FM paths do not only route the tuner, they also touch the routing
+ * controls of the Audio Mixer which the output paths set (route-ap-bt-codec,
+ * the base of the stock fm_radio-* paths, adds the tuner channel to the
+ * downlink mix and takes the output of channel 1 from the record mix), so the
+ * path of the running playback use cases has to be applied again to keep the
+ * audio rendered by the radio application - and not the tuner - audible.
+ *
+ * select_devices() alone does not do that: it returns early as long as the
+ * sound device of the use case does not change, which is what happens here,
+ * because the radio application does not switch the output device while it
+ * captures the tuner. The paths are therefore applied explicitly, the same way
+ * disable_snd_device() re-applies the output route to keep an input route from
+ * clobbering it. */
 static void fm_radio_update_usecases(struct audio_device *adev)
 {
     struct listnode *node;
+    struct listnode *mixer_node;
     struct audio_usecase *usecase;
+    struct mixer_card *mixer_card;
+    const char *snd_device_name;
 
     list_for_each(node, &adev->usecase_list) {
         usecase = node_to_item(node, struct audio_usecase, adev_list_node);
-        if (usecase->type == PCM_PLAYBACK)
-            select_devices(adev, usecase->id);
+        if (usecase->type != PCM_PLAYBACK)
+            continue;
+
+        select_devices(adev, usecase->id);
+
+        if (usecase->out_snd_device == SND_DEVICE_NONE)
+            continue;
+
+        snd_device_name = get_snd_device_name(usecase->out_snd_device);
+        if (snd_device_name == NULL)
+            continue;
+
+        list_for_each(mixer_node, &usecase->mixer_list) {
+            mixer_card = node_to_item(mixer_node, struct mixer_card,
+                                      uc_list_node[usecase->id]);
+            audio_route_apply_and_update_path(mixer_card->audio_route,
+                                              snd_device_name);
+        }
     }
 }
 
