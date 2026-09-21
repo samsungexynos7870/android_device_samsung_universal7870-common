@@ -2,10 +2,10 @@
 # (vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service,
 #  started as vendor.wvkprov_server_hal).
 #
-# The 64 bit binary only registers ISehWidevineKeyProvisioning/default and
-# execs /vendor/bin/wvkprov (32 bit) for the actual Talkback to the TEE, just
-# like the stock Android 10 policy: wvkprov has no init transition of its own,
-# it is entered from this domain.
+# The binary only registers ISehWidevineKeyProvisioning/default and execs
+# /vendor/bin/wvkprov for the actual Talkback to the TEE, just like the stock
+# Android 10 policy: wvkprov has no init transition of its own, it is entered
+# from this domain.  (Both are 32 bit a6lte blobs.)
 
 type hal_wvkprov_default, domain;
 type hal_wvkprov_default_exec, exec_type, vendor_file_type, file_type;

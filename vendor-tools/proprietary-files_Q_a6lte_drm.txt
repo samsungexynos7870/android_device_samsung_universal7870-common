@@ -1,0 +1,40 @@
+###FILE###:proprietary-files_Q_a6lte_drm.txt
+# Widevine DRM 1.2 + Samsung key provisioning, A600FJXU9CVB1 (a6lte, QP1A.190711.020)
+#
+# a6lte is a 32 bit only vendor image (ro.vendor.product.cpu.abilist=
+# armeabi-v7a,armeabi, there is no vendor/lib64 at all), so the complete
+# widevine stack - the HAL binary, libwvhidl.so, liboemcrypto.so,
+# mediadrm/libwvdrmengine.so and, unlike on j7duolte, also the Samsung key
+# provisioning service - is ELF32/ARM.  Nothing is pulled for vendor/lib64.
+#
+# liboemcrypto.so ("LSI OEMCrypto v15.2", built 2021-08-31) has a DT_NEEDED
+# on libMcClient.so.  libMcClient.so is not extracted from any firmware: it
+# is built from hardware/samsung_slsi-linaro/exynos7870/mobicore (see the
+# "MobiCore setup" block in device-common.mk), which is also where the 64 bit
+# variant comes from.  The ten mc* symbols liboemcrypto.so asks for are
+# exactly the ones that repo's ClientLib/src/mc_client_api.cpp exports.
+#
+# The TEE side of OEMCrypto, the Widevine trustlet
+# 00060308060501020000000000000000.tlbin (tlwvdrm), already comes from this
+# very firmware through proprietary-files_Q_a6lte_secapp.txt - with this list
+# the trusted application and the client library talking to it are from the
+# same build again (the trustlet carries the same 2021.08.31 stamp).
+
+# Widevine HAL (HIDL 1.2), registers @1.0/@1.1/@1.2 ICryptoFactory+IDrmFactory "widevine"
+vendor/bin/hw/android.hardware.drm@1.2-service.widevine
+vendor/lib/libwvhidl.so
+vendor/lib/mediadrm/libwvdrmengine.so
+
+# OEMCrypto (TEE side), links the source-built libMcClient.so (see above)
+vendor/lib/liboemcrypto.so
+
+# Samsung widevine key provisioning (ISehWidevineKeyProvisioning)
+vendor/bin/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service
+vendor/bin/wvkprov
+vendor/lib/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0.so
+
+# clearkey plugin, taken from the same firmware so it stays in sync with the
+# widevine stack; installed as a prebuilt module.  It is a legacy mediadrm
+# plugin, i.e. it is picked up by the drm@1.0 "default" service from
+# /vendor/lib/mediadrm - a6lte has no 64 bit copy of it.
+-vendor/lib/mediadrm/libdrmclearkeyplugin.so:vendor/lib/mediadrm/libdrmclearkeyplugin.so

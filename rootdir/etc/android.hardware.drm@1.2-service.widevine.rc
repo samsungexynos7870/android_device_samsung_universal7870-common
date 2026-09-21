@@ -1,4 +1,4 @@
-# Widevine DRM HAL 1.2, prebuilt blob from the j7duolte (Android 10) vendor
+# Widevine DRM HAL 1.2, prebuilt blob from the a6lte (Android 10) vendor
 # image.  Based on stock vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc
 # with the two /system/bin/move_widevine_data.sh / delete_prov_files.sh
 # services dropped: those scripts were removed from AOSP after Android 10, so

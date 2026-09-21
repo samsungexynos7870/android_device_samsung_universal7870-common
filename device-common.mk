@@ -251,7 +251,7 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.4.vendor
 
 # The Widevine HAL itself is a prebuilt blob (see
-# vendor-tools/proprietary-files_Q_j7duolte_drm.txt) and is linked against
+# vendor-tools/proprietary-files_Q_a6lte_drm.txt) and is linked against
 # the vendor variants of drm@1.0/1.1/1.2, so those have to be installed even
 # though the build does not see the dependency of a copied file.
 # android.hidl.base@1.0, libhidlbase, libhidlmemory and

@@ -239,6 +239,6 @@
 /(vendor|system/vendor)/bin/hw/sec\.android\.hardware\.nfc@1\.2-service		                u:object_r:hal_nfc_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.gnss@2\.0-service                 u:object_r:hal_gnss_default_exec:s0
 
-# Widevine key provisioning (j7duolte blobs)
+# Widevine key provisioning (a6lte blobs)
 /(vendor|system/vendor)/bin/vendor\.samsung\.hardware\.security\.widevine\.keyprovisioning@1\.0-service u:object_r:hal_wvkprov_default_exec:s0
 /(vendor|system/vendor)/bin/wvkprov                u:object_r:wvkprov_exec:s0
