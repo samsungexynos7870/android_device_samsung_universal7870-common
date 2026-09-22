@@ -26,9 +26,6 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/lineage/compat \
     vendor/samsung/universal7870-common
 
-# Disable Ranging (UWB) - not supported on exynos7870, fixes A15 build
-RELEASE_RANGING_STACK := false
-
 # Product Characteristics
 PRODUCT_CHARACTERISTICS := phone
 
