@@ -21,11 +21,13 @@ PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/google/interfaces \
     hardware/google/pixel \
-    hardware/samsung/aidl/power-libperfmgr \
     hardware/samsung \
     hardware/ril \
     hardware/lineage/compat \
     vendor/samsung/universal7870-common
+
+# Disable Ranging (UWB) - not supported on exynos7870, fixes A15 build
+RELEASE_RANGING_STACK := false
 
 # Product Characteristics
 PRODUCT_CHARACTERISTICS := phone
@@ -243,24 +245,16 @@ PRODUCT_COPY_FILES += \
     prebuilts/vndk/v29/arm64/arch-arm64-armv8-a/shared/vndk-core/libprotobuf-cpp-full.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libprotobuf-cpp-full-v29.so \
     prebuilts/vndk/v29/arm64/arch-arm-armv8-a/shared/vndk-core/libprotobuf-cpp-full.so:$(TARGET_COPY_OUT_VENDOR)/lib/libprotobuf-cpp-full-v29.so
 
-# DRM
+# DRM - AIDL for Android 15
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0-impl \
-    android.hardware.drm@1.0-service \
-    android.hardware.drm@1.4-service.clearkey \
-    android.hardware.drm@1.4.vendor
+    android.hardware.drm-service.clearkey
 
-# The Widevine HAL itself is a prebuilt blob (see
-# vendor-tools/proprietary-files_Q_a6lte_drm.txt) and is linked against
-# the vendor variants of drm@1.0/1.1/1.2, so those have to be installed even
-# though the build does not see the dependency of a copied file.
-# android.hidl.base@1.0, libhidlbase, libhidlmemory and
-# android.hidl.memory@1.0 come from the VNDK / the HIDL section below,
-# libhidltransport is provided as libhidltransport.vendor.
+# The Widevine HAL itself is a prebuilt blob and is linked against
+# the vendor variants of drm@1.0/1.1/1.2, but on A15 only 1.4 vendor is kept
+# for compatibility (like universal9611-common). Init rc files for widevine
+# are now handled by AIDL.
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0.vendor \
-    android.hardware.drm@1.1.vendor \
-    android.hardware.drm@1.2.vendor
+    android.hardware.drm@1.4.vendor
 
 # Init scripts for the prebuilt Widevine 1.2 service and for the Samsung
 # key provisioning HAL (vendor.wvkprov_server_hal).
@@ -302,19 +296,19 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service.software
 
-# Power
+# Power - AIDL libperfmgr for Android 15 (pixel variant, samsung-libperfmgr removed in LOS 21+)
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.samsung-libperfmgr
+    android.hardware.power-service.pixel-libperfmgr
 
 # Configstore
 PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
     vndservicemanager
 
-# Healthd
+# Health - AIDL for Android 15
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.0-impl \
-    android.hardware.health@2.0-service
+    android.hardware.health-service.samsung \
+    android.hardware.health-service.samsung-recovery
 
 # HIDL
 PRODUCT_PACKAGES += \
@@ -438,9 +432,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libexynoscamera_shim
 
-# USB
+# USB - AIDL for Android 15
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service.basic \
+    android.hardware.usb-service.samsung \
+    android.hardware.usb.gadget-service.samsung \
     com.android.future.usb.accessory
 
 # Vibrator
@@ -461,9 +456,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libgui_vendor
 
-# Wifi
-PRODUCT_PACKAGES += \
-    macloader
+# Wifi - macloader removed in LOS 22.2 (A15), no longer exists
+# macloader was providing macloader binary from hardware/samsung/macloader
+# which was removed upstream; MAC address handling now via init.
 
 # WiFi Display
 PRODUCT_PACKAGES += \
