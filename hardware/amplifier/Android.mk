@@ -36,6 +36,7 @@ LOCAL_SHARED_LIBRARIES := \
 
 LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/include \
+    $(LOCAL_PATH)/../audio-hal-samsung-hardware \
 	external/tinyalsa/include \
 	external/tinycompress/include \
 	hardware/libhardware/include \
