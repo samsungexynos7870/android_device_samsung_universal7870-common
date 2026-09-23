@@ -39,7 +39,7 @@
 #define NXPTFA_LIVE_REV_MAJOR    (0)         // major API rev
 #define NXPTFA_LIVE_REV_MINOR    (2)         // minor
 
-int tfa98xxLiveData_trace;
+extern int tfa98xxLiveData_trace;
 void LiveData_trace(int level);
 
 #define TFA98XX_MAX_LOGLINE	256
