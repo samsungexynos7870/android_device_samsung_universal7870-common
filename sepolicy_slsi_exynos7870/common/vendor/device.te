@@ -2,7 +2,6 @@
 type cpefs_block_device, dev_type;
 type efs_block_device, dev_type;
 type dqmdbg_block_device, dev_type;
-type dtbo_block_device, dev_type;
 type keydata_block_device, dev_type;
 type keyrefuge_block_device, dev_type;
 type modem_block_device, dev_type;
@@ -11,7 +10,6 @@ type radio_block_device, dev_type;
 type sec_efs_block_device, dev_type;
 
 type bbd_device, dev_type;
-type bt_device, dev_type;
 type cpu_dma_device, dev_type;
 type drb_device, dev_type;
 type epic_device, dev_type;

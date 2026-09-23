@@ -131,14 +131,8 @@ allow init hwservicemanager:binder { call transfer };
 allow init sysfs_virtual:file { r_file_perms setattr };
 allow init sysfs_virtual:lnk_file read;
 
-# iorap
-allow init iorap_inode2filename_exec:file getattr;
-
 # netutils
 allow init netutils_wrapper_exec:file getattr;
-
-# ppp
-allow init ppp_exec:file getattr;
 
 # rs
 allow init rs_exec:file getattr;
