@@ -26,6 +26,7 @@ cc_library_shared {
 
     header_libs: [
         "libstagefright_headers",
+        "libstagefright_foundation_headers",
     ],
 
     include_dirs: [
