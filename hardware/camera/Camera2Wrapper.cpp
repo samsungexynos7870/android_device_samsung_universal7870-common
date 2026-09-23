@@ -94,7 +94,7 @@ static char * camera2_fixup_getparams(int id __unused, const char * settings)
 #endif
 
     android::String8 strParams = params.flatten();
-    char *ret = strdup(strParams.string());
+    char *ret = strdup(strParams.c_str());
 
     return ret;
 }
@@ -115,7 +115,7 @@ static char * camera2_fixup_setparams(int id __unused, const char * settings)
 #endif
 
     android::String8 strParams = params.flatten();
-    char *ret = strdup(strParams.string());
+    char *ret = strdup(strParams.c_str());
 
     return ret;
 }
