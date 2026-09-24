@@ -430,7 +430,6 @@ PRODUCT_PACKAGES += \
 # USB - AIDL for Android 15
 PRODUCT_PACKAGES += \
     android.hardware.usb-service.samsung \
-    android.hardware.usb.gadget-service.samsung \
     com.android.future.usb.accessory
 
 # Vibrator

@@ -1,3 +1,21 @@
+# USB gadget configuration for Samsung's legacy android.c composite
+# (/sys/class/android_usb/android0).
+#
+# The framework configures the gadget indirectly: with no
+# android.hardware.usb.gadget HAL present, UsbDeviceManager uses
+# UsbHandlerLegacy, which sets the sys.usb.config property and waits for
+# sys.usb.state to catch up. The property triggers below poke the sysfs
+# nodes accordingly; adbd is started from here and reports functionfs
+# readiness through sys.usb.ffs.ready.
+#
+# sys.usb.configfs must stay 0 so the generic /sys/class/android_usb
+# triggers in system/core's init.usb.rc fire as well. Pin it here: the
+# kernel is built without CONFIG_USB_CONFIGFS, so nothing may switch this
+# device into configfs gadget mode.
+
+on boot
+    setprop sys.usb.configfs 0
+
 on init
     write /sys/class/android_usb/android0/iSerial ${name}
     write /sys/class/android_usb/android0/f_rndis/manufacturer Samsung
