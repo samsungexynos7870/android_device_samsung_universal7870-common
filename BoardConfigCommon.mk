@@ -93,6 +93,9 @@ TARGET_KERNEL_SOURCE := kernel/samsung/exynos7870
 
 # HIDL
 DEVICE_MATRIX_FILE := $(LOCAL_PATH)/configs/compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
+    $(LOCAL_PATH)/configs/device_framework_compatibility_matrix.xml \
+    vendor/lineage/config/device_framework_matrix.xml
 PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
 
 # Use these flags if the board has a ext4 partition larger than 2gb

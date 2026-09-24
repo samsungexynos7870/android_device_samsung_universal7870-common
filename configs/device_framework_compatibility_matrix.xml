@@ -1,0 +1,98 @@
+<?xml version="2.0" encoding="UTF-8"?>
+<!--
+     Framework compatibility matrix additions for universal7870 devices.
+
+     Every HAL instance declared in the device manifest must also be declared
+     in the framework compatibility matrices, otherwise checkvintf fails with
+     "instances are in the device manifest but not specified in framework
+     compatibility matrix".
+
+     The entries below are provided by this device but are not covered by the
+     Android 15 framework compatibility matrices (FCM 5 .. 202504):
+       * android.hardware.configstore@1.1  (removed from FCMs, service still shipped)
+       * android.hardware.radio.config@1.2 (FCMs only declare 1.1/1.3/AIDL)
+       * android.hardware.renderscript@1.0 IContext (FCMs only declare IDevice)
+       * android.hardware.vibrator@1.0     (HIDL; FCM 5 has none, later FCMs AIDL only)
+       * vendor.samsung.hardware.*         (device specific SEH HALs)
+
+     vendor.lineage.* HALs are declared in vendor/lineage/config/device_framework_matrix.xml
+-->
+<compatibility-matrix version="2.0" type="framework">
+    <hal format="hidl" optional="true">
+        <name>android.hardware.configstore</name>
+        <version>1.1</version>
+        <interface>
+            <name>ISurfaceFlingerConfigs</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>android.hardware.radio.config</name>
+        <version>1.2</version>
+        <interface>
+            <name>IRadioConfig</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>android.hardware.renderscript</name>
+        <version>1.0</version>
+        <interface>
+            <name>IContext</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>android.hardware.vibrator</name>
+        <version>1.0</version>
+        <interface>
+            <name>IVibrator</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.samsung.hardware.gnss</name>
+        <version>2.0</version>
+        <interface>
+            <name>ISehGnss</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.samsung.hardware.radio</name>
+        <version>2.1</version>
+        <interface>
+            <name>ISehRadio</name>
+            <instance>slot1</instance>
+            <instance>slot2</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.samsung.hardware.radio.bridge</name>
+        <version>2.0</version>
+        <interface>
+            <name>ISehBridge</name>
+            <instance>slot1</instance>
+            <instance>slot2</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.samsung.hardware.radio.channel</name>
+        <version>2.0</version>
+        <interface>
+            <name>ISehChannel</name>
+            <instance>epdgd</instance>
+            <instance>epdgd2</instance>
+            <instance>imsd</instance>
+            <instance>imsd2</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.samsung.hardware.security.widevine.keyprovisioning</name>
+        <version>1.0</version>
+        <interface>
+            <name>ISehWidevineKeyProvisioning</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+</compatibility-matrix>
