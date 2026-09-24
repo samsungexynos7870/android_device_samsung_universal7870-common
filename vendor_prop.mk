@@ -46,6 +46,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610 \
+    ro.hardware.egl=mali \
     debug.hwc.skip_dma_types=0,2 \
     debug.renderengine.backend=gles
     
