@@ -3235,6 +3235,10 @@ static int out_get_presentation_position(const struct audio_stream_out *stream,
     struct stream_out *out = (struct stream_out *)stream;
     int ret = -EINVAL;
 
+    if (out == NULL || frames == NULL || timestamp == NULL) {
+        return -EINVAL;
+    }
+
     lock_output_stream(out);
 
     if (out->usecase == USECASE_AUDIO_PLAYBACK_OFFLOAD) {
@@ -3251,7 +3255,7 @@ static int out_get_presentation_position(const struct audio_stream_out *stream,
                                           struct pcm_device,
                                           stream_list_node);
 
-                if (pcm_device->pcm != NULL) {
+                if (pcm_device != NULL && pcm_device->pcm != NULL) {
                     if (pcm_get_htimestamp(pcm_device->pcm, &avail, timestamp) == 0) {
                         size_t kernel_buffer_size = out->config.period_size * out->config.period_count;
                         int64_t signed_frames = out->written - kernel_buffer_size + avail;
@@ -3833,6 +3837,7 @@ static int adev_open_output_stream(struct audio_hw_device *dev,
 
     /* Allocate memory for Structure audio_stream_out */
     out = (struct stream_out *)calloc(1, sizeof(struct stream_out));
+    list_init(&out->pcm_dev_list);
     if (!out) {
         ALOGE("device-%s: Fail to allocate memory for stream_out", __func__);
         return -ENOMEM;
