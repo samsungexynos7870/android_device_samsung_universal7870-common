@@ -33,6 +33,9 @@ PRODUCT_CHARACTERISTICS := phone
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
+# APEX
+OVERRIDE_PRODUCT_COMPRESSED_APEX := false
+
 # Speed profile services and wifi-service to reduce RAM and storage.
 PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI  # For AOSP
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
@@ -427,10 +430,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libexynoscamera_shim
 
-# USB - AIDL for Android 15
+# USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb-service.samsung \
-    com.android.future.usb.accessory
+    android.hardware.usb@1.3-service.basic
 
 # Vibrator
 PRODUCT_PACKAGES += \
