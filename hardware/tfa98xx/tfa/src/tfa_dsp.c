@@ -146,6 +146,12 @@ static void tfa_set_query_info (int dev_idx) {
 		handles_local[dev_idx].daimap = Tfa98xx_DAI_TDM;
 		tfa9897_ops(&handles_local[dev_idx].dev_ops); /* register device operations */
 		break;
+	case 0x96:
+		/* tfa9896 */
+		handles_local[dev_idx].spkr_count = 1;
+		handles_local[dev_idx].daimap = ( Tfa98xx_DAI_PDM | Tfa98xx_DAI_I2S );
+		tfa9891_ops(&handles_local[dev_idx].dev_ops); /* register device operations */
+		break;
 	case 0x92:
 		/* tfa9891 */
 		handles_local[dev_idx].spkr_count = 1;
@@ -194,6 +200,7 @@ int tfa98xx_dev2family(int dev_type) {
 	case 0x81:
 	case 0x91:
 	case 0x92:
+	case 0x96:
 	case 0x97:
 		return 1;
 	case 0x88:
