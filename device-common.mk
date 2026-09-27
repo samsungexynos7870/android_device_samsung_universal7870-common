@@ -95,6 +95,13 @@ PRODUCT_PACKAGES += \
     libtinycompress
 
 
+## This is a workaround for the Bluetooth sanitize shadow call stack (SCS)
+## crash reported here: https://issuetracker.google.com/issues/302408537,
+## until the new version Mali binaries released.
+## For details of the root cause and the cts vts tests comparison between
+## the preloading and non-preloading builds, please check the above issue.
+PRODUCT_PROPERTY_OVERRIDES += ro.zygote.disable_gl_preload=1
+
 ifeq ($(TARGET_DEVICE_HAS_TFA_SEC_AUDIO_HAL),true)
 #PRODUCT_PACKAGES += \
 #    libaudioroute_sec_helper
@@ -389,7 +396,15 @@ PRODUCT_PACKAGES += \
 # Filesystem tools for resizing system partitions
 PRODUCT_PACKAGES += \
     e2fsck_static \
-    resize2fs_static
+    resize2fs_static \
+    tune2fs
+
+# encryption
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.crypto.volume.contents_mode=aes-256-xts \
+    ro.crypto.volume.filenames_mode=aes-256-cts \
+    ro.crypto.volume.options=aes-256-xts:aes-256-cts:v1 \
+    ro.crypto.volume.metadata.encryption=aes-256-xts
 
 # Ramdisk
 PRODUCT_PACKAGES += \
