@@ -90,11 +90,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.sf.color_mode=0
 
-# OMX
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.stagefright.ccodec=0 \
-    media.stagefright.legacyencoder=true
-
 # mediacodec cameraserver race workaround
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.fdsan=warn_once
