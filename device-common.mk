@@ -179,6 +179,13 @@ PRODUCT_PACKAGES += \
     libGrallocWrapper \
     Camera2
 
+PRODUCT_PACKAGES += \
+    libexpat.vendor
+
+PRODUCT_PACKAGES += \
+    libssl \
+    libssl.vendor
+
 # MobiCore setup
 PRODUCT_PACKAGES += \
 	libMcClient \
@@ -198,6 +205,8 @@ PRODUCT_PACKAGES += \
 # OMX
 PRODUCT_PACKAGES += \
     libstagefrighthw \
+    libstagefright_softomx.vendor \
+    libstagefright_softomx_plugin.vendor \
     libExynosOMX_Core \
     libExynosOMX_Resourcemanager \
     libOMX.Exynos.AVC.Decoder \
