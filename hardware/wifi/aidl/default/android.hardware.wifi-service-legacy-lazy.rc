@@ -1,0 +1,13 @@
+# Ported with the AIDL wifi HAL into the device tree
+# (module android.hardware.wifi-service-legacy, which installs as
+#  /vendor/bin/hw/android.hardware.wifi-service via stem:). The service
+#  name and the interface below are the ones the framework looks for and
+#  must not be changed.
+service vendor.wifi_hal_legacy /vendor/bin/hw/android.hardware.wifi-service-lazy
+    interface aidl android.hardware.wifi.IWifi/default
+    oneshot
+    disabled
+    class hal
+    capabilities NET_ADMIN NET_RAW SYS_MODULE
+    user wifi
+    group wifi gps
