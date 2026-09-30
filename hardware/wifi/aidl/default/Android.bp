@@ -163,12 +163,6 @@ cc_library_static {
     export_include_dirs: ["."],
 }
 
-vintf_fragment {
-    name: "android.hardware.wifi-service-legacy.xml_vintf",
-    src: "android.hardware.wifi-service-legacy.xml",
-    vendor: true,
-}
-
 cc_binary {
     name: "android.hardware.wifi-service-legacy",
     // Installed as /vendor/bin/hw/android.hardware.wifi-service on purpose: that
@@ -199,7 +193,8 @@ cc_binary {
     ],
     static_libs: ["android.hardware.wifi-service-legacy-lib"],
     init_rc: ["android.hardware.wifi-service-legacy.rc"],
-    vintf_fragment_modules: ["android.hardware.wifi-service-legacy.xml_vintf"],
+    // No vintf_fragment_modules on purpose - the manifest entry comes from
+    // upstream's android.hardware.wifi-service.xml_vintf (see the header).
 }
 
 cc_binary {
@@ -230,7 +225,7 @@ cc_binary {
     ],
     static_libs: ["android.hardware.wifi-service-legacy-lib"],
     init_rc: ["android.hardware.wifi-service-legacy-lazy.rc"],
-    vintf_fragment_modules: ["android.hardware.wifi-service-legacy.xml_vintf"],
+    // No vintf_fragment_modules - same reason as the non-lazy binary above.
 }
 
 cc_test {
@@ -277,11 +272,6 @@ cc_test {
 filegroup {
     name: "default-android.hardware.wifi-service-legacy.rc",
     srcs: ["android.hardware.wifi-service-legacy.rc"],
-}
-
-filegroup {
-    name: "default-android.hardware.wifi-service-legacy.xml",
-    srcs: ["android.hardware.wifi-service-legacy.xml"],
 }
 
 filegroup {
