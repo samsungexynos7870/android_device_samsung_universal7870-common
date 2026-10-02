@@ -13,7 +13,16 @@ on init
     write /sys/class/net/rmnet6/queues/rx-0/rps_cpus 6
     write /sys/class/net/rmnet7/queues/rx-0/rps_cpus 6
 
-on fs && property:ro.boot.cpefs_wp=0
+# CPEFS holds the CP (modem) file system / NV data; the RIL library
+# (/vendor/lib64/libsec-ril.so) needs /cpefs to be mounted and writable.
+#
+# This used to be gated on "on fs && property:ro.boot.cpefs_wp=<0|1>". That
+# property is a Samsung bootloader cmdline parameter (androidboot.cpefs_wp) and
+# is not set on this ROM, so neither block ever ran and /cpefs stayed empty -
+# which is one of the reasons rild exited with status 1 during boot. Mount the
+# partition unconditionally instead (mount it read-write; the modem needs to be
+# able to update NV data).
+on fs
     wait /dev/block/platform/13540000.dwmmc0/by-name/CPEFS
     mount ext4 /dev/block/platform/13540000.dwmmc0/by-name/CPEFS /mnt/vendor/cpefs nosuid nodev noatime noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic
     mount none /mnt/vendor/cpefs /cpefs bind
@@ -21,28 +30,7 @@ on fs && property:ro.boot.cpefs_wp=0
     chown radio system /mnt/vendor/cpefs
     chmod 0771 /mnt/vendor/cpefs
 
-    chown radio radio sys/devices/virtual/misc/multipdp/waketime
-    chmod 0660 /sys/devices/virtual/misc/umts_dm0/dm_state
-    chown radio system /sys/devices/virtual/misc/umts_dm0/dm_state
-
-    #For cpdebug partition
-    wait /dev/block/platform/13540000.dwmmc0/by-name/EFS
-    mkdir /mnt/vendor/efs/cpdebug
-    chown radio system /mnt/vendor/efs/cpdebug
-    chmod 0771 /mnt/vendor/efs/cpdebug
-    symlink /dev/block/platform/13540000.dwmmc0/by-name/CP_DEBUG /mnt/vendor/efs/cpdebug/node
-    chown radio system /mnt/vendor/efs/cpdebug/node
-    chmod 0771 /mnt/vendor/efs/cpdebug/node
-
-on fs && property:ro.boot.cpefs_wp=1
-    wait /dev/block/platform/13540000.dwmmc0/by-name/CPEFS
-    mount ext4 /dev/block/platform/13540000.dwmmc0/by-name/CPEFS /mnt/vendor/cpefs ro nosuid nodev noatime noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic
-    mount none /mnt/vendor/cpefs /cpefs bind
-    restorecon_recursive /mnt/vendor/cpefs
-    chown radio system /mnt/vendor/cpefs
-    chmod 0771 /mnt/vendor/cpefs
-
-    chown radio radio sys/devices/virtual/misc/multipdp/waketime
+    chown radio radio /sys/devices/virtual/misc/multipdp/waketime
     chmod 0660 /sys/devices/virtual/misc/umts_dm0/dm_state
     chown radio system /sys/devices/virtual/misc/umts_dm0/dm_state
 

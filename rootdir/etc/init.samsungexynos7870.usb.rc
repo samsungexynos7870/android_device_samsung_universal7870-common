@@ -17,7 +17,6 @@ on boot
     setprop sys.usb.configfs 0
 
 on init
-    write /sys/class/android_usb/android0/iSerial ${name}
     write /sys/class/android_usb/android0/f_rndis/manufacturer Samsung
     write /sys/class/android_usb/android0/f_rndis/vendorID 04e8
     write /sys/class/android_usb/android0/f_rndis/wceis 1

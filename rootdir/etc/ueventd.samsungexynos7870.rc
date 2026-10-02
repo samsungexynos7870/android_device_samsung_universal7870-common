@@ -131,12 +131,15 @@
 /dev/umts_router          0660   radio      radio
 
 # SIPC RIL
-/dev/umts*            	  0660   system     radio
+/dev/umts*                0660   system     radio
 /dev/ipc*                 0660   system     radio
 /dev/umts_csd             0660   system     loop_radio
 /dev/smd4                 0660   system     radio
 /dev/ramdump_memshare     0660   system     radio
-/dev/umts_ciq*            0660   system     bridge_rw
+# NOTE: /dev/umts_ciq* used to be listed here with the group "bridge_rw";
+# that group does not exist in Android, so ueventd rejected the line
+# ("invalid gid 'bridge_rw'"). The generic "/dev/umts*" rule above
+# already selects the right owner for those nodes.
 
 # interactive governor parameters
 /sys/devices/system/cpu/cpu*   cpufreq/interactive/timer_rate                  0660    system  system
@@ -162,4 +165,8 @@
 /dev/iio:device*          0660   system       system
 /sys/devices/13930000.spi/spi_master/spi2/spi2.0/iio:device*    buffer/enable       0660    system    system
 /sys/devices/13930000.spi/spi_master/spi2/spi2.0/iio:device*    buffer/length       0660    system    system
-/sys/bus/iio/devices/iio:device*    0664   system     radio
+# NOTE: a /sys/ rule needs an explicit attribute name (path attr mode
+# uid gid); without it ueventd rejected the line with
+# "/sys/ lines must have 5 or 6 entries".
+/sys/bus/iio/devices/iio:device*    buffer/enable    0664   system     radio
+/sys/bus/iio/devices/iio:device*    buffer/length    0664   system     radio

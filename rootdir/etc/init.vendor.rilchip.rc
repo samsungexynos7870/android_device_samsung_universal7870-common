@@ -10,15 +10,32 @@ service ril-daemon /vendor/bin/hw/rild -l /vendor/lib64/libsec-ril.so
     group radio cache inet misc audio sdcard_r sdcard_rw log vpn system readproc wakelock
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW SYS_ADMIN CHOWN SYS_TIME
     socket sap_uim_socket1 stream 660 bluetooth bluetooth
-    onrestart restart cpboot-daemon
-    onrestart restart cpboot-daemon5g
-    onrestart restart DIAG-daemon
+    # Do NOT restart cpboot-daemon from here: rild cannot attach to the modem
+    # until the CP has been booted by cbd, so a rild that is (re)started too
+    # early fails immediately - and restarting cbd on every failure killed the
+    # in-progress CP boot again (endless rild <-> cbd loop, "service
+    # cpboot-daemon5g/DIAG-daemon not found" spam). cpboot-daemon recovers from
+    # CP crashes on its own (it exits and init respawns it), and rild is
+    # restarted below as soon as the CP is really up.
 
 service ril-daemon1 /vendor/bin/hw/rild -c 2 -l /vendor/lib64/libsec-ril-dsds.so
     class main
     user radio
     group radio cache inet misc audio sdcard_r sdcard_rw log vpn system readproc wakelock
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW SYS_ADMIN CHOWN SYS_TIME
-    onrestart restart cpboot-daemon
-    onrestart restart DIAG-daemon
+
+# cpboot-daemon (hardware/cpboot/boot.h) publishes the modem state:
+#   vendor.cbd.boot_done=1  -> CP finished booting for the first time
+#   vendor.cbd.reset_done=1 -> CP finished booting again after a crash/reset
+# Restart rild at those points so that it attaches to a live CP instead of
+# crash-looping while the modem is still booting.
+on property:vendor.cbd.boot_done=1
+    restart ril-daemon
+
+on property:vendor.cbd.reset_done=1
+    restart ril-daemon
+
+# Safety net: never leave the device without a RIL daemon.
+on property:sys.boot_completed=1
+    start ril-daemon
 

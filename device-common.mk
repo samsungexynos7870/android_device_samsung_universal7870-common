@@ -385,7 +385,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-vendorcompat \
     libprotobuf-cpp-lite-vendorcompat \
-    libxml2
+    libxml2 \
+    libxml2.vendor
+
+
+PRODUCT_PACKAGES += \
+    libcrypto \
+    libcrypto.vendor \
+    libnetutils.vendor \
+    librilutils \
+    libsqlite.vendor
 
 # Filesystem tools for resizing system partitions
 PRODUCT_PACKAGES += \

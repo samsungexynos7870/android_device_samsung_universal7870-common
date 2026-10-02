@@ -5,15 +5,25 @@ on early-init
 on init
     start watchdogd
 
+    # AOSP 15 starts every process with RLIMIT_RTPRIO 0, so any
+    # sched_setscheduler(SCHED_FIFO) call fails with EPERM unless the
+    # process is privileged. The Bluetooth stack (com.android.bluetooth,
+    # a zygote child) treats that as fatal and aborts on startup
+    # ("unable to enable real time scheduling"), and SurfaceFlinger /
+    # sensors log SCHED_FIFO failures too. Granting a modest real-time
+    # priority ceiling here makes init pass the limit on to every process
+    # it spawns, including the zygote and everything forked from it.
+    setrlimit rtprio 12 12
+
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-
-    # Support legacy paths
-    symlink /sdcard /mnt/sdcard
+    # NOTE: "mkdir /storage/emulated" and "symlink /sdcard /mnt/sdcard" were
+    # removed: both already exist in the ramdisk, so they only produced
+    # "Read-only file system" / "File exists" errors on every boot.
 
     export EXTERNAL_STORAGE /sdcard
-    symlink /data/app /factory
+    # NOTE: "symlink /data/app /factory" was removed as well; / is read-only
+    # in Android 15, so /factory could never be created.
     symlink /dev/block/platform/13540000.dwmmc0/by-name/PERSISTENT /dev/block/persistent
     symlink /dev/block/platform/13540000.dwmmc0/by-name/STEADY /dev/block/steady
 
@@ -87,7 +97,9 @@ on boot
 #    write /proc/sys/vm/min_free_order_shift 1
 
 # SSWAP
-    write /proc/sys/vm/swappiness 145
+    # 145 needs CONFIG_INCREASE_MAXIMUM_SWAPPINESS, which depends on
+    # CONFIG_ZSWAP (not used here); the kernel rejects values above 100.
+    write /proc/sys/vm/swappiness 100
     write /proc/sys/vm/vfs_cache_pressure 50
 
 #   mount debugfs /sys/kernel/debug /sys/kernel/debug
@@ -253,8 +265,9 @@ on boot
     chown bluetooth bluetooth /dev/ttySAC0
     chmod 0660 /dev/ttySAC0
 # permissions for bluetooth.
-    setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
-    chown bluetooth bluetooth ro.bt.bdaddr_path
+    # ro.bt.bdaddr_path is already provided by system_prop.mk. Setting it here
+    # always failed ("Read-only property was already set"), and the chown
+    # below did not refer to a real path.
     chown radio bluetooth /efs/bluetooth/bt_addr
     chmod 0640 /efs/bluetooth/bt_addr
     chmod 0660 /sys/class/rfkill/rfkill0/state
@@ -820,11 +833,9 @@ on fs
     chown system system /sys/class/mdnie/mdnie/color_lens
     chown system system /sys/class/mdnie/mdnie/lux
 
-# Copy DRM Key
-    copy /system/app/wv.keys /factory/wv.keys
-
-# Permission for DRM Key
-    chmod 0644 /factory/wv.keys
+# NOTE: the /factory widevine key copy was removed. /factory is not writable
+# on Android 15 (read-only root) and /system/app/wv.keys does not exist in
+# this build, so the copy failed twice per boot.
 
 # Permissions for System LSI NFC
 # NFC : Permissions for NFC
@@ -858,19 +869,12 @@ on fs
     chown system system /sys/class/sec/tsp/comm_err_count
 
 
-# Access permission for input_suspend
-    mkdir /sys/class/power_supply/battery/input_suspend 0770 system system
-    mkdir /sys/power/suspend_stats 0770 system system
-    mkdir /sys/class/wakeup 0770 system system
-    mkdir /sys/class/wake_unlock 0770 system system
-    chown system system /sys/class/power_supply/battery/input_suspend
-    chown system system /sys/power/suspend_stats
-    chown system system /sys/class/wakeup
-    chown system system /sys/class/wake_unlock
-    chmod 0666 /sys/class/power_supply/battery/input_suspend
-    chmod 0666 /sys/power/suspend_stats
-    chmod 0666 /sys/class/wakeup
-    chmod 0666 /sys/class/wake_unlock
+# NOTE: the mkdir/chown/chmod block for
+# /sys/class/power_supply/battery/input_suspend, /sys/power/suspend_stats,
+# /sys/class/wakeup and /sys/class/wake_unlock was removed. The 3.18 kernel of
+# this device does not create those sysfs entries and sysfs is not writable, so
+# every boot logged four "mkdir() failed ... Operation not permitted" errors
+# (android.system.suspend-service still reports the missing nodes).
 
 # Permissions for Touchkey
     chown system radio /sys/class/sec/sec_touchkey/brightness
@@ -941,12 +945,6 @@ on fs
 # ARGOSD network_throughput
     chown system system /dev/network_throughput
 
-# ARGOSD
-service argos-daemon /vendor/bin/argosd
-    class main
-    user system
-    group system radio
-
 # LPM
 service charger /system/bin/charger
     class charger
@@ -960,12 +958,6 @@ service charger /system/bin/charger
 #    user drmrpc
 #    group drmrpc
 #    class core
-
-# RPMB daemon
-service rpmbd /system/bin/rpmbd
-     user root
-     group drmrpc
-     class main
 
 on property:sys.mobicoredaemon.enable=true
     start cs_service
@@ -982,12 +974,6 @@ on property:sys.mobicoredaemon.enable=true
 #    class main
 #    user root
 #    group system
-
-# FINGERPRINT FRAMEWORK : starts fingerprintd
-service fingerprintd /system/bin/fingerprintd
-    class late_start
-    user system
-    group system
 
 # SCE daemon
 #    service SCE-daemon /system/bin/sced
@@ -1008,13 +994,6 @@ service fuse_usb1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usb1 /stor
     class late_start
     disabled
 
-# IPSec for VOLTE
-service ipsec-daemon /system/bin/IPSecService
-    class main
-    socket ipsec_socket stream 660 system net_admin
-    user system
-    group system net_raw inet net_admin
-
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd /system/bin/watchdogd 10 20
     class core
@@ -1024,14 +1003,6 @@ service watchdogd /system/bin/watchdogd 10 20
 on property:ro.debuggable=1
     write /sys/module/kgdboc/parameters/kgdboc ttyFIQ1
     write /sys/module/fiq_debugger/parameters/kgdb_enable 1
-
-# SSWAP
-service swapon /vendor/bin/sswap -s -f 1536
-    class core
-    user root
-    group root
-    seclabel u:r:sswap:s0
-    oneshot
 
 # sem_daemon
 service sem_daemon /system/bin/sem_daemon

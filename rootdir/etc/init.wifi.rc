@@ -48,13 +48,3 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-# start for WiFi MFG (TestMode)
-service macloader /vendor/bin/hw/macloader
-    class main
-    user wifi
-    group wifi inet net_raw net_admin
-    capabilities NET_ADMIN NET_RAW SYS_MODULE
-    oneshot
-
-# end of WiFi MFG (TestMode)
-
