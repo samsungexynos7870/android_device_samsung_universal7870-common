@@ -229,11 +229,12 @@ typedef enum {
 
 #ifdef FM_RADIO_ENABLED
 /*
- * FM radio (Silicon Labs si47xx tuner).
+ * FM radio.
  *
- * The tuner is driven over /dev/radio0 by the libfmsilab JNI library and its
- * demodulated audio is handed over to the FM interface of the s1402x Audio
- * Mixer, which the HAL routes with the stock mixer paths (see audio_hw.c).
+ * Silicon Labs si47xx (TARGET_BOARD_HAS_SILAB_FM): /dev/radio0 + digital I2S
+ * on DAI 4. Broadcom BCM434xx (BOARD_HAVE_BCM_FM): libfmjni + stock Pie
+ * pcm_fm_out on DAI 4 (machine driver binds that link to fm_dummy). Mixer
+ * paths fm_radio-* are the same on both (see audio_hw.c).
  */
 #define FM_RADIO_MIXER_PATH_SPEAKER     "fm_radio-speaker"
 #define FM_RADIO_MIXER_PATH_HEADSET     "fm_radio-headset"
@@ -249,9 +250,8 @@ typedef enum {
 #define FM_RADIO_PARAM_MUTE             "fm_radio_mute"
 #define FM_RADIO_PARAM_PRE_STOP         "AudioFmPreStop"
 
-/* PCM device of the FM DAI link: the index of the "fm" link in the DAI link
- * list of the machine driver (universal7870-cod3026), which is also the value
- * of the <pcmdai fmradio_link="..."/> tag of the mixer configuration. */
+/* PCM device of the FM DAI link (pcmdai fmradio_link). Si47xx: tuner I2S.
+ * Broadcom (stock j5y17lte): fm_dummy. Same index on both. */
 #define FM_RADIO_DAI_LINK               4
 #endif /* FM_RADIO_ENABLED */
 

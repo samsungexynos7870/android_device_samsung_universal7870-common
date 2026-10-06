@@ -63,8 +63,13 @@ ifeq ($(BOARD_USE_SPKAMP), true)
 LOCAL_CFLAGS += -DSUPPORT_SPKAMP
 endif
 
-# FM radio: only some of the devices have a Silicon Labs si47xx tuner
+# FM radio: Si47xx (TARGET_BOARD_HAS_SILAB_FM) or Broadcom combo
+# (BOARD_HAVE_BCM_FM). Both use the same userspace path: pcm_fm_out on
+# DAI 4 (si47xx I2S or fm_dummy) and mixer fm_radio-*.
 ifeq ($(TARGET_BOARD_HAS_SILAB_FM), true)
+LOCAL_CFLAGS += -DFM_RADIO_ENABLED
+endif
+ifeq ($(BOARD_HAVE_BCM_FM), true)
 LOCAL_CFLAGS += -DFM_RADIO_ENABLED
 endif
 

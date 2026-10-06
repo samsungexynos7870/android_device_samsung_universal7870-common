@@ -894,30 +894,25 @@ static void check_and_route_usecases(struct audio_device *adev,
 static int select_devices(struct audio_device *adev, audio_usecase_t uc_id);
 
 /*
- * FM radio (Silicon Labs si47xx tuner).
+ * FM radio.
  *
- * The tuner is driven from userspace through /dev/radio0 and hands its
- * demodulated audio over to the FM interface of the s1402x Audio Mixer. Two
- * things are needed for the audio path to work:
+ * Silicon Labs si47xx (TARGET_BOARD_HAS_SILAB_FM): driven from userspace
+ * through /dev/radio0. Digital audio on the "fm" DAI: aif4_prepare() turns
+ * the tuner I2S on (si47xx,mode = <1>).
  *
- *  - The tuner only drives that interface while a PCM is prepared on the "fm"
- *    DAI link of the sound card: universal7870_aif4_prepare() switches the
- *    digital output of the tuner on (DT property si47xx,mode = <1>) and
- *    universal7870_aif4_hw_free() switches it off again. The device tree does
- *    not declare the FM interface as slave ("fm-slave-i2s" is absent), so the
- *    AP is the clock master of the link, which is what opening and starting
- *    this PCM does. Its PCM device is FM_RADIO_DAI_LINK, the index of the "fm"
- *    link in the DAI link list of the machine driver, which is what the
- *    <pcmdai fmradio_link="..."/> tag of the mixer configuration carries.
- *  - The Audio Mixer has to be configured so that the tuner audio reaches the
- *    AP capture path or the codec. This is done with the stock mixer paths:
- *      - "fm_radio-fm-recording" (the snd device of tuner captures) routes the
- *        tuner audio into the record mix, so that radio applications which
- *        render the tuner audio themselves - like LineageOS' FMRadio - can
- *        read it from a regular capture stream,
- *      - "fm_radio-speaker"/"fm_radio-headset" route it to the codec for
- *        applications which let the codec play the broadcast (the built-in
- *        receiver mode, selected with the "fm_radio_volume" parameter).
+ * Broadcom BCM434xx (BOARD_HAVE_BCM_FM): stock Pie (CHIP_VENDOR=2) uses the
+ * same HAL path. The machine driver binds DAI 4 to fm_dummy; the blob HAL
+ * still opens pcm_fm_out on that link. Mixer fm_radio-* stay on
+ * route-ap-bt-codec (see j5y17lte mixer_paths.xml in the stock dump).
+ *
+ * In both cases:
+ *  - A PCM on FM_RADIO_DAI_LINK (pcmdai fmradio_link) keeps the FM interface
+ *    clocked. The AP is the clock master of the link.
+ *  - Mixer paths route the tuner:
+ *      - "fm_radio-fm-recording" into the record mix (Lineage FMRadio
+ *        captures AUDIO_SOURCE_FM_TUNER),
+ *      - "fm_radio-speaker"/"fm_radio-headset" to the codec (built-in
+ *        receiver, "fm_radio_volume").
  *
  * While a radio application captures the tuner, the playback routing of the
  * running use cases is applied again, so that its rendered audio and not the
