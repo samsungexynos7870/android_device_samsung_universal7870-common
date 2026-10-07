@@ -119,6 +119,11 @@ function blob_fixup() {
             # Replace protobuf with vndk29 compat lib both lib and lib64
             "${PATCHELF}" --replace-needed libprotobuf-cpp-lite.so libprotobuf-cpp-lite-v29.so "${2}"
         ;;
+
+        vendor/etc/gnss/gps.cfg)
+            # Fix invalid Agnss_ShaVariant
+            sed -i 's/^Agnss_ShaVariant=0$/Agnss_ShaVariant=256/' "${2}"
+        ;;
     esac
 }
 

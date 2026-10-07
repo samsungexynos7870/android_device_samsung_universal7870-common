@@ -13,3 +13,7 @@ allow hal_gnss_default mnt_vendor_file:dir r_dir_perms;
 
 allow hal_gnss_default fwk_sensor_hwservice:hwservice_manager find;
 allow hal_gnss_default gpsd:unix_stream_socket connectto;
+
+# sensorservice (AIDL)
+allow hal_gnss_default fwk_sensor_service:service_manager find;
+binder_call(hal_gnss_default, system_server)
