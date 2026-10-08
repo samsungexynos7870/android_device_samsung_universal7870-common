@@ -402,11 +402,11 @@ PRODUCT_PACKAGES += \
     resize2fs_static
 
 # encryption FBEv1
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.crypto.volume.contents_mode=aes-256-xts \
-    ro.crypto.volume.filenames_mode=aes-256-cts \
-    ro.crypto.volume.options=aes-256-xts:aes-256-cts:v1 \
-    ro.crypto.volume.metadata.encryption=aes-256-xts
+#PRODUCT_PROPERTY_OVERRIDES += \
+#    ro.crypto.volume.contents_mode=aes-256-xts \
+#    ro.crypto.volume.filenames_mode=aes-256-cts \
+#    ro.crypto.volume.options=aes-256-xts:aes-256-cts:v1 \
+#    ro.crypto.volume.metadata.encryption=aes-256-xts
 
 # Ramdisk
 PRODUCT_PACKAGES += \
