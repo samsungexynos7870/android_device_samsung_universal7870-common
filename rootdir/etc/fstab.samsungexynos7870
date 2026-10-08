@@ -11,6 +11,7 @@
 /dev/block/platform/13540000.dwmmc0/by-name/USERDATA	/data			ext4		noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic		wait,check,reservedsize=128M,length=-20480,fileencryption=aes-256-xts:aes-256-cts:v1
 /dev/block/platform/13540000.dwmmc0/by-name/USERDATA	/data			f2fs      	noatime,nosuid,nodev,discard,noatime,inline_xattr											wait,check,reservedsize=128M,length=-20480,fileencryption=aes-256-xts:aes-256-cts:v1
 /dev/block/platform/13540000.dwmmc0/by-name/EFS			/mnt/vendor/efs	ext4		noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic		wait,check
+/dev/block/platform/13540000.dwmmc0/by-name/MISC			/misc		emmc		defaults								defaults
 
 # VOLD
 /devices/13560000.dwmmc2/mmc_host/mmc*                    auto        auto    defaults    voldmanaged=sdcard:auto
