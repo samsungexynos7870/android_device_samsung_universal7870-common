@@ -23,8 +23,6 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Dalvik/Art
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-filter=speed \
-    dalvik.vm.image-dex2oat-filter=speed \
     ro.sys.fw.dex2oat_thread_count=8 \
     dalvik.vm.boot-dex2oat-threads=8 \
     dalvik.vm.dex2oat-threads=8 \
@@ -93,10 +91,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # mediacodec cameraserver race workaround
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.fdsan=warn_once
-
-# Bpf
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.kernel.ebpf.supported=false
 
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
