@@ -37,9 +37,7 @@ TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 OVERRIDE_PRODUCT_COMPRESSED_APEX := false
 
 # Speed profile services and wifi-service to reduce RAM and storage.
-PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI  # For AOSP
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
-PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
 
 # Kernel
 PRODUCT_ENABLE_UFFD_GC := false

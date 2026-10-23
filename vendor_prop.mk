@@ -23,9 +23,10 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Dalvik/Art
 PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat64.enabled=true \
     ro.sys.fw.dex2oat_thread_count=8 \
     dalvik.vm.boot-dex2oat-threads=8 \
-    dalvik.vm.dex2oat-threads=8 \
+    dalvik.vm.dex2oat-threads=4 \
     dalvik.vm.heapstartsize=8m \
     dalvik.vm.heapgrowthlimit=192m \
     dalvik.vm.heapsize=512m \
