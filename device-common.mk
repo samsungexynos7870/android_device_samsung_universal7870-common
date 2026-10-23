@@ -44,6 +44,12 @@ PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
 # Kernel
 PRODUCT_ENABLE_UFFD_GC := false
 
+# Zygote: Mali-T830 libGLES_mali.so was built without -ffixed-x18 and zeroes x18
+# (156x 'mov x18, xzr'), breaking ARM64 Shadow Call Stack (scs: true) in forked
+# processes such as com.android.bluetooth and com.android.nfc (b/302408537).
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.zygote.disable_gl_preload=true
+
 PRODUCT_ENFORCE_RRO_TARGETS := \
     framework-res
 
