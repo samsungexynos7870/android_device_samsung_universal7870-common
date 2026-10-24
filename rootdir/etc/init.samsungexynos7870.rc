@@ -100,11 +100,14 @@ on boot
 #    write /proc/sys/vm/min_free_kbytes 32768
 #    write /proc/sys/vm/min_free_order_shift 1
 
-# SSWAP
-    # 145 needs CONFIG_INCREASE_MAXIMUM_SWAPPINESS, which depends on
-    # CONFIG_ZSWAP (not used here); the kernel rejects values above 100.
+# ZRAM
+    # Disable swap readahead (3 -> 8 pages) since ZRAM has zero seek latency,
+    # select LZ4 before swapon_all sets disksize, and activate ZRAM swap.
+    write /proc/sys/vm/page-cluster 0
     write /proc/sys/vm/swappiness 100
     write /proc/sys/vm/vfs_cache_pressure 50
+    write /sys/block/zram0/comp_algorithm lz4
+    swapon_all /vendor/etc/fstab.${ro.hardware}
 
 #   mount debugfs /sys/kernel/debug /sys/kernel/debug
     # Allow to access debugfs for system:system

@@ -13,6 +13,9 @@
 /dev/block/platform/13540000.dwmmc0/by-name/EFS			/mnt/vendor/efs	ext4		noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic		wait,check
 /dev/block/platform/13540000.dwmmc0/by-name/MISC			/misc		emmc		defaults								defaults
 
+# ZRAM
+/dev/block/zram0											none			swap		defaults								zramsize=55%,max_comp_streams=8
+
 # VOLD
 /devices/13560000.dwmmc2/mmc_host/mmc*                    auto        auto    defaults    voldmanaged=sdcard:auto
 /devices/13600000.usb/13600000.dwc3/xhci-hcd.2.auto/usb*  auto        auto    defaults    voldmanaged=usb:auto

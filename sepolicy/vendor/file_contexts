@@ -210,6 +210,10 @@
 # virtual
 /sys/devices/virtual(/.*)?    u:object_r:sysfs_virtual:s0
 
+# zram (preserve AOSP sysfs_zram labels under /sys/devices/virtual wildcard)
+/sys/devices/virtual/block/zram0(/.*)?               u:object_r:sysfs_zram:s0
+/sys/devices/virtual/block/zram0/uevent              u:object_r:sysfs_zram_uevent:s0
+
 # fingerprint
 /sys/devices/virtual/fingerprint(/.*)? u:object_r:sysfs_fingerprint:s0
 
