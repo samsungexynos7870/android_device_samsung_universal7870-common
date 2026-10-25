@@ -13,13 +13,18 @@ allow hal_lineage_livedisplay_exynos display_vendor_data_file:file create_file_p
 
 # Allow LiveDisplay hal_lineage_livedisplay_exynos the ability to search directories labeled with sysfs_graphics
 allow hal_lineage_livedisplay_exynos sysfs_graphics:dir r_dir_perms;
+allow hal_lineage_livedisplay_exynos sysfs_lcd_writable:dir r_dir_perms;
 
 # access to sysfs_mdnie is required
 allow hal_lineage_livedisplay_exynos sysfs_mdnie:dir r_dir_perms;
 
-# Allow LiveDisplay hal_lineage_livedisplay_exynos to read/write to files under sysfs_graphics, sysfs_mdnie
+# Allow LiveDisplay hal_lineage_livedisplay_exynos to read/write to files under sysfs_graphics, sysfs_mdnie, sysfs_lcd_writable
 allow hal_lineage_livedisplay_exynos sysfs_graphics:file rw_file_perms;
+allow hal_lineage_livedisplay_exynos sysfs_graphics:lnk_file r_file_perms;
+allow hal_lineage_livedisplay_exynos sysfs_lcd_writable:file rw_file_perms;
+allow hal_lineage_livedisplay_exynos sysfs_lcd_writable:lnk_file r_file_perms;
 allow hal_lineage_livedisplay_exynos sysfs_mdnie:file rw_file_perms;
+allow hal_lineage_livedisplay_exynos sysfs_mdnie:lnk_file r_file_perms;
 
 
 

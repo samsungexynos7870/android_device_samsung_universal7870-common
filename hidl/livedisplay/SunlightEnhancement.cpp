@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The LineageOS Project
+ * Copyright (C) 2019-2025 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,13 @@
  */
 
 #include <android-base/file.h>
+#include <android-base/parseint.h>
 #include <android-base/strings.h>
-
-#include <fstream>
+#include <unistd.h>
 
 #include "SunlightEnhancement.h"
 
+using android::base::ParseInt;
 using android::base::ReadFileToString;
 using android::base::Trim;
 using android::base::WriteStringToFile;
@@ -31,22 +32,34 @@ namespace livedisplay {
 namespace V2_1 {
 namespace implementation {
 
-static constexpr const char* kLUXPath = "/sys/class/mdnie/mdnie/lux";
+static constexpr const char* kPanelLuxPath = "/sys/class/lcd/panel/lux";
+static constexpr const char* kMdnieLuxPath = "/sys/class/mdnie/mdnie/lux";
+
+static const char* getLuxPath() {
+    if (access(kPanelLuxPath, R_OK | W_OK) == 0) {
+        return kPanelLuxPath;
+    }
+    return kMdnieLuxPath;
+}
 
 Return<bool> SunlightEnhancement::isEnabled() {
     std::string tmp;
     int32_t contents = 0;
 
-    if (ReadFileToString(kLUXPath, &tmp)) {
-        contents = std::stoi(Trim(tmp));
+    if (ReadFileToString(getLuxPath(), &tmp)) {
+        ParseInt(Trim(tmp), &contents);
     }
 
     return contents > 0;
 }
 
 Return<bool> SunlightEnhancement::setEnabled(bool enabled) {
-    /* see drivers/video/fbdev/exynos/decon_7880/panels/mdnie_lite_table*, get_hbm_index */
-    return WriteStringToFile(enabled ? "40000" : "0", kLUXPath, true);
+    /*
+     * Writing 40000 to /sys/class/lcd/panel/lux updates lcd->lux (enabling
+     * panel HBM where supported) and forwards to mdnie_class ("lux") to
+     * engage the outdoor MDNIE HBM table (see get_hbm_index).
+     */
+    return WriteStringToFile(enabled ? "40000" : "0", getLuxPath(), true);
 }
 
 }  // namespace implementation

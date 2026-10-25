@@ -819,6 +819,7 @@ on fs
     chown system system /sys/class/lcd/panel/temperature
     chown system radio /sys/class/lcd/panel/power_reduce
     chown system system /sys/class/lcd/panel/lux
+    chmod 0664 /sys/class/lcd/panel/lux
     chown system media_rw /sys/class/lcd/panel/adaptive_control
     chown system system /sys/class/lcd/panel/alpm
     chown system system /sys/class/lcd/panel/dpui
@@ -838,6 +839,7 @@ on fs
     chown system system /sys/class/mdnie/mdnie/light_notification
     chown system system /sys/class/mdnie/mdnie/color_lens
     chown system system /sys/class/mdnie/mdnie/lux
+    chmod 0664 /sys/class/mdnie/mdnie/lux
 
 # NOTE: the /factory widevine key copy was removed. /factory is not writable
 # on Android 15 (read-only root) and /system/app/wv.keys does not exist in
