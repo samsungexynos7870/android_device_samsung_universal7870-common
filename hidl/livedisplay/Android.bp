@@ -19,7 +19,6 @@ cc_binary {
     init_rc: ["vendor.lineage.livedisplay@2.1-service.universal7870.rc"],
     vintf_fragments:["vendor.lineage.livedisplay@2.1-service.universal7870.xml"],
     srcs: [
-        "AntiFlicker.cpp",
         "DisplayColorCalibration.cpp",
         "DisplayModes.cpp",
         "ReadingEnhancement.cpp",
