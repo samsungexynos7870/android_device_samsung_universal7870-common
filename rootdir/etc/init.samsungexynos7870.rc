@@ -95,6 +95,22 @@ on boot
     # Enable PowerHAL hint processing
     setprop vendor.powerhal.init 1
 
+    # Configure cpuset masks for dual 4x Cortex-A53 clusters (0-3 boot, 4-7 non-boot)
+    write /dev/cpuset/top-app/cpus 0-7
+    write /dev/cpuset/foreground/cpus 0-2,4-7
+    write /dev/cpuset/background/cpus 0-2
+    write /dev/cpuset/system-background/cpus 0-2
+    write /dev/cpuset/restricted/cpus 0-3
+    write /dev/cpuset/camera-daemon/cpus 0-7
+
+    # Mali GPU clock control nodes for PowerHAL (libperfmgr)
+    chown system system /sys/kernel/gpu/gpu_min_clock
+    chown system system /sys/kernel/gpu/gpu_max_clock
+    chown system system /sys/kernel/gpu/gpu_mm_min_clock
+    chmod 0664 /sys/kernel/gpu/gpu_min_clock
+    chmod 0664 /sys/kernel/gpu/gpu_max_clock
+    chmod 0664 /sys/kernel/gpu/gpu_mm_min_clock
+
     # override init.rc to keep plenty of large order chunks around
     # to improve allocation times
 #    write /proc/sys/vm/min_free_kbytes 32768
@@ -1011,20 +1027,6 @@ service watchdogd /system/bin/watchdogd 10 20
 on property:ro.debuggable=1
     write /sys/module/kgdboc/parameters/kgdboc ttyFIQ1
     write /sys/module/fiq_debugger/parameters/kgdb_enable 1
-
-# sem_daemon
-service sem_daemon /system/bin/sem_daemon
-    class core
-    user system
-    group system nfc
-    disabled
-
-on property:sys.boot_completed=1
-    setprop security.semdaemonfinish 0
-    start sem_daemon
-
-on property:security.semdaemonfinish=1
-    stop sem_daemon
 
 on property:ro.multisim.simslotcount=1
     setprop persist.radio.multisim.config ss
