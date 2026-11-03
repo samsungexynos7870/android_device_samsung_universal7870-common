@@ -39,6 +39,9 @@ OVERRIDE_PRODUCT_COMPRESSED_APEX := false
 # Speed profile services and wifi-service to reduce RAM and storage.
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 
+# Legacy /dev/ion ABI
+$(call soong_config_set_bool,libion,legacy_impl,true)
+
 # Kernel
 PRODUCT_ENABLE_UFFD_GC := false
 
