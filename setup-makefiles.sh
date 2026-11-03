@@ -394,7 +394,7 @@ LOCAL_MODULE_SUFFIX := .so
 LOCAL_MULTILIB := 32
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 ifeq (\$(TARGET_BOARD_HAS_SEC_AUDIO_HAL),true)
-LOCAL_SHARED_LIBRARIES := libc libm libdl liblog libstdc++
+LOCAL_SHARED_LIBRARIES := libc libm libdl liblog libc++
 endif
 ifeq (\$(TARGET_BOARD_HAS_TFA_SEC_AUDIO_HAL),true)
 LOCAL_SHARED_LIBRARIES := libc libm libdl liblog

@@ -54,6 +54,12 @@ function blob_fixup() {
             esac
         
         ;;
+
+        vendor/lib/lib_SamsungRec_06004.so)
+            # Android 17 no longer exposes the legacy libstdc++ runtime to
+            # vendor blobs. libc++ provides the C++ ABI symbols used here.
+            "${PATCHELF}" --replace-needed "libstdc++.so" "libc++.so" "${2}"
+        ;;
         
         vendor/lib*/hw/memtrack.exynos7870.so)
             # Fix memtrack for both lib and lib64
@@ -96,12 +102,16 @@ function blob_fixup() {
             # Fix libsec-ril.so for both lib and lib64
             "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${2}"
             "${PATCHELF}" --add-needed "libcutils_shim_vendor.so" "${2}"
+            # This legacy dependency is unused and no longer exposed to vendor.
+            "${PATCHELF}" --remove-needed "libnetutils.so" "${2}"
         ;;
         
         vendor/lib*/libsec-ril-dsds.so)
             # Fix libsec-ril-dsds.so for both lib and lib64
             "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${2}"
             "${PATCHELF}" --add-needed "libcutils_shim_vendor.so" "${2}"
+            # This legacy dependency is unused and no longer exposed to vendor.
+            "${PATCHELF}" --remove-needed "libnetutils.so" "${2}"
         ;;
 
 
