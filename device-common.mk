@@ -293,9 +293,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.fastcharge@1.0-service.samsung
 
-# Touch features
+# Touch
 PRODUCT_PACKAGES += \
-    vendor.lineage.touch@1.0-service.exynos7870
+    vendor.lineage.touch-service.samsung
 
 # FlipFlap
 PRODUCT_PACKAGES += \
