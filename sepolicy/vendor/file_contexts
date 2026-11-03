@@ -228,7 +228,7 @@
 /(vendor|system/vendor)/bin/wifiloader       u:object_r:wifiloader_exec:s0
 /(vendor|system/vendor)/bin/sswap            u:object_r:sswap_exec:s0
 
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.1-service\.universal7870   u:object_r:hal_lineage_livedisplay_exynos_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay-service\.samsung-exynos   u:object_r:hal_lineage_livedisplay_exynos_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light-service\.samsung u:object_r:hal_light_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors@1\.0-service\.universal7870                u:object_r:hal_sensors_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.fastcharge@1\.0-service\.samsung u:object_r:hal_lineage_fastcharge_default_exec:s0

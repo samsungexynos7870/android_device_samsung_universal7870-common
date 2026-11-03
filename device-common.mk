@@ -26,6 +26,9 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/lineage/compat \
     vendor/samsung/universal7870-common
 
+# VINTF
+DEVICE_MANIFEST_FILE += $(LOCAL_PATH)/manifest.xml
+
 # Product Characteristics
 PRODUCT_CHARACTERISTICS := phone
 
@@ -349,7 +352,7 @@ PRODUCT_COPY_FILES += \
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.1-service.universal7870
+    vendor.lineage.livedisplay-service.samsung-exynos
 
 # OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
