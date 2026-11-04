@@ -345,7 +345,7 @@ PRODUCT_PACKAGES += \
 
 # VNDK
 PRODUCT_COPY_FILES += \
-    prebuilts/vndk/v30/arm/arch-arm-armv7-a-neon/shared/vndk-core/android.hardware.light-V1-ndk_platform.so:$(TARGET_COPY_OUT_VENDOR)/lib/android.hardware.light-V1-ndk_platform.so
+    prebuilts/vndk/v31/arm/arch-arm-armv7-a-neon/shared/vndk-core/android.hardware.light-V1-ndk_platform.so:$(TARGET_COPY_OUT_VENDOR)/lib/android.hardware.light-V1-ndk_platform.so
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
