@@ -65,36 +65,36 @@ COMMON_R_OSS_PATH="${TARGET_SOURCES_DIR}/lineage-18_17-11-2025"
 
 
 # Audio files
-./extract-files.sh universal7870-common/audio/sec vendor-tools/proprietary-files_Q_a6lte_audio.txt -n -k $COMMON_Q_A6LTE_PATH
-./extract-files.sh universal7870-common/audio/sec_tfa vendor-tools/proprietary-files_Q_m10lte_audio.txt -n -k $COMMON_Q_M10LTE_PATH
+./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
+./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
 
 # GNSS files
-./extract-files.sh universal7870-common/gnss vendor-tools/proprietary-files_Q_a6lte_gnss.txt -n -k $COMMON_Q_A6LTE_PATH
+./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
 
 # Secapp files
-./extract-files.sh universal7870-common/secapp vendor-tools/proprietary-files_Q_a6lte_secapp.txt -n -k $COMMON_Q_A6LTE_PATH
+./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
 
 # Radio files
-./extract-files.sh universal7870-common/radio vendor-tools/proprietary-files_Q_m10lte_radio.txt -n -k $COMMON_Q_M10LTE_PATH
-./extract-files.sh universal7870-common/radio vendor-tools/proprietary-files_Q_j7duolte_radio.txt -n -k $COMMON_Q_J7DUOLTE_PATH
+./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
+./extract-files.py -n -k $COMMON_Q_J7DUOLTE_PATH
 
 # Sensors files
-./extract-files.sh universal7870-common/sensors vendor-tools/proprietary-files_Q_m10lte_sensors.txt -n -k $COMMON_Q_M10LTE_PATH
+./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
 
 # Media files
-./extract-files.sh universal7870-common/media vendor-tools/proprietary-files_Q_m10lte_media.txt -n -k $COMMON_Q_M10LTE_PATH
+./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
 
 # DRM files (Widevine 1.2 + Samsung key provisioning, same firmware as the
 # TEE trustlets in the secapp list)
-./extract-files.sh universal7870-common/drm vendor-tools/proprietary-files_Q_a6lte_drm.txt -n -k $COMMON_Q_A6LTE_PATH
+./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
 
 # Mali files
-./extract-files.sh universal7870-common vendor-tools/proprietary-files_P_a7y17lte_mali.txt -n -k $COMMON_P_A7Y17LTE_PATH
+./extract-files.py -n -k $COMMON_P_A7Y17LTE_PATH
 
 # Samsung SLSI files
-./extract-files.sh universal7870-common/samsung-slsi vendor-tools/proprietary-files_P_a6lte_samsung-slsi.txt -n -k $COMMON_P_A6LTE_PATH
-./extract-files.sh universal7870-common/samsung-slsi vendor-tools/proprietary-files_P_a7y17lte_samsung-slsi.txt -n -k $COMMON_P_A7Y17LTE_PATH
-./extract-files.sh universal7870-common/samsung-slsi vendor-tools/proprietary-files_P_gracerlte_samsung-slsi.txt -n -k $COMMON_P_GRACERLTE_PATH
+./extract-files.py -n -k $COMMON_P_A6LTE_PATH
+./extract-files.py -n -k $COMMON_P_A7Y17LTE_PATH
+./extract-files.py -n -k $COMMON_P_GRACERLTE_PATH
 
 # HWC files (OSS - Android R)
-./extract-files.sh universal7870-common/samsung-slsi vendor-tools/proprietary-files_R_oss_hwc.txt -n -k $COMMON_R_OSS_PATH
+./extract-files.py -n -k $COMMON_R_OSS_PATH

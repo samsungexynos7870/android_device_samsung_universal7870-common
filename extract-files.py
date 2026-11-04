@@ -12,6 +12,9 @@ from extract_utils.main import (
     ExtractUtils,
     ExtractUtilsModule,
 )
+from extract_utils.module import (
+    ProprietaryFile,
+)
 
 HWCOMPOSER_ORIG = b'sys/devices/\x0014830000.decon_f/vsync\x0014860000.sysmmu/14860000.sysmmu/\x00exynos5-fb.1/vsync\x00platform/exynos-sysmmu.30/exynos-sysmmu.11/\x00failed '
 HWCOMPOSER_NEW = b'sys/devices/\x0014830000.decon_fb/vsync\x0014850000.sysmmu/14850000.sysmmu/\x00exynos5-fb.1/vsync\x00platform/exynos-sysmmu.30/exynos-sysmmu.11/\x00faild '
@@ -53,6 +56,23 @@ module = ExtractUtilsModule(
     'universal7870-common',
     'samsung',
     blob_fixups=blob_fixups,
+    skip_main_proprietary_file=True,
+    proprietary_files=[
+        ProprietaryFile('vendor-tools/proprietary-files_Q_a6lte_audio.txt', 'audio/sec'),
+        ProprietaryFile('vendor-tools/proprietary-files_Q_m10lte_audio.txt', 'audio/sec_tfa'),
+        ProprietaryFile('vendor-tools/proprietary-files_Q_a6lte_gnss.txt', 'gnss'),
+        ProprietaryFile('vendor-tools/proprietary-files_Q_a6lte_secapp.txt', 'secapp'),
+        ProprietaryFile('vendor-tools/proprietary-files_Q_m10lte_radio.txt', 'radio'),
+        ProprietaryFile('vendor-tools/proprietary-files_Q_j7duolte_radio.txt', 'radio'),
+        ProprietaryFile('vendor-tools/proprietary-files_Q_m10lte_sensors.txt', 'sensors'),
+        ProprietaryFile('vendor-tools/proprietary-files_Q_m10lte_media.txt', 'media'),
+        ProprietaryFile('vendor-tools/proprietary-files_Q_a6lte_drm.txt', 'drm'),
+        ProprietaryFile('vendor-tools/proprietary-files_P_a7y17lte_mali.txt', ''),
+        ProprietaryFile('vendor-tools/proprietary-files_P_a6lte_samsung-slsi.txt', 'samsung-slsi'),
+        ProprietaryFile('vendor-tools/proprietary-files_P_a7y17lte_samsung-slsi.txt', 'samsung-slsi'),
+        ProprietaryFile('vendor-tools/proprietary-files_P_gracerlte_samsung-slsi.txt', 'samsung-slsi'),
+        ProprietaryFile('vendor-tools/proprietary-files_R_oss_hwc.txt', 'samsung-slsi'),
+    ],
 )
 
 if __name__ == '__main__':
