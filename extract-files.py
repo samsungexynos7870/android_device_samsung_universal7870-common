@@ -31,12 +31,9 @@ def _proprietary_file(file_list_path: str, vendor_rel_sub_path: str = 'proprieta
     return ProprietaryFile(file_list_path, vendor_rel_sub_path, **kwargs)
 
 namespace_imports = [
-    'device/samsung/universal7870-common',
     'hardware/google/interfaces',
     'hardware/google/pixel',
     'hardware/samsung',
-    'hardware/ril',
-    'hardware/lineage/compat',
     'vendor/samsung/universal7870-common',
 ]
 
