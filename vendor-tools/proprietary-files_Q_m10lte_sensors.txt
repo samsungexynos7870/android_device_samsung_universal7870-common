@@ -2,5 +2,5 @@
 # M105FDDS5CWA1
 
 # Sensors
--vendor/lib/libsensorlistener.so
+-vendor/lib/libsensorlistener.so|b922d52124a9ce847973d940ad6ca7ffcaca7138|a10ed31695f1eaf44ad2a8eca9f05c1dd011174f
 

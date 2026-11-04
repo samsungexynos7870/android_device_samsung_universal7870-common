@@ -2,16 +2,16 @@
 # A600FJXU9CVB1
 
 # GPS
-vendor/bin/hw/gpsd
-vendor/bin/hw/vendor.samsung.hardware.gnss@2.0-service
-vendor/etc/gnss/ca.pem
-vendor/etc/gnss/gps.cfg
-vendor/etc/init/init.gps.rc
-vendor/etc/init/vendor.samsung.hardware.gnss@2.0-service.rc
--vendor/lib/libwrappergps.so
-vendor/lib/vendor.samsung.hardware.gnss@2.0.so
--vendor/lib/hw/android.hardware.gnss@2.0-impl.so
--vendor/lib/hw/vendor.samsung.hardware.gnss@2.0-impl.so
+vendor/bin/hw/gpsd|3d0a537ceead909893b34b1b7f8ab46bddc423c8
+vendor/bin/hw/vendor.samsung.hardware.gnss@2.0-service|c3ec32ae67f09aaf989c18356a1740dbe6d85811
+vendor/etc/gnss/ca.pem|25d5a64079739b537544349a7086d4f528323cb3
+vendor/etc/gnss/gps.cfg|76562e3513b4e16ab82e1446793744ca6ea08e00|8804d331beaaeff056366b9a555328f2ca3f162c
+vendor/etc/init/init.gps.rc|de3b6091bd1012207c209d14dc7594742450aeef
+vendor/etc/init/vendor.samsung.hardware.gnss@2.0-service.rc|3325fd400492a99047c6ed563cf6eae6d945aab5
+-vendor/lib/libwrappergps.so|a1540ee1a524215e640ad819728c2369dac4b555
+vendor/lib/vendor.samsung.hardware.gnss@2.0.so|049d9647b266a3e1967285399bb386f6590cec2a
+-vendor/lib/hw/android.hardware.gnss@2.0-impl.so|a5e5741f62e165a667c9b0157a6bb6f3f8b2146e
+-vendor/lib/hw/vendor.samsung.hardware.gnss@2.0-impl.so|e49ab6c2dc1f73304453063b132c0f7426bf20f5
 
 
 

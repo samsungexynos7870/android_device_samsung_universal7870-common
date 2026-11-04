@@ -2,11 +2,11 @@
 # M105FDDS5CWA1
 
 # RIL Firmware
-vendor/etc/plmn_se13.bin
-vendor/etc/plmn_delta.bin
-vendor/etc/plmn_delta_hktw.bin
-vendor/etc/plmn_delta_attaio.bin
-vendor/etc/plmn_delta_usagsm.bin
-vendor/etc/plmn_delta_usacdma.bin
+vendor/etc/plmn_se13.bin|ca726d522e75b6ef9f65734a8ed087ab749ca6a9
+vendor/etc/plmn_delta.bin|063507a8d70dc9c510cb986c2f5d98869e4774da
+vendor/etc/plmn_delta_hktw.bin|4602b2e5c84d6cd4d6836a94784987a76e7830ce
+vendor/etc/plmn_delta_attaio.bin|751a1c7105f1c03fc196689c2a71e2c69aa14e1f
+vendor/etc/plmn_delta_usagsm.bin|9a25ec9e9da16ed2f8a9db07f037fe08283b24e5
+vendor/etc/plmn_delta_usacdma.bin|5d6b212f80aa633af599fb056dc125657e40253d
 
 

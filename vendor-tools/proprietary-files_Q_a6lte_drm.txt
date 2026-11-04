@@ -21,20 +21,20 @@
 # same build again (the trustlet carries the same 2021.08.31 stamp).
 
 # Widevine HAL (HIDL 1.2), registers @1.0/@1.1/@1.2 ICryptoFactory+IDrmFactory "widevine"
-vendor/bin/hw/android.hardware.drm@1.2-service.widevine
-vendor/lib/libwvhidl.so
-vendor/lib/mediadrm/libwvdrmengine.so
+vendor/bin/hw/android.hardware.drm@1.2-service.widevine|373b0f81ef8c164e10fb24c65873107d75c880ea
+vendor/lib/libwvhidl.so|f3c4e30a0163affd15d565422e660f8199f21aeb|475d2d1b47e3d9f32efdf27dfe21816fb2f4a98a
+vendor/lib/mediadrm/libwvdrmengine.so|68795cfbc50a01472723a574dedf72802a72a472|c8344e111b364367bbbf2d60ee70300dcca67610
 
 # OEMCrypto (TEE side), links the source-built libMcClient.so (see above)
-vendor/lib/liboemcrypto.so
+vendor/lib/liboemcrypto.so|1a826635c972f47ec879e4f764089d2ad683e8c5
 
 # Samsung widevine key provisioning (ISehWidevineKeyProvisioning)
-vendor/bin/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service
-vendor/bin/wvkprov
-vendor/lib/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0.so
+vendor/bin/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0-service|5bbe5a8e12506f98e3ddc7f487e48c945909a206
+vendor/bin/wvkprov|a5fa945dac9dbf88af76233f9793b883d9f4353f
+vendor/lib/vendor.samsung.hardware.security.widevine.keyprovisioning@1.0.so|c54cb3e802858637b751ab0a29833144087531be
 
 # clearkey plugin, taken from the same firmware so it stays in sync with the
 # widevine stack; installed as a prebuilt module.  It is a legacy mediadrm
 # plugin, i.e. it is picked up by the drm@1.0 "default" service from
 # /vendor/lib/mediadrm - a6lte has no 64 bit copy of it.
--vendor/lib/mediadrm/libdrmclearkeyplugin.so:vendor/lib/mediadrm/libdrmclearkeyplugin.so
+-vendor/lib/mediadrm/libdrmclearkeyplugin.so|e06e622305917239755e7ce6bb741f17d22f5b1a

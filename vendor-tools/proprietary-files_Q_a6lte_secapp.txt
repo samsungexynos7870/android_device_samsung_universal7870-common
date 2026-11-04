@@ -4,65 +4,65 @@
 # TRUSTZONE - KINIBI
 
 # tima3
-vendor/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
-vendor/app/mcRegistry/ffffffff00000000000000000000000a.tlbin
-vendor/app/mcRegistry/ffffffff00000000000000000000000f.tlbin
-vendor/app/mcRegistry/ffffffff000000000000000000000012.tlbin
-vendor/app/mcRegistry/ffffffff000000000000000000000013.tlbin
-vendor/app/mcRegistry/ffffffff000000000000000000000038.tlbin
-vendor/app/mcRegistry/ffffffff00000000000000000000000b.tlbin
+vendor/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin|be0f2e07edba0873890db11a4caaaf3e4683c46d
+vendor/app/mcRegistry/ffffffff00000000000000000000000a.tlbin|316252b66c468d9d43b4971fc4c4ff1a84ff7cdc
+vendor/app/mcRegistry/ffffffff00000000000000000000000f.tlbin|512649bad049212cce5ff6d1934ef17ddb2f9bf2
+vendor/app/mcRegistry/ffffffff000000000000000000000012.tlbin|c038f0da1560ec028420dde9c45a9d2e42edc03e
+vendor/app/mcRegistry/ffffffff000000000000000000000013.tlbin|fdf02f13cfb99aa0fa0034bab83a8000d0901f7c
+vendor/app/mcRegistry/ffffffff000000000000000000000038.tlbin|7027e4cd693d46bf5f403da75227e9908e63b88b
+vendor/app/mcRegistry/ffffffff00000000000000000000000b.tlbin|fd53ec25c0dff6b4c0a82efc805592ab1e642c98
 
 # Secure Driver
-vendor/app/mcRegistry/FFFFFFFF000000000000000000000001.drbin
+vendor/app/mcRegistry/FFFFFFFF000000000000000000000001.drbin|422166bd546928267dde2700b4b867303667e8ba
 
 # Widevine
-vendor/app/mcRegistry/00060308060501020000000000000000.tlbin
+vendor/app/mcRegistry/00060308060501020000000000000000.tlbin|cdb3a98235538086c64db64ad727ad57fe94d624
 
 # DRK modules - Prov.
-vendor/app/mcRegistry/ffffffff00000000000000000000000c.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000c.tlbin|0e49e525767fda42ab265db029e8c792a131ea61
 
 # DRK modules - Skm.
-vendor/app/mcRegistry/ffffffff00000000000000000000000d.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000d.tlbin|423d97981f0b6655566a594c1b749e7dcf036085
 
 # Gatekeeper
-vendor/app/mcRegistry/08130000000000000000000000000000.tlbin
+vendor/app/mcRegistry/08130000000000000000000000000000.tlbin|6fd95bad95c16ba3e7c55b4b657a05920ad028ad
 
 # hdcp
 # vendor/app/mcRegistry/07020000000000000000000000000000.tlbin (unused)
 
 # hdcp (sec)
-vendor/app/mcRegistry/ffffffff000000000000000000000005.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000005.tlbin|2ba8d9614e0afe5fade0b83c791cf1f8c14391fe
 
 # Fingerprint Feature
-vendor/app/mcRegistry/ffffffff00000000000000000000002e.tlbin
-vendor/app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000002e.tlbin|e2ea5b8614ae561f02fb480bdee20e4979437186
+vendor/app/mcRegistry/ffffffffd0000000000000000000000e.tlbin|9f24ef8b8f62661e37b59c6cabf37cd2da4955c1
 
 # TUI Secure Driver
-vendor/app/mcRegistry/ffffffffd00000000000000000000014.tlbin
+vendor/app/mcRegistry/ffffffffd00000000000000000000014.tlbin|7877e2406865c4e7a8f1cd63a93e98839e31f0ec
 
 # TUI Secure Driver (TuiService / trusted UI)
-vendor/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
+vendor/app/mcRegistry/ffffffffd00000000000000000000016.tlbin|70ca38bd1006ec771e6ebcba7b8c61e9c18fdfc8
 
 # ICCC - spf check
-vendor/app/mcRegistry/ffffffff000000000000000000000041.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000041.tlbin|c5d5ad538a487113816a335f23736200b5d522e8
 
 # VaultKeeper
 vendor/app/mcRegistry/ffffffff000000000000000000000045.tlbin
 
 # pa tz drv
-vendor/app/mcRegistry/07010000000000000000000000000000.tlbin
+vendor/app/mcRegistry/07010000000000000000000000000000.tlbin|0d0b31e7295b6495a89ac4ee610b30b60a9fdaff
 
 # certs
-vendor/app/mcRegistry/ffffffff000000000000000000000030.tlbin
-vendor/app/mcRegistry/ffffffff000000000000000000000045.tlbin
-vendor/app/mcRegistry/ffffffff000000000000000000000059.tlbin
-vendor/app/mcRegistry/ffffffff000000000000000000000060.tlbin
-vendor/app/mcRegistry/ffffffffd00000000000000000000062.tlbin
-vendor/app/mcRegistry/ffffffff000000000000000000000077.tlbin
-vendor/app/mcRegistry/ffffffff00000000000000000000002f.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000030.tlbin|afe2b120e4dfd547d1c921c18ab13ea7f89da561
+vendor/app/mcRegistry/ffffffff000000000000000000000045.tlbin|3612be01255be6ff73beb6cd3e79359b410ec5a1
+vendor/app/mcRegistry/ffffffff000000000000000000000059.tlbin|e7bdfa91443a2eb0b3017b004bfaafeb11dfc6d0
+vendor/app/mcRegistry/ffffffff000000000000000000000060.tlbin|805cc5e937b12bd086de97fee8f160882d0bbf5e
+vendor/app/mcRegistry/ffffffffd00000000000000000000062.tlbin|4de1a20d243291fc9376b6fea9c22102ff566c07
+vendor/app/mcRegistry/ffffffff000000000000000000000077.tlbin|58b52179158601c634a2843ca685b14d8ba3b6dc
+vendor/app/mcRegistry/ffffffff00000000000000000000002f.tlbin|5abcb49c4bc1060c6e3e3f58ce4a309401f73e95
 
 # TIMA measurement
--vendor/tima_measurement_info
+-vendor/tima_measurement_info|69934011d895ba108cd83d4903a11c42c5daa115
 
 
 
