@@ -61,8 +61,8 @@ vendor/app/mcRegistry/ffffffffd00000000000000000000062.tlbin|4de1a20d243291fc937
 vendor/app/mcRegistry/ffffffff000000000000000000000077.tlbin|58b52179158601c634a2843ca685b14d8ba3b6dc
 vendor/app/mcRegistry/ffffffff00000000000000000000002f.tlbin|5abcb49c4bc1060c6e3e3f58ce4a309401f73e95
 
-# TIMA measurement
--vendor/tima_measurement_info|69934011d895ba108cd83d4903a11c42c5daa115
+# TIMA measurement (a plain copied file, not an extract-utils package)
+vendor/tima_measurement_info|69934011d895ba108cd83d4903a11c42c5daa115
 
 
 

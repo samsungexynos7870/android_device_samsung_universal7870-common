@@ -1,5 +1,6 @@
 ###FILE###:proprietary-files_P_a7y17lte_mali.txt
 # ARM Mali-T830 A720SKSU5CTL2
-system/vendor/lib64/egl/libGLES_mali.so:vendor/lib64/egl/libGLES_mali.so|93b2f7cf14fc47d670f97366844a3d387d93df12
-system/vendor/lib/egl/libGLES_mali.so:vendor/lib/egl/libGLES_mali.so|b95c1ab62f390f888bc0ad2a6f2e0ff568e5e487
+# The custom Android.mk block installs these blobs and creates the GPU symlinks.
+system/vendor/lib64/egl/libGLES_mali.so:vendor/lib64/egl/libGLES_mali.so;EXTRACT_ONLY|93b2f7cf14fc47d670f97366844a3d387d93df12
+system/vendor/lib/egl/libGLES_mali.so:vendor/lib/egl/libGLES_mali.so;EXTRACT_ONLY|b95c1ab62f390f888bc0ad2a6f2e0ff568e5e487
 

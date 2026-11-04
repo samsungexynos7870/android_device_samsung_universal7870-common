@@ -8,6 +8,7 @@ from extract_utils.fixups_blob import (
     blob_fixup,
     blob_fixups_user_type,
 )
+from extract_utils.fixups_lib import lib_fixups
 from extract_utils.main import (
     ExtractUtils,
     ExtractUtilsModule,
@@ -63,7 +64,8 @@ blob_fixups: blob_fixups_user_type = {
 }  # fmt: skip
 
 # Custom part of the lineage-22.2 vendor Android.mk that the generator cannot
-# express: the libGLES_mali prebuilt with its Vulkan/OpenCL symlinks.
+# express: the libGLES_mali prebuilt with its Vulkan/OpenCL symlinks. The Mali
+# blobs are EXTRACT_ONLY so the generator does not also emit a Soong module.
 _MALI_ANDROID_MK = r"""ifneq ($(filter a3y17lte j5y17lte a6lte j6lte j7velte j7xelte j7y17lte on7xelte m10lte j7popelteskt,$(TARGET_DEVICE)),)
 
 ###############################
@@ -105,16 +107,19 @@ ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
 
 include $(BUILD_PREBUILT)
 
-endif"""
+endif
+"""
 
 def _post_makefiles(ctx, packages_ctx=None):
     ctx.mk_out.write(_MALI_ANDROID_MK)
+    ctx.product_mk_out.write('\nPRODUCT_PACKAGES += \\\n    libGLES_mali\n')
 
 
 module = ExtractUtilsModule(
     'universal7870-common',
     'samsung',
     blob_fixups=blob_fixups,
+    lib_fixups=lib_fixups,
     namespace_imports=namespace_imports,
     skip_main_proprietary_file=True,
     proprietary_files=[
