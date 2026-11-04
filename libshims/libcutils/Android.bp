@@ -1,0 +1,17 @@
+//
+// Copyright (C) 2020 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// Shim providing strdup16to8 and strdup8to16, which the stock Samsung RIL blobs
+// are patched to depend on by extract-files.py (add_needed).
+cc_library_shared {
+    name: "libcutils_shim_vendor",
+    srcs: [
+        "strdup16to8.cpp",
+        "strdup8to16.cpp",
+    ],
+    shared_libs: ["libcutils"],
+    vendor: true,
+}
