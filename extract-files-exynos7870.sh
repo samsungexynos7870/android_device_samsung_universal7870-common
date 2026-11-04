@@ -98,3 +98,10 @@ EXTRACT_UTILS_ONLY_LIST=proprietary-files_P_gracerlte_samsung-slsi.txt ./extract
 
 # HWC files (OSS - Android R)
 EXTRACT_UTILS_ONLY_LIST=proprietary-files_R_oss_hwc.txt ./extract-files.py -n -k $COMMON_R_OSS_PATH
+
+# Regenerate the vendor makefiles (Android.bp / Android.mk /
+# universal7870-common-vendor.mk) from ALL proprietary-files lists at once:
+# each per-dump run above only registers its own list, so without this final
+# pass the generated files would only contain the last list. Requires the
+# blobs to be present under vendor/samsung/universal7870-common/.
+./setup-makefiles.py

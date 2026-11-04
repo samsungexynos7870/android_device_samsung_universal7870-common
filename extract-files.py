@@ -24,10 +24,10 @@ import os
 _EXTRACT_UTILS_ONLY_LIST = os.environ.get('EXTRACT_UTILS_ONLY_LIST')
 
 
-def _proprietary_file(file_list_path: str, vendor_rel_sub_path: str = 'proprietary'):
+def _proprietary_file(file_list_path: str, vendor_rel_sub_path: str = 'proprietary', **kwargs):
     if _EXTRACT_UTILS_ONLY_LIST and _EXTRACT_UTILS_ONLY_LIST not in file_list_path:
         return None
-    return ProprietaryFile(file_list_path, vendor_rel_sub_path)
+    return ProprietaryFile(file_list_path, vendor_rel_sub_path, **kwargs)
 
 HWCOMPOSER_ORIG_HEX = '73 79 73 2F 64 65 76 69 63 65 73 2F 00 31 34 38 33 30 30 30 30 2E 64 65 63 6F 6E 5F 66 2F 76 73 79 6E 63 00 31 34 38 36 30 30 30 30 2E 73 79 73 6D 6D 75 2F 31 34 38 36 30 30 30 30 2E 73 79 73 6D 6D 75 2F 00 65 78 79 6E 6F 73 35 2D 66 62 2E 31 2F 76 73 79 6E 63 00 70 6C 61 74 66 6F 72 6D 2F 65 78 79 6E 6F 73 2D 73 79 73 6D 6D 75 2E 33 30 2F 65 78 79 6E 6F 73 2D 73 79 73 6D 6D 75 2E 31 31 2F 00 66 61 69 6C 65 64 20'
 HWCOMPOSER_NEW_HEX = '73 79 73 2F 64 65 76 69 63 65 73 2F 00 31 34 38 33 30 30 30 30 2E 64 65 63 6F 6E 5F 66 62 2F 76 73 79 6E 63 00 31 34 38 35 30 30 30 30 2E 73 79 73 6D 6D 75 2F 31 34 38 35 30 30 30 30 2E 73 79 73 6D 6D 75 2F 00 65 78 79 6E 6F 73 35 2D 66 62 2E 31 2F 76 73 79 6E 63 00 70 6C 61 74 66 6F 72 6D 2F 65 78 79 6E 6F 73 2D 73 79 73 6D 6D 75 2E 33 30 2F 65 78 79 6E 6F 73 2D 73 79 73 6D 6D 75 2E 31 31 2F 00 66 61 69 6C 64 20'
@@ -68,6 +68,55 @@ blob_fixups: blob_fixups_user_type = {
         .regex_replace('(?m)^Agnss_ShaVariant=0$', 'Agnss_ShaVariant=256'),
 }  # fmt: skip
 
+# Custom part of the lineage-22.2 vendor Android.mk that the generator cannot
+# express: the libGLES_mali prebuilt with its Vulkan/OpenCL symlinks.
+_MALI_ANDROID_MK = r"""ifneq ($(filter a3y17lte j5y17lte a6lte j6lte j7velte j7xelte j7y17lte on7xelte m10lte j7popelteskt,$(TARGET_DEVICE)),)
+
+###############################
+# CUSTOM PART START EXYNOS7870#
+###############################
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libGLES_mali
+LOCAL_MODULE_OWNER := samsung
+LOCAL_SRC_FILES_64 := proprietary/vendor/lib64/egl/libGLES_mali.so
+LOCAL_SRC_FILES_32 := proprietary/vendor/lib/egl/libGLES_mali.so
+LOCAL_MULTILIB := both
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_CHECK_ELF_FILES := false
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_MODULE_PATH_32 := $($(TARGET_2ND_ARCH_VAR_PREFIX)TARGET_OUT_VENDOR_SHARED_LIBRARIES)/egl
+LOCAL_MODULE_PATH_64 := $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/egl
+
+SYMLINKS := $(TARGET_OUT_VENDOR)
+$(SYMLINKS):
+	@echo "Symlink: vulkan.$(TARGET_BOARD_PLATFORM).so"
+	@mkdir -p $@/lib/hw
+	@mkdir -p $@/lib64/hw
+	$(hide) ln -sf ../egl/libGLES_mali.so $@/lib/hw/vulkan.$(TARGET_BOARD_PLATFORM).so
+	$(hide) ln -sf ../egl/libGLES_mali.so $@/lib64/hw/vulkan.$(TARGET_BOARD_PLATFORM).so
+	@echo "Symlink: libOpenCL.so"
+	$(hide) ln -sf egl/libGLES_mali.so $@/lib/libOpenCL.so
+	$(hide) ln -sf egl/libGLES_mali.so $@/lib64/libOpenCL.so
+	@echo "Symlink: libOpenCL.so.1"
+	$(hide) ln -sf egl/libGLES_mali.so $@/lib/libOpenCL.so.1
+	$(hide) ln -sf egl/libGLES_mali.so $@/lib64/libOpenCL.so.1
+	@echo "Symlink: libOpenCL.so.1.1"
+	$(hide) ln -sf egl/libGLES_mali.so $@/lib/libOpenCL.so.1.1
+	$(hide) ln -sf egl/libGLES_mali.so $@/lib64/libOpenCL.so.1.1
+
+ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
+	$(ALL_MODULES.$(LOCAL_MODULE).INSTALLED) $(SYMLINKS)
+
+include $(BUILD_PREBUILT)
+
+endif"""
+
+def _post_makefiles(ctx, packages_ctx=None):
+    ctx.mk_out.write(_MALI_ANDROID_MK)
+
+
 module = ExtractUtilsModule(
     'universal7870-common',
     'samsung',
@@ -84,7 +133,7 @@ module = ExtractUtilsModule(
         _proprietary_file('vendor-tools/proprietary-files_Q_m10lte_sensors.txt', 'sensors/proprietary'),
         _proprietary_file('vendor-tools/proprietary-files_Q_m10lte_media.txt', 'media/proprietary'),
         _proprietary_file('vendor-tools/proprietary-files_Q_a6lte_drm.txt', 'drm/proprietary'),
-        _proprietary_file('vendor-tools/proprietary-files_P_a7y17lte_mali.txt', 'proprietary'),
+        _proprietary_file('vendor-tools/proprietary-files_P_a7y17lte_mali.txt', 'proprietary', post_makefile_generation_fn=_post_makefiles),
         _proprietary_file('vendor-tools/proprietary-files_P_a6lte_samsung-slsi.txt', 'samsung-slsi/proprietary'),
         _proprietary_file('vendor-tools/proprietary-files_P_a7y17lte_samsung-slsi.txt', 'samsung-slsi/proprietary'),
         _proprietary_file('vendor-tools/proprietary-files_P_gracerlte_samsung-slsi.txt', 'samsung-slsi/proprietary'),
