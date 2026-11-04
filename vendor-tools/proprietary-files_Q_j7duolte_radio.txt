@@ -2,46 +2,46 @@
 # J720FDDS7CUL1
 
 # libsecnativefeature
--vendor/lib/libsecnativefeature.so
--vendor/lib64/libsecnativefeature.so
+-vendor/lib/libsecnativefeature.so|5f58b407f7ad41149e5a240a10a4bcc5c5621ac8
+-vendor/lib64/libsecnativefeature.so|9032d85690546e8b86d5a0b66c425c2aa00b4402
 
 # Radio
--vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0.so
--vendor/lib64/vendor.samsung.hardware.radio.channel@2.0_vendor.so
--vendor/lib64/vendor.samsung.hardware.radio@2.0_vendor.so
--vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0_vendor.so
-vendor/lib64/libvndsecril-client.so
--vendor/lib64/libril.so:vendor/lib64/libril-samsung.so
--vendor/lib64/libsec-ril-dsds.so
--vendor/lib64/libsec-ril.so
--vendor/lib/vendor.samsung.hardware.radio.bridge@2.0.so
--vendor/lib/vendor.samsung.hardware.radio.channel@2.0_vendor.so
--vendor/lib/vendor.samsung.hardware.radio@2.0_vendor.so
--vendor/lib/vendor.samsung.hardware.radio.bridge@2.0_vendor.so
-vendor/lib/libvndsecril-client.so
--vendor/lib/libril.so:vendor/lib/libril-samsung.so
--vendor/lib/libsec-ril-dsds.so
--vendor/lib/libsec-ril.so
-vendor/bin/hw/rild
-vendor/bin/secril_config_svc
+-vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0.so|881c7527483f0e004a71e2a901b22d4bf4922d38
+-vendor/lib64/vendor.samsung.hardware.radio.channel@2.0_vendor.so|6b10eb47d2d6b3d9db57fab6c1b62d816082d869
+-vendor/lib64/vendor.samsung.hardware.radio@2.0_vendor.so|614453a194c91ef8db7d6245a35caa8e46e74ade
+-vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0_vendor.so|75a038c32823fb508ccf04d0558cccd56a839f66
+vendor/lib64/libvndsecril-client.so|d8cb435c82e79a7efafbbb462dfb0d47873d1f40
+-vendor/lib64/libril.so:vendor/lib64/libril-samsung.so|79901334703af2d0b48711cd02a5b1e54f697361
+-vendor/lib64/libsec-ril-dsds.so|294f4119f02b6c0eb0be014ad149597706b43495|88ce80eab3a7e34e5fb0324d6166438e77f280c9
+-vendor/lib64/libsec-ril.so|0dca8eef5df6b58edbdb7f2b741803e7c3bc6b05|613747e96815f902a402a900ac59c2b32f8a829e
+-vendor/lib/vendor.samsung.hardware.radio.bridge@2.0.so|fb2ec8a35825291aab82e19c05277ef2390ff949
+-vendor/lib/vendor.samsung.hardware.radio.channel@2.0_vendor.so|95f86f6e644a88388f80894cadc90c6405474e42
+-vendor/lib/vendor.samsung.hardware.radio@2.0_vendor.so|bbbb5d26a2e761606b351d2c71039027a64133bf
+-vendor/lib/vendor.samsung.hardware.radio.bridge@2.0_vendor.so|711ce8a0cd46e57b790eab41aee70ceceefb4d0f
+vendor/lib/libvndsecril-client.so|72f36b6fe1d8e670cc4f89cd15a982fa54bfba6a
+-vendor/lib/libril.so:vendor/lib/libril-samsung.so|4a0321f86fb929bfd578b4ea73005bb22de0ce83
+-vendor/lib/libsec-ril-dsds.so|6c22f57efa68f7376e4e8de0af0a9dc1f2367ec7|f04a2f8f952c21cb3e42d6d3a27d64863e4d98a2
+-vendor/lib/libsec-ril.so|5ffcd1ea91ca76ea4e169963e2a767c171e1a477|182171c29a8b200675eda19ee279b19f4b993462
+vendor/bin/hw/rild|950c3baf04955dd8e11fd4ac989f6dd67e971f70|011e013e31800046790de17a7ae688643a432269
+vendor/bin/secril_config_svc|82075ae367a0bfe9b9602057584716ef27074941
 
 
 # pdpcnt
-vendor/etc/pdpcnt-conf.xml
+vendor/etc/pdpcnt-conf.xml|914a3ec45c2f82cca4355b4736e617e1ee644fbe
 
 # mtu
-vendor/etc/mtu-conf.xml
+vendor/etc/mtu-conf.xml|c6e10f201b4fafa59200cffcda13211e64f67d3d
 
 # RIL Audio
-vendor/lib/libaudio-ril.so
+vendor/lib/libaudio-ril.so|2ed163d57f420fbf3ef0d970b317210cb14965f3
 
 # AptX
-system/lib64/libaptX_encoder.so:product/lib64/libaptX_encoder.so
+system/lib64/libaptX_encoder.so:product/lib64/libaptX_encoder.so|df1c89d7af1bb35808d5fe3496b04ba066c10cbc
 
 # libfloatingfeature
--vendor/lib/libfloatingfeature.so
--vendor/lib64/libfloatingfeature.so
-vendor/etc/floating_feature.xml
+-vendor/lib/libfloatingfeature.so|f71c6d39b5e37fdb68b87e60617e3c84f3805259
+-vendor/lib64/libfloatingfeature.so|e9931d4c4e9ed4e915364858af4d93f90aa7ea5e
+vendor/etc/floating_feature.xml|36de1de6cfe94d4febde7ce835de780bf888cb0e
 
 
 
