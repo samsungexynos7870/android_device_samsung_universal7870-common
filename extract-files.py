@@ -107,14 +107,14 @@ module = ExtractUtilsModule(
     skip_main_proprietary_file=True,
     proprietary_files=[
         pf for pf in (
-        _proprietary_file('vendor-tools/proprietary-files_Q_a6lte_gnss.txt', 'gnss/proprietary'),
-        _proprietary_file('vendor-tools/proprietary-files_Q_a6lte_secapp.txt', 'secapp/proprietary'),
-        _proprietary_file('vendor-tools/proprietary-files_Q_m10lte_radio.txt', 'radio/proprietary'),
-        _proprietary_file('vendor-tools/proprietary-files_Q_j7duolte_radio.txt', 'radio/proprietary'),
-        _proprietary_file('vendor-tools/proprietary-files_Q_m10lte_sensors.txt', 'sensors/proprietary'),
-        _proprietary_file('vendor-tools/proprietary-files_Q_m10lte_media.txt', 'media/proprietary'),
-        _proprietary_file('vendor-tools/proprietary-files_Q_a6lte_drm.txt', 'drm/proprietary'),
-        _proprietary_file('vendor-tools/proprietary-files_P_a7y17lte_mali.txt', 'proprietary', post_makefile_generation_fn=_post_makefiles),
+        _proprietary_file('vendor-tools/proprietary-files_Q_a6lte_gnss.txt'),
+        _proprietary_file('vendor-tools/proprietary-files_Q_a6lte_secapp.txt'),
+        _proprietary_file('vendor-tools/proprietary-files_Q_m10lte_radio.txt'),
+        _proprietary_file('vendor-tools/proprietary-files_Q_j7duolte_radio.txt'),
+        _proprietary_file('vendor-tools/proprietary-files_Q_m10lte_sensors.txt'),
+        _proprietary_file('vendor-tools/proprietary-files_Q_m10lte_media.txt'),
+        _proprietary_file('vendor-tools/proprietary-files_Q_a6lte_drm.txt'),
+        _proprietary_file('vendor-tools/proprietary-files_P_a7y17lte_mali.txt', post_makefile_generation_fn=_post_makefiles),
         ) if pf is not None
     ],
 )
