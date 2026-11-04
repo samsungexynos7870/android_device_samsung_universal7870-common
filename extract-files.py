@@ -29,6 +29,17 @@ def _proprietary_file(file_list_path: str, vendor_rel_sub_path: str = 'proprieta
         return None
     return ProprietaryFile(file_list_path, vendor_rel_sub_path, **kwargs)
 
+namespace_imports = [
+    'device/samsung/universal7870-common',
+    'hardware/google/interfaces',
+    'hardware/google/pixel',
+    'hardware/samsung',
+    'hardware/ril',
+    'hardware/lineage/compat',
+    'vendor/samsung/universal7870-common',
+]
+
+
 blob_fixups: blob_fixups_user_type = {
     'vendor/bin/hw/rild': blob_fixup()
         .replace_needed('libril.so', 'libril-samsung.so'),
@@ -104,6 +115,7 @@ module = ExtractUtilsModule(
     'universal7870-common',
     'samsung',
     blob_fixups=blob_fixups,
+    namespace_imports=namespace_imports,
     skip_main_proprietary_file=True,
     proprietary_files=[
         pf for pf in (
