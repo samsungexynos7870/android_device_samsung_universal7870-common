@@ -36,7 +36,7 @@ vendor/etc/mtu-conf.xml
 vendor/lib/libaudio-ril.so
 
 # AptX
--system/system/lib64/libaptX_encoder.so:product/lib64/libaptX_encoder.so
+system/lib64/libaptX_encoder.so:product/lib64/libaptX_encoder.so
 
 # libfloatingfeature
 -vendor/lib/libfloatingfeature.so
