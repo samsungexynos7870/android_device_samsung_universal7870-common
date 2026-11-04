@@ -65,36 +65,36 @@ COMMON_R_OSS_PATH="${TARGET_SOURCES_DIR}/lineage-18_17-11-2025"
 
 
 # Audio files
-./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
-./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_Q_a6lte_audio.txt ./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_Q_m10lte_audio.txt ./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
 
 # GNSS files
-./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_Q_a6lte_gnss.txt ./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
 
 # Secapp files
-./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_Q_a6lte_secapp.txt ./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
 
 # Radio files
-./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
-./extract-files.py -n -k $COMMON_Q_J7DUOLTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_Q_m10lte_radio.txt ./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_Q_j7duolte_radio.txt ./extract-files.py -n -k $COMMON_Q_J7DUOLTE_PATH
 
 # Sensors files
-./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_Q_m10lte_sensors.txt ./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
 
 # Media files
-./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_Q_m10lte_media.txt ./extract-files.py -n -k $COMMON_Q_M10LTE_PATH
 
 # DRM files (Widevine 1.2 + Samsung key provisioning, same firmware as the
 # TEE trustlets in the secapp list)
-./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_Q_a6lte_drm.txt ./extract-files.py -n -k $COMMON_Q_A6LTE_PATH
 
 # Mali files
-./extract-files.py -n -k $COMMON_P_A7Y17LTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_P_a7y17lte_mali.txt ./extract-files.py -n -k $COMMON_P_A7Y17LTE_PATH
 
 # Samsung SLSI files
-./extract-files.py -n -k $COMMON_P_A6LTE_PATH
-./extract-files.py -n -k $COMMON_P_A7Y17LTE_PATH
-./extract-files.py -n -k $COMMON_P_GRACERLTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_P_a6lte_samsung-slsi.txt ./extract-files.py -n -k $COMMON_P_A6LTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_P_a7y17lte_samsung-slsi.txt ./extract-files.py -n -k $COMMON_P_A7Y17LTE_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_P_gracerlte_samsung-slsi.txt ./extract-files.py -n -k $COMMON_P_GRACERLTE_PATH
 
 # HWC files (OSS - Android R)
-./extract-files.py -n -k $COMMON_R_OSS_PATH
+EXTRACT_UTILS_ONLY_LIST=proprietary-files_R_oss_hwc.txt ./extract-files.py -n -k $COMMON_R_OSS_PATH
