@@ -1,0 +1,44 @@
+//
+// Copyright (C) 2017 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// Samsung DTBH packer: builds dt.img out of the kernel's compiled device tree
+// blobs. BoardConfigCommon.mk selects it through TARGET_CUSTOM_DTBTOOL and
+// device-common.mk installs it through PRODUCT_HOST_PACKAGES.
+//
+// Ported into the device tree because it no longer exists upstream:
+//
+//   source  : hardware/samsung/dtbhtool @ lineage-22.2
+//             commit ea4723cbc96a8b12c89d29ce0a913388a8c8b31a (2026-10-15)
+//   removed : hardware/samsung @ lineage-24.0
+//             commit 7533082756a5edfb65e9f6734d83de6191803edc (2026-01-13)
+//             "samsung: Delete dtbhtool ... if proven to be really needed, the
+//              tool should be placed in a dedicated Exynos repository."
+//   tree    : device/samsung/universal7870-common/dtbhtool
+//
+// mkdtbimg.c, dtbimg.c and libdtbimg/dtbimg.h are unmodified copies. Only this
+// Android.bp is new: upstream relied on samsung_dtbh.h sitting next to dtbimg.c,
+// which in this tree lives in include/ and carries the real DTBH_PLATFORM,
+// DTBH_SUBTYPE, DTBH_PLATFORM_CODE and DTBH_SUBTYPE_CODE values for the device.
+//
+// Not imported: mkdtbhbootimg, unpackdtbhbootimg and unpackdtbhimg from the same
+// upstream directory. Nothing in this tree uses them.
+
+cc_binary_host {
+    name: "dtbhtoolExynos",
+    shared_libs: ["libdtbimg"],
+    static_libs: ["libfdt"],
+    srcs: ["mkdtbimg.c"],
+    local_include_dirs: ["libdtbimg"],
+}
+
+cc_library {
+    name: "libdtbimg",
+    host_supported: true,
+    srcs: ["dtbimg.c"],
+    static_libs: ["libfdt"],
+    local_include_dirs: ["libdtbimg"],
+    include_dirs: ["device/samsung/universal7870-common/include"],
+}
