@@ -1,1 +1,6 @@
 allow hal_lineage_health_default sysfs_battery_writable:dir search;
+
+# Fast charge is served through the AFC switch node (afc_disable is inverted:
+# 0 = Adaptive Fast Charging enabled, 1 = disabled).
+allow hal_lineage_health_default sysfs_sec_switch:dir search;
+allow hal_lineage_health_default sysfs_sec_switch_writable:file rw_file_perms;

@@ -226,11 +226,9 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     libion
 
-# Memtrack
+# Memtrack - AIDL
 PRODUCT_PACKAGES += \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
-    memtrack.exynos7870
+    android.hardware.memtrack-service.samsung-mali
 
 # VNDK
 PRODUCT_PACKAGES += \
@@ -267,9 +265,16 @@ PRODUCT_PACKAGES += \
     android.hardware.media.omx@1.0-service \
     libstagefright_omx
 
-# FastCharge
+# FastCharge - AIDL
 PRODUCT_PACKAGES += \
-    vendor.lineage.fastcharge@1.0-service.samsung
+    vendor.lineage.health-service.default
+
+$(call soong_config_set,lineage_health,fast_charge_node,/sys/class/sec/switch/afc_disable)
+$(call soong_config_set,lineage_health,fast_charge_value_none,1)
+$(call soong_config_set,lineage_health,fast_charge_value_fast_charge,0)
+
+$(call soong_config_set_bool,lineage_health,charging_control_supports_toggle,false)
+$(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
 
 # Touch
 PRODUCT_PACKAGES += \
@@ -288,13 +293,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service.software
 
-# Power - AIDL libperfmgr for Android 15 (pixel variant, samsung-libperfmgr removed in LOS 21+)
+# Power - AIDL libperfmgr
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.pixel-libperfmgr
+    android.hardware.power-service.lineage-libperfmgr
 
-# Configstore
+
 PRODUCT_PACKAGES += \
-    android.hardware.configstore@1.1-service \
     vndservicemanager
 
 # Health - AIDL for Android 15
@@ -384,7 +388,7 @@ PRODUCT_PACKAGES += \
 # Filesystem tools for resizing system partitions
 PRODUCT_PACKAGES += \
     e2fsck_static \
-    resize2fs_static
+    resize2fs
 
 # encryption FBEv1
 #PRODUCT_PROPERTY_OVERRIDES += \
