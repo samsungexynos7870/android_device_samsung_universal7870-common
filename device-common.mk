@@ -20,6 +20,9 @@ LOCAL_PATH := device/samsung/universal7870-common
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/google/interfaces \
+    hardware/google/pixel/pixelstats \
+    hardware/google/pixel/power-libperfmgr \
+    hardware/google/pixel/thermal \
     hardware/google/pixel \
     hardware/samsung \
     hardware/ril \
@@ -295,7 +298,8 @@ PRODUCT_PACKAGES += \
 
 # Power - AIDL libperfmgr
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.lineage-libperfmgr
+    android.hardware.power@1.0.vendor \
+    android.hardware.power-service.pixel-libperfmgr
 
 
 PRODUCT_PACKAGES += \
