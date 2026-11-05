@@ -23,8 +23,15 @@
 // which in this tree lives in include/ and carries the real DTBH_PLATFORM,
 // DTBH_SUBTYPE, DTBH_PLATFORM_CODE and DTBH_SUBTYPE_CODE values for the device.
 //
-// Not imported: mkdtbhbootimg, unpackdtbhbootimg and unpackdtbhimg from the same
-// upstream directory. Nothing in this tree uses them.
+// mkdtbhbootimg is imported as well: a mkbootimg replacement that writes the
+// same boot header v0 layout with the DTBH block appended and the sha1 id
+// filled in. mkbootimg.mk needs it because the platform mkbootimg does not
+// accept --dt. It differs from upstream by one cast in main() - strcpy() into
+// hdr.name, an unsigned char array, which -Wall reports as -Wpointer-sign; the
+// sibling strcpy() into hdr.cmdline was already cast upstream.
+//
+// Not imported: unpackdtbhbootimg and unpackdtbhimg from the same upstream
+// directory. Nothing in this tree uses them.
 
 cc_binary_host {
     name: "dtbhtoolExynos",
@@ -39,6 +46,18 @@ cc_library {
     host_supported: true,
     srcs: ["dtbimg.c"],
     static_libs: ["libfdt"],
+    local_include_dirs: ["libdtbimg"],
+    include_dirs: ["device/samsung/universal7870-common/include"],
+}
+
+cc_binary_host {
+    name: "mkdtbhbootimg",
+    shared_libs: [
+        "libdtbimg",
+        "libcrypto",
+    ],
+    static_libs: ["libfdt"],
+    srcs: ["mkbootimg.c"],
     local_include_dirs: ["libdtbimg"],
     include_dirs: ["device/samsung/universal7870-common/include"],
 }
