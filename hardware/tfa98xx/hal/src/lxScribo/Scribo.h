@@ -17,7 +17,11 @@
 #endif	// WIN32
 
 
-#if !defined (bool) || !defined(__BOOL_DEFINED)
+/* bool is a keyword in C23 and in C++, so it cannot be typedef'd. */
+#if defined(__cplusplus)
+#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+	#include <stdbool.h>
+#elif !defined(__BOOL_DEFINED)
 	  typedef unsigned char bool;
 	  #define true ((bool)(1==1))
 	  #define false ((bool)(1==0))
