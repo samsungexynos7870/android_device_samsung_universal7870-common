@@ -81,10 +81,10 @@ BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_SEPARATED_DT := true
 TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
 
+# No HOSTCFLAGS here; it would override the sysroot vendor/lineage passes.
 TARGET_KERNEL_ADDITIONAL_FLAGS := \
     HOSTCC=clang \
-    HOSTCXX=clang++ \
-    HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
+    HOSTCXX=clang++
 
 # Kernel
 TARGET_KERNEL_ARCH := arm64
