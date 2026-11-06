@@ -15,6 +15,8 @@ LOCAL_SHARED_LIBRARIES := \
     libhardware_legacy \
     liblog
 
+LOCAL_C_INCLUDES := hardware/ril/include
+
 LOCAL_CFLAGS := 
 
 ifeq ($(TARGET_BOARD_PLATFORM),exynos4)
