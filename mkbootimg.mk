@@ -39,8 +39,9 @@ DTBHTOOL := $(HOST_OUT_EXECUTABLES)/$(TARGET_CUSTOM_DTBTOOL)$(HOST_EXECUTABLE_SU
 
 INSTALLED_DTIMAGE_TARGET := $(PRODUCT_OUT)/dt.img
 
-# Most specific paths must come first.
-possible_dtb_dirs := $(KERNEL_OUT)/arch/$(KERNEL_ARCH)/boot/dts/exynos/ \
+# Most specific paths must come first. Recursive assignment on purpose:
+# KERNEL_OUT is only set later, by vendor/lineage/build/tasks/kernel.mk.
+possible_dtb_dirs = $(KERNEL_OUT)/arch/$(KERNEL_ARCH)/boot/dts/exynos/ \
     $(KERNEL_OUT)/arch/$(KERNEL_ARCH)/boot/dts/ \
     $(KERNEL_OUT)/arch/$(KERNEL_ARCH)/boot/
 
@@ -52,6 +53,7 @@ define build-dtimage-target
             break; \
         fi; \
     done; \
+    if [ -z "$$dtb_dir" ]; then echo "ERROR: no dtb directory among: $(possible_dtb_dirs)" >&2; exit 1; fi; \
     $(DTBHTOOL) -o $@ -s $(BOARD_KERNEL_PAGESIZE) "$$dtb_dir"
     $(hide) chmod a+r $@
 endef
