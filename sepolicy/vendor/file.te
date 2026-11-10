@@ -58,4 +58,4 @@ type gk_vendor_data_file, file_type, data_file_type;
 type camera_vendor_data_file, file_type, data_file_type;
 type media_vendor_data_file, file_type, data_file_type;
 type mediadrm_vendor_data_file, file_type, data_file_type;
-type cas_data_file, file_type, data_file_type;
+type cas_data_file, file_type, data_file_type, core_data_file_type;
