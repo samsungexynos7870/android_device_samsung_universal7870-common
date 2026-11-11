@@ -81,16 +81,14 @@ BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_SEPARATED_DT := true
 TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
 
-# No HOSTCFLAGS here; it would override the sysroot vendor/lineage passes.
 TARGET_KERNEL_ADDITIONAL_FLAGS := \
-    HOSTCC=clang \
-    HOSTCXX=clang++
+    HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
 
 # Kernel
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_LINUX_KERNEL_VERSION := 3.18
-# TARGET_KERNEL_CLANG_COMPILE := false
+TARGET_KERNEL_CLANG_COMPILE := false
 
 # Kernel config
 TARGET_KERNEL_SOURCE := kernel/samsung/exynos7870
