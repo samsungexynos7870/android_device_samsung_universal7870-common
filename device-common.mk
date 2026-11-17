@@ -404,6 +404,7 @@ PRODUCT_PACKAGES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.samsungexynos7870 \
+    fstab.samsungexynos7870_ramdisk \
     init.baseband.rc \
     init.samsungexynos7870.rc \
     init.samsungexynos7870.usb.rc \

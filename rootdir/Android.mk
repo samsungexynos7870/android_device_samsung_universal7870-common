@@ -22,6 +22,17 @@ LOCAL_SRC_FILES    := etc/fstab.samsungexynos7870
 LOCAL_MODULE_PATH  := $(TARGET_OUT_VENDOR_ETC)
 include $(BUILD_PREBUILT)
 
+# First-stage init needs the fstab in the boot ramdisk; the device tree fstab
+# that older Android versions read is ignored since Android 16.
+include $(CLEAR_VARS)
+LOCAL_MODULE       := fstab.samsungexynos7870_ramdisk
+LOCAL_MODULE_STEM  := fstab.samsungexynos7870
+LOCAL_MODULE_TAGS  := optional
+LOCAL_MODULE_CLASS := ETC
+LOCAL_SRC_FILES    := etc/fstab.samsungexynos7870
+LOCAL_MODULE_PATH  := $(TARGET_RAMDISK_OUT)
+include $(BUILD_PREBUILT)
+
 include $(CLEAR_VARS)
 LOCAL_MODULE       := init.baseband.rc
 LOCAL_MODULE_TAGS  := optional

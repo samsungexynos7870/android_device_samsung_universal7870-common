@@ -4,8 +4,10 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
 
-# system and vendor partition will be early-mounted by kernel
-# /dev/block/platform/13540000.dwmmc0/by-name/SYSTEM	/system			ext4		ro,errors=panic		wait
+# Android 16+ init no longer reads the fstab from the device tree, so the
+# first-stage ramdisk gets a copy of this file and mounts these partitions.
+/dev/block/platform/13540000.dwmmc0/by-name/SYSTEM	/system			ext4		ro,errors=panic		wait,first_stage_mount
+/dev/block/platform/13540000.dwmmc0/by-name/VENDOR	/vendor			ext4		ro,errors=panic		wait,first_stage_mount
 /dev/block/platform/13540000.dwmmc0/by-name/CACHE		/cache			ext4		noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic		wait,check
 /dev/block/platform/13540000.dwmmc0/by-name/CACHE		/cache			f2fs      	noatime,nosuid,nodev,noatime,inline_xattr                 									wait,check
 /dev/block/platform/13540000.dwmmc0/by-name/USERDATA	/data			ext4		noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic		wait,check,reservedsize=128M,length=-20480
