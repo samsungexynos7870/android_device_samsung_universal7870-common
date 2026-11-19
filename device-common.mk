@@ -469,11 +469,14 @@ PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor \
     android.hardware.gnss@2.0.vendor
 
-# gpsd crashes in its BoringSSL certificate verify callback with the current
-# platform libssl/libcrypto; ship the matching stock pair in a private dir.
+# gpsd is an Android 10 era blob that crashes in its BoringSSL certificate
+# verify callback with the current platform libssl/libcrypto. Use the VNDK v34
+# BoringSSL snapshot (the last VNDK, shipped by Android 15 era trees) in a
+# private dir so wpa_supplicant, hostapd, keymaster and DRM keep using the
+# platform BoringSSL.
 PRODUCT_COPY_FILES += \
-    vendor/samsung/universal7870-common/proprietary/vendor/lib/gpsd/libssl.so:$(TARGET_COPY_OUT_VENDOR)/lib/gpsd/libssl.so \
-    vendor/samsung/universal7870-common/proprietary/vendor/lib/gpsd/libcrypto.so:$(TARGET_COPY_OUT_VENDOR)/lib/gpsd/libcrypto.so
+    prebuilts/vndk/v34/arm/arch-arm-armv7-a-neon/shared/vndk-core/libssl.so:$(TARGET_COPY_OUT_VENDOR)/lib/gpsd/libssl.so \
+    prebuilts/vndk/v34/arm/arch-arm-armv7-a-neon/shared/vndk-core/libcrypto.so:$(TARGET_COPY_OUT_VENDOR)/lib/gpsd/libcrypto.so
 
 # VNDK
 PRODUCT_PACKAGES += \
