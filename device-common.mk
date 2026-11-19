@@ -469,6 +469,12 @@ PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor \
     android.hardware.gnss@2.0.vendor
 
+# gpsd crashes in its BoringSSL certificate verify callback with the current
+# platform libssl/libcrypto; ship the matching stock pair in a private dir.
+PRODUCT_COPY_FILES += \
+    vendor/samsung/universal7870-common/proprietary/vendor/lib/gpsd/libssl.so:$(TARGET_COPY_OUT_VENDOR)/lib/gpsd/libssl.so \
+    vendor/samsung/universal7870-common/proprietary/vendor/lib/gpsd/libcrypto.so:$(TARGET_COPY_OUT_VENDOR)/lib/gpsd/libcrypto.so
+
 # VNDK
 PRODUCT_PACKAGES += \
     libgui_vendor
