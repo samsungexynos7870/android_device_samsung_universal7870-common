@@ -48,6 +48,9 @@ PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 # Legacy /dev/ion ABI
 $(call soong_config_set_bool,libion,legacy_impl,true)
 
+# Legacy gralloc (mapper 2.x only, no mapper 4/5)
+$(call soong_config_set_bool,libui,legacy_gralloc,true)
+
 # Kernel
 PRODUCT_ENABLE_UFFD_GC := false
 
