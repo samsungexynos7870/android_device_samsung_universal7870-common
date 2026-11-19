@@ -96,6 +96,11 @@ function blob_fixup() {
             # Fix libsec-ril.so for both lib and lib64
             "${PATCHELF}" --replace-needed "libril.so" "libril-samsung.so" "${2}"
             "${PATCHELF}" --add-needed "libcutils_shim_vendor.so" "${2}"
+            # Return an empty SMSC to the framework so libsec-ril falls back to
+            # its default SMSC (TON 0x91) on submit. The framework otherwise
+            # re-encodes the digits-only SMSC with TON 0x81, which the network
+            # rejects with modem result 0xB.
+            sed -i 's|\x60\x0e\x40\xf9\x82\x0c\x80\x52\xe4\x03\x00\x32\xe1\x03\x15\xaa\xe3\x03\x14\xaa\x94\x31\x05\x94|\x60\x0e\x40\xf9\x82\x0c\x80\x52\xe4\x03\x00\x32\xe1\x03\x15\xaa\xe3\x03\x1f\xaa\x94\x31\x05\x94|' "${2}"
         ;;
         
         vendor/lib*/libsec-ril-dsds.so)
