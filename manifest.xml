@@ -3,10 +3,6 @@
         <name>vendor.lineage.livedisplay</name>
         <version>1</version>
         <interface>
-            <name>IAdaptiveBacklight</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
             <name>IDisplayColorCalibration</name>
             <instance>default</instance>
         </interface>
@@ -36,10 +32,6 @@
         </interface>
         <interface>
             <name>IStylusMode</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>ITouchscreenGesture</name>
             <instance>default</instance>
         </interface>
     </hal>
