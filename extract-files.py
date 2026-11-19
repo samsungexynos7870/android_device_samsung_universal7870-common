@@ -49,7 +49,16 @@ blob_fixups: blob_fixups_user_type = {
     ): blob_fixup()
         .replace_needed('libril.so', 'libril-samsung.so')
         .add_needed('libcutils_shim_vendor.so')
-        .remove_needed('libnetutils.so'),
+        .remove_needed('libnetutils.so')
+        # The framework re-encodes the digits-only SMSC returned by
+        # OnGetSmscAddressDone with TON 0x81, which the network rejects with
+        # modem result 0xB. Replace the RilData argument with NULL so the
+        # framework sends an empty SMSC and libsec-ril falls back to its own
+        # default SMSC (TON 0x91) when submitting the message.
+        .sig_replace(
+            '60 0e 40 f9 82 0c 80 52 e4 03 00 32 e1 03 15 aa e3 03 14 aa 94 31 05 94',
+            '600e40f9820c8052e4030032e10315aae3031faa94310594',
+        ),
     'vendor/lib/libsensorlistener.so': blob_fixup()
         .add_needed('libshim_sensorndkbridge.so'),
     ('vendor/lib/libwvhidl.so', 'vendor/lib64/libwvhidl.so'): blob_fixup()
