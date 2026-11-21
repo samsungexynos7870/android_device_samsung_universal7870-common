@@ -1,3 +1,7 @@
 # init.te
 
 allow init proc_last_kmsg:file setattr;
+
+# Fastcharge: the HAL init rc chowns the AFC switch node
+allow init sysfs_sec_switch:dir search;
+allow init sysfs_sec_switch_writable:file setattr;

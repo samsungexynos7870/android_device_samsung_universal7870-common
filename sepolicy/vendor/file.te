@@ -46,7 +46,6 @@ type sysfs_v4l, sysfs_type, fs_type, mlstrustedobject;
 type sysfs_sswap, sysfs_type, fs_type, mlstrustedobject;
 type sysfs_virtual, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_sec_tsp, sysfs_type, fs_type, mlstrustedobject;
-type sysfs_fastcharge, sysfs_type, fs_type, mlstrustedobject;
 type sysfs_info, sysfs_type, r_fs_type, fs_type, mlstrustedobject;
 type sysfs_mm_vmscan_mem_boost_mode, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_mmc_host, fs_type, sysfs_type, mlstrustedobject;

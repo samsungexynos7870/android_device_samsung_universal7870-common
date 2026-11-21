@@ -7,9 +7,6 @@ vendor_internal_prop(modemloader_prop)
 # sswap
 vendor_internal_prop(sswap_prop)
 
-# Fastcharge HAL
-vendor_internal_prop(sec_fastcharge_prop)
-
 # wifi
 vendor_internal_prop(vendor_wlan_prop)
 
