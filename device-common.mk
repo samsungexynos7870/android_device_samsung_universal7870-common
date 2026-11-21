@@ -26,6 +26,9 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/lineage/compat \
     vendor/samsung/universal7870-common
 
+# VINTF
+DEVICE_MANIFEST_FILE += $(LOCAL_PATH)/manifest.xml
+
 # Product Characteristics
 PRODUCT_CHARACTERISTICS := phone
 
@@ -287,9 +290,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.fastcharge@1.0-service.samsung
 
-# Touch features
+# Touch features - AIDL
 PRODUCT_PACKAGES += \
-    vendor.lineage.touch@1.0-service.exynos7870
+    vendor.lineage.touch-service.samsung
 
 # FlipFlap
 PRODUCT_PACKAGES += \
@@ -460,10 +463,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.3-service.basic
 
-# Vibrator
+# Vibrator - AIDL
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl \
-    android.hardware.vibrator@1.0-service
+    android.hardware.vibrator-service.samsung
 
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
