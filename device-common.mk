@@ -285,7 +285,7 @@ PRODUCT_PACKAGES += \
 
 # Touch features - AIDL
 PRODUCT_PACKAGES += \
-    vendor.lineage.touch-service.samsung
+    vendor.lineage.touch-service.universal7870
 
 # FlipFlap
 PRODUCT_PACKAGES += \
