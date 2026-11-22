@@ -26,9 +26,6 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/lineage/compat \
     vendor/samsung/universal7870-common
 
-# VINTF
-DEVICE_MANIFEST_FILE += $(LOCAL_PATH)/manifest.xml
-
 # Product Characteristics
 PRODUCT_CHARACTERISTICS := phone
 

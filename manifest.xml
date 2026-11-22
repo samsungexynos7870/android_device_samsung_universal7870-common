@@ -2,17 +2,10 @@
     <hal format="aidl">
         <name>vendor.lineage.touch</name>
         <version>1</version>
-        <interface>
-            <name>IGloveMode</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IKeyDisabler</name>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IStylusMode</name>
-            <instance>default</instance>
-        </interface>
+        <fqname>IGloveMode/default</fqname>
+        <fqname>IHighTouchPollingRate/default</fqname>
+        <fqname>IKeyDisabler/default</fqname>
+        <fqname>IStylusMode/default</fqname>
+        <fqname>ITouchscreenGesture/default</fqname>
     </hal>
 </manifest>
