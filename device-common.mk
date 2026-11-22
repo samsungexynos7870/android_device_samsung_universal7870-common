@@ -283,10 +283,6 @@ PRODUCT_PACKAGES += \
     android.hardware.media.omx@1.0-service \
     libstagefright_omx
 
-# FastCharge
-PRODUCT_PACKAGES += \
-    vendor.lineage.fastcharge@1.0-service.samsung
-
 # Touch features - AIDL
 PRODUCT_PACKAGES += \
     vendor.lineage.touch-service.samsung

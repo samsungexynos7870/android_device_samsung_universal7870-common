@@ -127,7 +127,6 @@ vendor_wlan_prop
 sswap_prop
 tee_prop
 vendor_wifi_prop
-vendor_fastcharge_prop
 vendor_radio_prop
 modemloader_prop
 vendor_cbd_prop

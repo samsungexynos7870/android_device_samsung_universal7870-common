@@ -46,8 +46,6 @@ genfscon sysfs /devices/virtual/sensors                                   u:obje
 genfscon sysfs /devices/virtual/sensors/hidden_hole/hh_check_coef         u:object_r:sysfs_sensors_writable:s0
 genfscon sysfs /devices/virtual/sensors/ssp_sensor/enable                 u:object_r:sysfs_sensors_writable:s0
 genfscon sysfs /devices/virtual/sensors/ssp_sensor/ssp_flush              u:object_r:sysfs_sensors_writable:s0
-genfscon sysfs /devices/virtual/sec/switch                                u:object_r:sysfs_sec_switch:s0
-genfscon sysfs /devices/virtual/sec/switch/afc_disable                    u:object_r:sysfs_sec_switch_writable:s0
 genfscon sysfs /devices/virtual/thermal                                   u:object_r:sysfs_thermal:s0
 genfscon sysfs /devices/virtual/timed_output/vibrator/cp_trigger_index    u:object_r:sysfs_vibrator:s0
 genfscon sysfs /devices/virtual/timed_output/vibrator/intensity           u:object_r:sysfs_vibrator:s0
