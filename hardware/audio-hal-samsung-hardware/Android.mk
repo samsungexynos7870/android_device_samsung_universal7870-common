@@ -63,8 +63,9 @@ ifeq ($(BOARD_USE_SPKAMP), true)
 LOCAL_CFLAGS += -DSUPPORT_SPKAMP
 endif
 
-# FM radio: only some of the devices have a Silicon Labs si47xx tuner
-ifeq ($(TARGET_BOARD_HAS_SILAB_FM), true)
+# FM radio: the tuner is either a Silicon Labs si47xx or the FM part of a
+# Broadcom combo chip. Both feed the s1402x FM interface.
+ifeq ($(filter true,$(TARGET_BOARD_HAS_SILAB_FM) $(TARGET_BOARD_HAS_BRCM_FM)),true)
 LOCAL_CFLAGS += -DFM_RADIO_ENABLED
 endif
 
