@@ -26,7 +26,9 @@
 #define ALOGVV(a...) do { } while(0)
 #endif
 
+#ifndef _GNU_SOURCE
 #define _GNU_SOURCE
+#endif
 #include <errno.h>
 #include <pthread.h>
 #include <stdint.h>

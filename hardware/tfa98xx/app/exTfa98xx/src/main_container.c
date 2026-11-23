@@ -37,7 +37,9 @@
 
 #ifndef WIN32
 #define Sleep(ms) usleep((ms)*1000)
-#define _GNU_SOURCE   /* to avoid link issues with sscanf on NxDI? */
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
 #endif
 
 #define MAX_DEVICES 4
