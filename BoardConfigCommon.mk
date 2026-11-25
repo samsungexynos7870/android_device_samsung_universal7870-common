@@ -17,7 +17,6 @@
 LOCAL_PATH := device/samsung/universal7870-common
 
 # VINTF
-DEVICE_MANIFEST_FILE += $(LOCAL_PATH)/manifest.xml
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include

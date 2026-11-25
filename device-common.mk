@@ -284,8 +284,10 @@ PRODUCT_PACKAGES += \
     libstagefright_omx
 
 # Touch features - AIDL
+ifneq ($(TARGET_USES_DEVICE_TOUCH_AIDL),true)
 PRODUCT_PACKAGES += \
     vendor.lineage.touch-service.universal7870
+endif
 
 # FlipFlap
 PRODUCT_PACKAGES += \
