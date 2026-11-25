@@ -283,12 +283,6 @@ PRODUCT_PACKAGES += \
     android.hardware.media.omx@1.0-service \
     libstagefright_omx
 
-# Touch features - AIDL
-ifneq ($(TARGET_USES_DEVICE_TOUCH_AIDL),true)
-PRODUCT_PACKAGES += \
-    vendor.lineage.touch-service.universal7870
-endif
-
 # FlipFlap
 PRODUCT_PACKAGES += \
     FlipFlap
