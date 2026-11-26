@@ -66,7 +66,11 @@ blob_fixups: blob_fixups_user_type = {
     ('vendor/lib/mediadrm/libwvdrmengine.so', 'vendor/lib64/mediadrm/libwvdrmengine.so'): blob_fixup()
         .replace_needed('libprotobuf-cpp-lite.so', 'libprotobuf-cpp-lite-v29.so'),
     'vendor/etc/gnss/gps.cfg': blob_fixup()
-        .regex_replace('(?m)^Agnss_ShaVariant=0$', 'Agnss_ShaVariant=256'),
+        .regex_replace('(?m)^Agnss_ShaVariant=0$', 'Agnss_ShaVariant=256')
+        # gpsd only sends SNI when Agnss_ServerNameIndication is set. Without
+        # SNI, supl.google.com answers with its "No SNI provided" fallback
+        # certificate and every SUPL session fails certificate verification.
+        .regex_replace(r'\Z', '\nAgnss_ServerNameIndication=supl.google.com\n'),
 }  # fmt: skip
 
 # Custom part of the lineage-22.2 vendor Android.mk that the generator cannot
